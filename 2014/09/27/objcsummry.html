@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>objcsummry | 天一阁</title>
+  <meta name="author" content="Befree">
+  
+  <meta name="description" content="程序设计,编程语言">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="objcsummry"/>
+  <meta property="og:site_name" content="天一阁"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="天一阁" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/print.css" media="print" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+  <script src="/js/scripts.js"></script>
+
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='/images/head.png' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">Befree</a></h1>
+<nav id="main-nav">
+  <ul class="main">
+    
+      <li>
+      <a href="/about">About Me</a>
+      </li>
+    
+  </ul>
+  
+  <section class="aboutme">
+    <p>
+      程序设计,编程语言
+    </p>
+  </section>
+  
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="google" href="http://plus.google.com/"
+         title="Google+">Google+</a>
+    
+    
+      <a class="twitter" href="http://twitter.com/"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+    
+      <a class="linkedin" href="http://www.linkedin.com/in/"
+        title="Linkedin">Linkedin</a>
+      
+    
+      <a class="facebook" href="http://facebook.com/"
+        title="Facebook">Facebook</a>
+    
+    
+      <a class="coderwall" href="http://github.com/"
+        title="Coderwall">Coderwall</a>
+    
+    
+      <a class="pinterest" href="http://pinterest.com/"
+        title="Pinterest">Pinterest</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+<nav id="widget-nav">
+  <div class="widgets">
+    
+      
+
+    
+  </div>
+</nav><!-- widget-nav -->
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2014-09-27T09:10:38.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  9月 27 2014
+</time>
+
+
+
+
+
+</div>
+
+          
+          
+<div class="print">打印后</div>
+
+          
+	</div>
+        <h1 class="title" itemprop="name">objcsummry</h1>
+      	<div class="entry-content" itemprop="articleBody"><h1 id="Objective-C语言学习总结">Objective-C语言学习总结</h1>
+<p>花费太大力气学习objective-C语言是不值得的，除了能在OSX/iOS上有成熟的类库，其他领域几乎没有什么特别的类库，有个GNUstep，看上去也是远古的产物。而且很多这个语言的高级特性在iOS 应用开发时也只是用到皮毛，这些高级特性都是为cocoa framework自身开发而准备的。</p>
+<a id="more"></a>
+
+<h4 id="基础语法">基础语法</h4>
+<h6 id="类定义和消息传递，">类定义和消息传递，</h6>
+<pre><code><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span>
+
+<span class="keyword">@property</span> <span class="built_in">NSString</span>* firstName;   <span class="comment">//定义属性</span>
+- (<span class="keyword">void</span>)sayHello;    <span class="comment">//定义方法</span>
++ (<span class="keyword">void</span>)newPerson;   <span class="comment">//静态方法</span>
+<span class="keyword">@end</span>
+</code></pre><p>objc和其他面向对象语言一样，都以定义的类和对象，为语言的主要操作对象。<br>objc定义一个类接口，在关键词@interface、@end 之间定义类的外部属性和方法  </p>
+<pre><code><span class="preprocessor">#import <span class="title">"XYZPerson.h"</span></span>
+<span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPerson</span></span>
+
+- (<span class="keyword">void</span>)sayHello {
+    <span class="built_in">NSLog</span>(<span class="string">@"Hello, World!"</span>);
+}
+
++ (<span class="keyword">void</span>)newPerson {
+    <span class="built_in">NSLog</span>(<span class="string">@"Hello, World!"</span>);
+}
+
+<span class="keyword">@end</span>
+</code></pre><p>类的实现文件写在.m文件中。objc中类也是对象，普通对象通过class方法，返回类对象。<br>oc里面关键词self约等于C++里面的this, super 是一个新的关键词，而且很方便。  </p>
+<p>创建对象一般使用如下方式：  </p>
+<pre><code><span class="attribute">    XYZPerson* person </span>=<span class="string"> [[XYZPerson alloc]init];</span>
+</code></pre><p>给对象发消息：  </p>
+<pre><code>    <span class="title">[person sayHello]</span><span class="comment">;</span>
+</code></pre><p>因为objc是动态语言，所以他的所有对象变量都是指针，所有的函数都是类似C++虚函数，运行的时候才会动态绑定  </p>
+<h4 id="类的扩展">类的扩展</h4>
+<h6 id="Category扩展">Category扩展</h6>
+<p>对任意一个可以通过Category的方式进行扩展，在没有源代码的情况下，增加类的方法  </p>
+<pre><code><span class="class"><span class="keyword">@interface</span> <span class="title">UIImageView</span> (<span class="title">scale</span>)</span>
+
+    - (<span class="keyword">void</span>)scaleNewImage:(<span class="built_in">UIImage</span>*)newImage;
+
+<span class="keyword">@end</span>
+</code></pre><h6 id="协议和代理">协议和代理</h6>
+<pre><code>        很早学OOP的时候，感觉为了代码复用，可以抽象，然后继承。继承是类知道自己怎么实现某个方法，而当某个方法不知道该怎么做的时候，很多时候为了实现这个方法，需要把能够实现此方法的类引入，作为成员变量，但这还是非常耦合的事情。  
+</code></pre><p>协议就灵活多了。协议的声明类似一个类，使用@protocol关键字。在protocol中可以声明普通方法和类方法，还可以声明属性。通过声明一个protocol,无论是使用方和实现方，都可以不清楚对方的具体细节，只需要遵循固定的协议就可以了。而且任何类都可以实现某种协议，来完成相同接口的不同操作。实现松耦合。<br>需要注意delegate 最好加上weak修饰符，避免strong reference cycle.  </p>
+<h4 id="Block">Block</h4>
+<p>Block是一段可以作为对象的代码，类似其他语言的闭包或lambda.语法上就是 ^ 加上 {} 包含的一段代码  </p>
+<pre><code>^{  
+     <span class="function">NSLog</span>(<span class="at_rule">@<span class="string">"This is a block"</span>);</span>
+ }
+</code></pre><p>Block是一个对象，可以把Block复制给以一个变量，Block类型的变量声明语法类似C语言的函数指针  </p>
+<pre><code><span class="keyword">void</span> (^simpleBlock)(<span class="keyword">void</span>);  <span class="comment">//声明</span>
+simpleBlock();  <span class="comment">//调用</span>
+</code></pre><p>Block内部可以获得作用域内的变量值，但是无法修改，而且当变量变化时，也只能得到最初的值，相当于Block内部拷贝一份相关变量原始的值。如果要修改变量，必须增加__block修饰符，相当于此变量在Block内部用过指针的方式被引用。  </p>
+<p>Block 作为参数传递，可以很方便的结合Operation Queue和Dispatch Queue实现多线程。</p>
+<h4 id="Foundation">Foundation</h4>
+<p>Objc提供了很好的基础类库，类似于stl之于C++。这套基础库可用于iOS和OSX的开发。常见的基础类型NSString, NSNumber,一些集合类型NSArray, NSDictionary都属于此类库中。<br>具体可参考Foundation.h文件，里面记录了所有Foundation包含的类</p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":true};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=null">
+  </script>
+</div>
+
+
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - Befree - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>
