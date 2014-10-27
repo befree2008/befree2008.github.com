@@ -162,24 +162,10 @@
           
             <p>开发iOS应用，当然要使用iOS SDK，就是系统库，提供各种面向对象的Api接口，用来实现各种用户功能。iOS SDK分为四层，CocoaTouch, Media, CoreServices, CoreOS。分层是大型软件的基本思想，底层的接口能够完成相对抽象，通用的功能。上层的接口完成相对实用的功能，同时接口调用会尽量简单。</p>
 <p>iOS SDK里面每一层都是由很多Framework组成，每个Framework负责一部分功能的实现。Framework由很多类组合而成。实际在开发iOS App时，都是继承系统Framework里面重要的类，并完成业务逻辑部分的代码，就组合而成了一个App。</p>
-<h5 id="CocoaTouch层(10个Framework)">CocoaTouch层(10个Framework)</h5>
-<p>这个层中最重要的就是UIKit Framework，一个应用的基础库都在这里了</p>
-<h5 id="Media层(22个Framework)">Media层(22个Framework)</h5>
-<p>Media层是将各个层上关于动画、音频、视频的Framework组合起来，抽象的一个层。一些重要的组件，例如：相册、播放音频流，播放视频，都在这个层中实现</p>
-<h5 id="CoreServices层(26个Framework)">CoreServices层(26个Framework)</h5>
-<p>CoreServices层提供基础的系统服务层，比如基础网络功能，GCD，Block，SQLite等等</p>
-<h5 id="CoreOS层（7个Framework）">CoreOS层（7个Framework）</h5>
-<p>提供更加底层的Framework，和必要的系统支持。  </p>
-<p>每一个Framework都是由大量的类组成，如果把这些Framework和类全部掌握了，估计就可以去苹果应聘工作了。实际开发中，不会用到每一个Framework，但是要掌握iOS App开发的基础Framework。如果有时间还是需要把每一个Framework过一遍。</p>
-<h5 id="iOS_App_开发">iOS App 开发</h5>
-<p>苹果公司为了方便开发者开发iOS平台的应用，对每个App实际都是使用MVC模式。目前业界主流的应用软件开发框架都是使用MVC模型。MVC最大的好处就是使整个软件的结构更加清晰，方便以后的扩展和维护，但要设计一个结构合理，易于维护扩展的软件结构，也是很考验功力的事情。</p>
-<h6 id="Model">Model</h6>
-<p>iOS App的Model比较简单，大多数时候都是和网络打交道，复杂的算法和数据库其实都是放在后台完成的，一般通过HTTP的JSON接口给应用返回数据即可。有些场景下需要本地进行数据缓存，可能需要用到SQLite，NSUserDefault等方式。比较重要的相关知识包括：GCD/Block，NSURLConnection，CFNetwork, Delegate/Protocol</p>
-<h6 id="View">View</h6>
-<p>iOS 里面的View大部分都是属于UIKit Framework。主要是用于为用户显示信息，例如UILabel，UIImageView，UIActiveView，UIProgress等等负责显示信息的控件。还有一些负责输入控件，比如UITextField，UIButton, UIGesturerecognizer等等。<br>View是用户界面的各种元素，主要是用来和用户进行交互，比较重要的如：UITableView UIView等等。</p>
-<h6 id="ViewController">ViewController</h6>
-<p>ViewController是iOS App的基础，基本都属于UIKit Framework。系统提供的ViewController就几种，包括UIViewController, UITabViewController, UINavigatorController, UITableviewController等等，应用逻辑都在这里完成，负责组织各种View和Model，大部分都是以Delegate的形式相应用户操作或者网络数据。</p>
 
+            <a href="/2014/10/27/ios开发基础.html" class="more-link">
+              Continue →
+            </2a>
           
         </div>
 
