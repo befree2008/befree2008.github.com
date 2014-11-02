@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2014 | 天一阁</title>
+  <title>ios base2 | 天一阁</title>
   <meta name="author" content="Befree">
   
   <meta name="description" content="程序设计,编程语言">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="ios base2"/>
   <meta property="og:site_name" content="天一阁"/>
 
   
@@ -128,146 +128,82 @@
       </div><!-- left-col -->
       <div class="mid-col">
         <div class="mid-col-container">
-	    <div id="content" class="inner">
-
-
-<div itemscope itemtype="http://schema.org/Blog">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   
-    
-    
-    <section class="archives"><h1 class="year">2014</h1>
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
+	<div class="meta">
           
-<span class="date">
+<div class="date">
 
 <time datetime="2014-11-02T08:57:05.000Z"
       
       data-updated="true"
        itemprop="datePublished">
-  11月 02
+  11月 2 2014
 </time>
 
 
 
 
 
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/11/02/ios-base2.html">ios base2</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-10-27T04:12:46.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  10月 27
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/10/27/ios开发基础.html">ios开发基础</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-09-27T09:10:38.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  9月 27
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/09/27/objcsummry.html">objcsummry</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-09-24T13:47:38.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  9月 24
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/09/24/梦想还是要有的，万一实现了呢.html">梦想还是要有的，万一实现了呢</a>
-        </h1>
-    </article>
-    
-  
 </div>
+
+          
+          
+<div class="print">打印后</div>
+
+          
+	</div>
+        <h1 class="title" itemprop="name">ios base2</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>应用开发都是在某个平台之上。平台和应用都是相对的概念。比如在硬件平台上开发操作系统，操作系统就是一个应用；iPhone的平台上开发iOS，iOS就是一个应用；在iOS上开发App，App就是一个应用。既然在平台上开发应用，就要依赖平台提供的所谓系统框架。<br><a id="more"></a></p>
+<h6 id="程序入口">程序入口</h6>
+<p>main函数是入口，这个大部分C应用程序是一样的</p>
+<pre><code><span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span>  </span>
+
+<span class="preprocessor">#import <span class="title">"AppDelegate.h"</span>  </span>
+<span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])
+    {
+                <span class="keyword">@autoreleasepool</span> {
+                            <span class="keyword">return</span> UIApplicationMain(argc, argv, <span class="literal">nil</span>,  NSStringFromClass([AppDelegate class]));  
+                                } }  
+</code></pre><p>从UIApplicationMain函数开始就进入了UIKit Framework的框架体系中了。<br><img src="http://img4.picbed.org/uploads/2014/10/KeyObject.png" width="500"><br>UIApplication,UIWidow都是由UIApplicationMain创建的系统对象。<br>我们主要开发的就是ViewController、View、DataObject。UIApplication负责处理主线程，相应各种用户操作事件。</p>
+<h6 id="ViewController">ViewController</h6>
+<p>当AppDelegate指定了rootViewController后，viewController开始进行初始化，并加载相关的View，并对View进行初始化等工作。Xcode提供的StoryBoard可以简化代码，但是个人觉得非常不好用。ViewController是iOS框架中的概念，负责关联DataModel和View。UIKit有很多标准ViewController,也构成了目前App的交互基础控件。iOS提供了基础的container controller, 我们自定义的叫content controller。  </p>
+<ul>
+<li>UINavigationController  </li>
+<li>UITabbarController   </li>
+<li>UISplitViewController    </li>
+<li>UITableViewController</li>
+<li>UIViewController  </li>
+</ul>
+<h6 id="View">View</h6>
+<p>ViewController初始化是的时候，需要对View进行初始化。一般都是加载各个页面的初始布局，调整好Frame，放置好Label,Button,Image等等，大多时候会用到TableView, ScorllView，显示好用户界面后，就等待用户的输入，然后加载相关的数据，并刷新View。<br>每个UIView的背后都有个CALayer在支持，复杂的动画可以直接操作在CALayer上</p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":true};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=null">
+  </script>
+</div>
+
+
+
+
 </div>
 	</div>
         <footer id="footer" class="inner">
