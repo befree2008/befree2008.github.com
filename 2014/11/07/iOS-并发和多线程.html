@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 并发和多线程 | 天一阁</title>
+  <meta name="author" content="Befree">
+  
+  <meta name="description" content="程序设计,编程语言">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 并发和多线程"/>
+  <meta property="og:site_name" content="天一阁"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="天一阁" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/print.css" media="print" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+  <script src="/js/scripts.js"></script>
+
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='/images/head.png' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">Befree</a></h1>
+<nav id="main-nav">
+  <ul class="main">
+    
+      <li>
+      <a href="/about">About Me</a>
+      </li>
+    
+  </ul>
+  
+  <section class="aboutme">
+    <p>
+      程序设计,编程语言
+    </p>
+  </section>
+  
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="google" href="http://plus.google.com/"
+         title="Google+">Google+</a>
+    
+    
+      <a class="twitter" href="http://twitter.com/"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+    
+      <a class="linkedin" href="http://www.linkedin.com/in/"
+        title="Linkedin">Linkedin</a>
+      
+    
+      <a class="facebook" href="http://facebook.com/"
+        title="Facebook">Facebook</a>
+    
+    
+      <a class="coderwall" href="http://github.com/"
+        title="Coderwall">Coderwall</a>
+    
+    
+      <a class="pinterest" href="http://pinterest.com/"
+        title="Pinterest">Pinterest</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+<nav id="widget-nav">
+  <div class="widgets">
+    
+      
+
+    
+  </div>
+</nav><!-- widget-nav -->
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2014-11-07T05:26:30.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  11月 7 2014
+</time>
+
+
+
+
+
+</div>
+
+          
+          
+<div class="print">打印后</div>
+
+          
+	</div>
+        <h1 class="title" itemprop="name">iOS 并发和多线程</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>并发主要是为了让应用提高性能，不至于应用阻塞在某个耗时的任务上。iOS的并发其实比在Linux下开发并发要简单很多，因为框架本身提供了很多的类进行支撑，并且系统来负责进行线程的管理。而对应用开发者来说只需要使用iOS提供的异步接口，并实现回调接口就可以了。</p>
+<p>并发是一种比较强大的能力，但是在App中，更多的时候我们只需要异步，而不是并发。个别情况既需要并发又需要异步，比如批量图片下载。<br><a id="more"></a></p>
+<h6 id="Operation_Queue">Operation Queue</h6>
+<p>通过面向对象封装的类，底层还是通过GCD实现的。iOS提供了一些类封装好的类来实现并发操作，主要是NSInvocationOperation, NSBlockOperation, 还有自定义的NSOperation。  </p>
+<p>NSInvocationOperation和NSBlockOperation用起来都比较简单。NSOperation需要创建一个子类，并完成几个主要的函数，例如start, cancel即可。自定义Operation在完成操作以后，需要通过回调或者通知的方式，更新用户界面。</p>
+<p>当创建好一个Operation类之后，把具体实例放入到OperationQueue中，系统就会自动来执行这些类。通过设置OperationQueue的并发数，可以确定同时可以执行多少个操作。</p>
+<h6 id="Dispatch_Queue">Dispatch Queue</h6>
+<p>Grand Central Dispatch(GCD)是苹果开发的一套并发模型，09年发布并开源。GCD和Block都是在那个时候引入到OSX10.6和iOS4。GCD也移植到其他操作系统，如FreeBSD、Windows等。</p>
+<p>队列类型分为三种串行（私有队列），并行（全局队列），主队列。通过GCD可以简化并发编程模型，所有创建和管理线程的工作全部由系统完成。GC执行的并发任务都是通过Block来实现的（Block会被编译器生成一个全局的对象）</p>
+<p>Dispatch Queue同OperationQueue一样，也需要自行创建或获取，并进行对应的配置。<br>串行队列通过dispatch_queue_create 创建，并发队列通过dispatch_get_global_queue得到指针，并发队列是系统事先创建好的。  应用的主线程是一个串行队列，通过dispatch_get_main_queue()函数获得指针。得到队列指针后，通过dispatch_async函数将Block放入队列中。</p>
+<p>dispatch_once 函数可以方便创建单例对象</p>
+<h6 id="NSThread">NSThread</h6>
+<p>NSThread类帮助创建一个线程，提供相应的entryPoint，线程就会运行起来了。处理同步的耗时任务的线程只要在entryPoint函数中写代码就可以了，执行完成后，线程自动释放资源。</p>
+<p>若希望线程长期存在，并能异步处理一些任务，类似于dispatch Queue，那就需要在线程的entryPoint里面加入Runloop。<br>NSRunloop是线程的消息处理机制，他负责监听各种消息。在新线程中启动Runloop后，就可以将消息调度到新线程中执行，比如通过performSelector:onThread: 来执行任务。其实很类似NSBlockOperation了。<br>很多类可以把自己要等待的消息放入到当前线程的Runloop中，比如NSTimer, NSURLConnection等等。</p>
+<p>通过这样的机制就可以实现异步和并发了。</p>
+<h6 id="异步设计指导">异步设计指导</h6>
+<ul>
+<li>为应用定义可预期的行为</li>
+<li>列举出所有用户任务，并设计与之关联的对象和数据结构</li>
+<li>把每个任务拆分为若干步骤，并分析每个修改对全局的影响</li>
+</ul>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":true};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=null">
+  </script>
+</div>
+
+
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - Befree - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>
