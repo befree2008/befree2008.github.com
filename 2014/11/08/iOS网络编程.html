@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2014 | 天一阁</title>
+  <title>iOS网络编程 | 天一阁</title>
   <meta name="author" content="Befree">
   
   <meta name="description" content="程序设计,编程语言">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="iOS网络编程"/>
   <meta property="og:site_name" content="天一阁"/>
 
   
@@ -128,212 +128,84 @@
       </div><!-- left-col -->
       <div class="mid-col">
         <div class="mid-col-container">
-	    <div id="content" class="inner">
-
-
-<div itemscope itemtype="http://schema.org/Blog">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   
-    
-    
-    <section class="archives"><h1 class="year">2014</h1>
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
+	<div class="meta">
           
-<span class="date">
+<div class="date">
 
 <time datetime="2014-11-08T14:42:30.000Z"
       
       data-updated="true"
        itemprop="datePublished">
-  11月 08
+  11月 8 2014
 </time>
 
 
 
 
 
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/11/08/iOS网络编程.html">iOS网络编程</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-11-07T05:26:30.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  11月 07
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/11/07/iOS-并发和多线程.html">iOS 并发和多线程</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-11-02T08:57:05.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  11月 02
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/11/02/ios-base2.html">ios base2</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-10-27T04:12:46.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  10月 27
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/10/27/ios开发基础.html">ios开发基础</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-09-27T09:10:38.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  9月 27
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/09/27/objcsummry.html">objcsummry</a>
-        </h1>
-    </article>
-    
-  
-    
-    
-    
-      <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <div class="meta">
-          
-<span class="date">
-
-<time datetime="2014-09-24T13:47:38.000Z"
-      
-      data-updated="true"
-       itemprop="datePublished">
-  9月 24
-</time>
-
-
-
-
-
-</span>
-
-          <br>
-          
-
-
-          
-        </div>
-        <h1 class="title" itemprop="name">
-          <a href="/2014/09/24/梦想还是要有的，万一实现了呢.html">梦想还是要有的，万一实现了呢</a>
-        </h1>
-    </article>
-    
-  
 </div>
+
+          
+          
+<div class="print">打印后</div>
+
+          
+	</div>
+        <h1 class="title" itemprop="name">iOS网络编程</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>iOS提供三层网络接口  </p>
+<ul>
+<li>Foundation  Layer</li>
+<li>Core Foundation Layer</li>
+<li>Posix Layer</li>
+</ul>
+<p>对于普通应用来说，一般是通过使用HTTP协议，来完成各种网络操作，包括获取数据（Get/Post），下载，上传。Foundation Layer可以完成这些任务，不必使用太底层的API。苹果对这类基于HTTP的网络操作叫”URL Loading System”，不知道这个该怎么翻中文。  </p>
+<p>iOS/OSX网络API实际上是以NSURLRequest为中心建立的，对NSURLRequest进行操作的是NSURLSession或者NSURLConnection。这两个类既可以通过Block的方式，又可以通过delegate的方式来处理相关的网络操作结果和数据。  </p>
+<p><a id="more"></a></p>
+<h6 id="NSURLConnection">NSURLConnection</h6>
+<p>使用NSURLConnection delegate方式实现网络通讯，代理的方式可以实现断点续传等复杂一些功能，必须实现以下几个代理函数  </p>
+<ul>
+<li>connection:didReceiveResponse:</li>
+<li>connection:didReceiveData:</li>
+<li>connection:didFailWithError:</li>
+<li>connectionDidFinishLoading:  </li>
+</ul>
+<h6 id="NSURLSession">NSURLSession</h6>
+<p>URLSession是iOS7以后，替代URLConnection的新类，他提供一些类的新特性，可以更加灵活的配置网络请求，同时他可以支持后台数据传输，这个可以解决很多后台大文件的上传下载的问题。  </p>
+<p>URLSesssion系列的类，包括NSURLSessionConfiguration， NSURLSessionTask。Task相关的类包含三种类型。</p>
+<h6 id="NSStream">NSStream</h6>
+<p>除了针对HTTP协议封装的NSURL相关的类，Foundation层还提供了NSStream类这样更加raw的接口，方便我们实现各种自定义的网络数据传输，比如增加SSL，SOCKS等等。NSStream基本上是CFStream的Objective-c的封装。</p>
+<h6 id="CFStream">CFStream</h6>
+<p>Core Foundation层提供的socket接口就是CFStream相关的类，这个可以在iOS, OSX上代码通用的。CFStream框架集成了Runloop方式处理消息，创建一个CFStream，加入到runloop中，就可以处理各种stream的event了。  </p>
+<p>ARC不能管理Core Foundation Object的生命周期，所以在Core Foundation和ARC之间，我们需要使用到 __bridge, __bridge_retained和__bridge_transfer三个转换关键字。</p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":true};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=null">
+  </script>
+</div>
+
+
+
+
 </div>
 	</div>
         <footer id="footer" class="inner">
