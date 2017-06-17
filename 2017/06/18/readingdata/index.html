@@ -93,15 +93,18 @@
 
 
 
-<meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://befree2008.github.io/index.html">
+<meta name="description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow从文件读取数据">
+<meta property="og:url" content="http://befree2008.github.io/2017/06/18/readingdata/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
+<meta property="og:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
+<meta property="og:updated_time" content="2017-06-17T16:24:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天一阁">
-<meta name="twitter:description" content="以互联网精神为信仰">
+<meta name="twitter:title" content="Tensorflow从文件读取数据">
+<meta name="twitter:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
+<meta name="twitter:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
 
 
 
@@ -129,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/06/18/readingdata/"/>
 
 
 
 
 
-  <title>天一阁</title>
+  <title>Tensorflow从文件读取数据 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,9 +174,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-   page-home 
- ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -256,9 +257,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -284,9 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/18/readingdata/" itemprop="url">Tensorflow从文件读取数据</a></h1>
+          <h1 class="post-title" itemprop="name headline">Tensorflow从文件读取数据</h1>
         
 
         <div class="post-meta">
@@ -344,29 +343,40 @@
       
 
       
+        <h4 id="从文件读取数据"><a class="header-anchor" href="#从文件读取数据"> </a>从文件读取数据</h4>
+<p>函数<code>tf.train.string_input_producer</code>文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predict。 <a id="more"></a></p>
+<blockquote>
+<p>疑问：这里为啥要把filename做成一个队列呢？reader每次read一个文件一行，下次是从第二行开始么？</p>
+</blockquote>
+<p>整个读文件的过程分为建文件队列、建立reader、建立decoder、形成tensor，把文件读取的过程分的特别细致。除了<code>tf.TextLineReader</code>还有支持二进制和TF Record的reader。</p>
+<p>得到数据以后，可以在开始train之前，进行必要的数据预处理，正则化，或者加噪音等等。</p>
+<h4 id="数据打包-batch"><a class="header-anchor" href="#数据打包-batch"> </a>数据打包（batch）</h4>
+<p><img src="https://www.tensorflow.org/images/AnimatedFileQueues.gif" alt=""></p>
+<p>reader读出来的数据，再放到一个队列中，凑够一批再传给graph计算，这样会高效很多。不明白为啥要把流程搞得这么复杂，仅仅是读数据，却要两个队列，N个线程，N<sup>2</sup> 个函数来配合。而且结束的时候，也需要通过exception的方式来判断，并且要等所有线程都停止了，才能结束。感觉好麻烦啊。</p>
+<p>似乎想明白一点，其实就是说整个train的过程，并不关心数据从哪里来，怎么来的，他只是调用一个<code>input_fn()</code>，然后就得到一批数据，就可以进行计算了。这些数据实际上是多个线程放入到一个数据队列中的，这些线程其实也不关心这些数据怎么用，谁会用，他们只是按照一定规则把数据入队，就算完成任务了。</p>
+<p><a href="https://www.tensorflow.org/programmers_guide/reading_data" target="_blank" rel="external">官网上有更详细的解释</a></p>
+
+      
+    </div>
+
+    <div>
+      
         
-          <h4 id="从文件读取数据"><a class="header-anchor" href="#从文件读取数据"> </a>从文件读取数据</h4>
-<p>函数<code>tf.train.string_input_producer</code>文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predict。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/18/readingdata/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
@@ -374,403 +384,38 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/17/Tensor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/17/Tensor/" itemprop="url">TF编程方式很别扭</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T15:34:30+08:00">
-                2017-06-17
-              </time>
+              <a href="/2017/06/17/Tensor/" rel="next" title="TF编程方式很别扭">
+                <i class="fa fa-chevron-left"></i> TF编程方式很别扭
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/06/17/Tensor/" class="leancloud_visitors" data-flag-title="TF编程方式很别扭">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>​	Tensorflow是个很好的机器学习的框架，他提供了很多必要函数库，既能够用很基础函数快速实现实验原型，又能用很工程化的方式开发一套比较像样的系统，并且TF能够高效的运行在分布式的计算集群上。</p>
-<p>​	但是他的编程方式很诡异，写了一大堆代码，都只是描述计算流程。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/17/Tensor/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/10/Markdown语法 & Typora特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/10/Markdown语法 & Typora特性/" itemprop="url">Markdown语法 & Typora特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T15:42:53+08:00">
-                2017-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/06/10/Markdown语法 & Typora特性/" class="leancloud_visitors" data-flag-title="Markdown语法 & Typora特性">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>​	<span id="Markdown-gramma">Typora是一款极简风格的Markdown写作软件</span>。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是<a href="https://help.github.com/categories/writing-on-github/" target="_blank" rel="external">GitHub Flavored Markdown</a>。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/10/Markdown语法 & Typora特性/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/09/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/09/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T12:08:23+08:00">
-                2017-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/06/09/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/09/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -778,6 +423,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -797,8 +446,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -842,6 +500,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#从文件读取数据"><span class="nav-number">1.</span> <span class="nav-text"> 从文件读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据打包-batch"><span class="nav-number">2.</span> <span class="nav-text"> 数据打包（batch）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -962,10 +636,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
