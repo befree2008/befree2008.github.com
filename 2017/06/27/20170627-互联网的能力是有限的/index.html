@@ -93,18 +93,16 @@
 
 
 
-<meta name="description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
+<meta name="description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tensorflow从文件读取数据">
-<meta property="og:url" content="http://befree2008.github.io/2017/06/18/readingdata/index.html">
+<meta property="og:title" content="互联网的能力是有限的">
+<meta property="og:url" content="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
-<meta property="og:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
-<meta property="og:updated_time" content="2017-06-17T16:24:25.000Z">
+<meta property="og:description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
+<meta property="og:updated_time" content="2017-06-27T06:36:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tensorflow从文件读取数据">
-<meta name="twitter:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
-<meta name="twitter:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
+<meta name="twitter:title" content="互联网的能力是有限的">
+<meta name="twitter:description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
 
 
 
@@ -132,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/06/18/readingdata/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/"/>
 
 
 
 
 
-  <title>Tensorflow从文件读取数据 | 天一阁</title>
+  <title>互联网的能力是有限的 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/18/readingdata/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -285,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Tensorflow从文件读取数据</h1>
+          <h1 class="post-title" itemprop="name headline">互联网的能力是有限的</h1>
         
 
         <div class="post-meta">
@@ -297,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T00:24:25+08:00">
-                2017-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T14:36:47+08:00">
+                2017-06-27
               </time>
             
 
@@ -315,7 +313,7 @@
 
           
           
-             <span id="/2017/06/18/readingdata/" class="leancloud_visitors" data-flag-title="Tensorflow从文件读取数据">
+             <span id="/2017/06/27/20170627-互联网的能力是有限的/" class="leancloud_visitors" data-flag-title="互联网的能力是有限的">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -343,18 +341,19 @@
       
 
       
-        <h4 id="从文件读取数据"><a class="header-anchor" href="#从文件读取数据"> </a>从文件读取数据</h4>
-<p>函数<code>tf.train.string_input_producer</code>文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predict。 <a id="more"></a></p>
-<blockquote>
-<p>疑问：这里为啥要把filename做成一个队列呢？reader每次read一个文件一行，下次是从第二行开始么？</p>
-</blockquote>
-<p>整个读文件的过程分为建文件队列、建立reader、建立decoder、形成tensor，把文件读取的过程分的特别细致。除了<code>tf.TextLineReader</code>还有支持二进制和TF Record的reader。</p>
-<p>得到数据以后，可以在开始train之前，进行必要的数据预处理，正则化，或者加噪音等等。</p>
-<h4 id="数据打包-batch"><a class="header-anchor" href="#数据打包-batch"> </a>数据打包（batch）</h4>
-<p><img src="https://www.tensorflow.org/images/AnimatedFileQueues.gif" alt=""></p>
-<p>reader读出来的数据，再放到一个队列中，凑够一批再传给graph计算，这样会高效很多。不明白为啥要把流程搞得这么复杂，仅仅是读数据，却要两个队列，N个线程，N<sup>2</sup> 个函数来配合。而且结束的时候，也需要通过exception的方式来判断，并且要等所有线程都停止了，才能结束。感觉好麻烦啊。</p>
-<p>似乎想明白一点，其实就是说整个train的过程，并不关心数据从哪里来，怎么来的，他只是调用一个<code>input_fn()</code>，然后就得到一批数据，就可以进行计算了。这些数据实际上是多个线程放入到一个数据队列中的，这些线程其实也不关心这些数据怎么用，谁会用，他们只是按照一定规则把数据入队，就算完成任务了。</p>
-<p><a href="https://www.tensorflow.org/programmers_guide/reading_data" target="_blank" rel="external">官网上有更详细的解释</a></p>
+        <h3 id="互联网能力的局限性"><a class="header-anchor" href="#互联网能力的局限性"> </a>互联网能力的局限性</h3>
+<p>在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。</p>
+<p>然而仔细想想其实互联网的能力是十分有限的。首先<strong>互联网能处理的内容很有限</strong>。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。<a id="more"></a></p>
+<p>除了能处理的信息形式是有限的，<strong>互联网的功能是有限的</strong>，也就这么几种：信息发布、信息聚合、信息交流。启初互联网的作用就是传送文件，这样就不用拿软盘或光盘拷贝了。后来有了Email，大家沟通更加便捷了，就是想跟你说话这件事情变得更方便了。随后有了网页，我有什么长篇幅要阐述的内容，就可以放到网上，大家不受地域、时间的限制，都可以看到这些内容。随着发布的内容越来越多，信息的聚合筛选就变成了一种新的信息服务。同时大家不满足于单向的、1V1的信息交流，就开始有了论坛、聊天室这类的交流平台。从形式上看，互联网上也就这几种形式：工具、平台、内容。</p>
+<p>最近这几年其实变化不是很大了，趋于平稳了，能够处理的信息，信息交流的形式都相对稳定了。</p>
+<h3 id="互联网服务的可能性"><a class="header-anchor" href="#互联网服务的可能性"> </a>互联网服务的可能性</h3>
+<p>对于像我这样，特别想靠网络为生的人，做点什么事情可以赚到钱呢？如果想从互联网上挣到钱，可以做的事情也是有限的，对于我来说就更有限了。比如去表演直播这类的事情，就肯定没我什么事。</p>
+<p>回顾互联网的历史什么事情能做成呢？大部分好的服务，都是以前在网上没有，或者是中国还没有，于是有人创办了一个服务，他就存活下来了。随后这个服务受到很多用户喜欢，可以低成本扩展（是指平均用户成本很低），这样就会立刻成长为大公司，进而开始商业化，实现商业价值。</p>
+<p>怎么找到可以做的事情呢？可以从两个角度想：</p>
+<p>1，从自身出发（看我想要什么）</p>
+<p>2，从市场现有的供应出发（看别人想要什么）</p>
+<p>可能看了一圈，发现该有的，都有了，老天爷还能赏口饭给我么？要做更好的服务，要考虑在现有服务前面加限定词，进而看看这是不是新服务，是否满足“之前是没有的”这样的一个条件，同时如果这种服务可能是足够多的用户需要的，那这个事情就能支撑一家商业化公司了。我的目的就可以达到了。</p>
+<p>所以，下一步的行动想法就是，定期总结一些信息服务，不一定非要系统、全面的遍历这个互联网，可以是从最感兴趣的服务入手，对这一类服务进行调研，然后在服务前面加各种限定词，通过这种方式看看机会是否还存在。但愿能够有所收获。</p>
 
       
     </div>
@@ -391,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/17/Tensor/" rel="next" title="TF编程方式很别扭">
-                <i class="fa fa-chevron-left"></i> TF编程方式很别扭
+              <a href="/2017/06/27/20170627-chineseProgram/" rel="next" title="中文世界编程社区整理">
+                <i class="fa fa-chevron-left"></i> 中文世界编程社区整理
               </a>
             
           </div>
@@ -400,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/27/20170627-chineseProgram/" rel="prev" title="中文世界编程社区整理">
-                中文世界编程社区整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -514,7 +509,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#从文件读取数据"><span class="nav-number">1.</span> <span class="nav-text"> 从文件读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据打包-batch"><span class="nav-number">2.</span> <span class="nav-text"> 数据打包（batch）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#互联网能力的局限性"><span class="nav-number">1.</span> <span class="nav-text"> 互联网能力的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互联网服务的可能性"><span class="nav-number">2.</span> <span class="nav-text"> 互联网服务的可能性</span></a></li></ol></div>
             
 
           </div>
