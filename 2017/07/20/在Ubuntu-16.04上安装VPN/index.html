@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="技术,VPN,L2TP," />
 
 
 
@@ -93,18 +93,19 @@
 
 
 
-<meta name="description" content="​	Typora是一款极简风格的Markdown写作软件。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是GitHub Flavored Markdown。">
+<meta name="description" content="看到Linode上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。 新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾">
+<meta name="keywords" content="技术,VPN,L2TP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Markdown语法 &amp; Typora特性">
-<meta property="og:url" content="http://befree2008.github.io/2017/06/10/Markdown语法 & Typora特性/index.html">
+<meta property="og:title" content="在Ubuntu 16.04上安装VPN">
+<meta property="og:url" content="http://befree2008.github.io/2017/07/20/在Ubuntu-16.04上安装VPN/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="​	Typora是一款极简风格的Markdown写作软件。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是GitHub Flavored Markdown。">
-<meta property="og:image" content="http://befree2008.github.io/images/tf.jpg">
-<meta property="og:updated_time" content="2017-06-10T15:11:53.000Z">
+<meta property="og:description" content="看到Linode上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。 新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾">
+<meta property="og:image" content="http://befree2008.github.io/images/stackscript.png">
+<meta property="og:updated_time" content="2017-07-20T07:47:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Markdown语法 &amp; Typora特性">
-<meta name="twitter:description" content="​	Typora是一款极简风格的Markdown写作软件。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是GitHub Flavored Markdown。">
-<meta name="twitter:image" content="http://befree2008.github.io/images/tf.jpg">
+<meta name="twitter:title" content="在Ubuntu 16.04上安装VPN">
+<meta name="twitter:description" content="看到Linode上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。 新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾">
+<meta name="twitter:image" content="http://befree2008.github.io/images/stackscript.png">
 
 
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/06/10/Markdown语法 & Typora特性/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/07/20/在Ubuntu-16.04上安装VPN/"/>
 
 
 
 
 
-  <title>Markdown语法 & Typora特性 | 天一阁</title>
+  <title>在Ubuntu 16.04上安装VPN | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/10/Markdown语法 & Typora特性/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/07/20/在Ubuntu-16.04上安装VPN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -295,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Markdown语法 & Typora特性</h1>
+          <h1 class="post-title" itemprop="name headline">在Ubuntu 16.04上安装VPN</h1>
         
 
         <div class="post-meta">
@@ -307,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T15:42:53+08:00">
-                2017-06-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T15:35:04+08:00">
+                2017-07-20
               </time>
             
 
@@ -318,6 +319,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -325,7 +348,7 @@
 
           
           
-             <span id="/2017/06/10/Markdown语法 & Typora特性/" class="leancloud_visitors" data-flag-title="Markdown语法 & Typora特性">
+             <span id="/2017/07/20/在Ubuntu-16.04上安装VPN/" class="leancloud_visitors" data-flag-title="在Ubuntu 16.04上安装VPN">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,121 +376,12 @@
       
 
       
-        <p>​	<span id="Markdown-gramma">Typora是一款极简风格的Markdown写作软件</span>。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是<a href="https://help.github.com/categories/writing-on-github/" target="_blank" rel="external">GitHub Flavored Markdown</a>。<a id="more"></a></p>
-<p>​	Markdown是用纯文本方式编辑文档，方便阅读和写作，不会像HTML一样将内容都写在指令化的标记中。通过Markdown编辑好的文档，再通过各种工具转换为HTML或XHTML，以便发布到网上。期初的转换工具只是作者提供的一个perl脚本。随后产生了很多的可视化工具，我试用过一些感觉都不太好用。Typora是最清爽，最快速，功能非常丰富的App，值得推荐。</p>
-<h3 id="段落"><a class="header-anchor" href="#段落"> </a>段落</h3>
-<p>在Typora中，直接回车就可以生成一个新段落。使用<code>Shift+Enter</code> 生成一行分割的段落，为了其他Markdown解析器可以识别，最好在段落的最后加上两个空格，或者加上&lt;br&gt;标记</p>
-<h3 id="标题"><a class="header-anchor" href="#标题"> </a>标题</h3>
-<p>用<code>#</code>可以标示标题，共分六级。在typora中输入<code>[toc]</code>可以根据所有的标题，生成文章目录</p>
-<h3 id="引用"><a class="header-anchor" href="#引用"> </a>引用</h3>
-<blockquote>
-<p>Markdown使用 <code>&gt;</code>  标示引用</p>
-<p>在Typora中，输入一个 <code>&gt;</code> Typora就会自动生成一个引用块，很方便</p>
-</blockquote>
-<h3 id="列表"><a class="header-anchor" href="#列表"> </a>列表</h3>
-<p>##无序列表(<code>*</code>、<code>+</code>、 <code>-</code>都可以用来生成无序列表)</p>
-<ul>
-<li><font color="red">Red</font></li>
-<li><font color="green">Green</font></li>
-<li><font color="blue">Blue</font></li>
-</ul>
-<p>##有序列表</p>
-<ol>
-<li><font color="red">Red</font></li>
-<li><font color="green">Green</font></li>
-<li><font color="blue">Blue</font></li>
-</ol>
-<p>## 任务列表</p>
-<p><input type="checkbox" id="checkbox0"><label for="checkbox0">Task1</label></p>
-<p><input type="checkbox" id="checkbox1" checked="true"><label for="checkbox1">Task2</label></p>
-<p><input type="checkbox" id="checkbox2" checked="true"><label for="checkbox2">Task3</label></p>
-<h3 id="数学公式"><a class="header-anchor" href="#数学公式"> </a>数学公式</h3>
-<p>在Typora中输入<code>$$</code>就可以打开公式编辑器，使用的是Latex的公式语法。Latex的数学符号标记网上有很多参考文档，用到哪些再学哪些吧
-$$
-\mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix}
-\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-\frac{\partial X}{\partial u} &amp; \frac{\partial Y}{\partial u} &amp; 0 \\
-\frac{\partial X}{\partial v} &amp; \frac{\partial Y}{\partial v} &amp; 0 \\
-\end{vmatrix}
-$$</p>
-<h3 id="代码块"><a class="header-anchor" href="#代码块"> </a>代码块</h3>
-<p>在Typora中输入’’’ 即可自动生成代码块，直接填写代码即可，同时选择一下语言，Typora可以进行语法高亮的操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">function <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">  console.<span class="built_in">log</span>(<span class="string">"notice the blank line before this function?"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="表格"><a class="header-anchor" href="#表格"> </a>表格</h3>
-<p>表格也比较简单，只要输入  <strong>| 字段一 | 字段二 |</strong>  ，Typora会弹出一个工具条，可以选择表格的大小和对齐方式</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Left-Aligned</th>
-<th style="text-align:center">Center Aligned</th>
-<th style="text-align:right">Right Aligned</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">col 3 is</td>
-<td style="text-align:center">some wordy text</td>
-<td style="text-align:right">$1600</td>
-</tr>
-<tr>
-<td style="text-align:left">col 2 is</td>
-<td style="text-align:center">centered</td>
-<td style="text-align:right">$12</td>
-</tr>
-<tr>
-<td style="text-align:left">zebra stripes</td>
-<td style="text-align:center">are neat</td>
-<td style="text-align:right">$1</td>
-</tr>
-</tbody>
-</table>
-<h3 id="链接"><a class="header-anchor" href="#链接"> </a>链接</h3>
-<p>Markdown的链接语法是 <code>[链接文字](链接URL)</code> 方括号内是链接文字，小括号内是链接的URL，就可以得到这样的链接<a href="www.tianyige.com">点击这里</a></p>
-<p>Markdown也支持内部链接，<a href="#%E6%AE%B5%E8%90%BD">点击这里</a>就可以返回顶部</p>
-<p>还可以实现<a href="https://typora.io/" title="Typora官网" target="_blank" rel="external">参考链接</a>，只要写入<code>[][]</code>  即可</p>
-<p>直接使用尖括号，可以插入URL , 比如这样：&lt;<a href="http://www.google.com" target="_blank" rel="external">www.google.com</a>&gt;</p>
-<h3 id="图片"><a class="header-anchor" href="#图片"> </a>图片</h3>
-<p>插入图片的语法和连接的类似，只是需要前面加入一个<code>!</code></p>
-<p>这是一张图片<img src="/images/tf.jpg" style="zoom:50%"></p>
-<p>在<code>![Alt text](/path/to/img.jpg)</code>图片连接语法中，小括号内可以写图片的相对路径，或者就是一个URL</p>
-<p>如果要改变图片的大小，就需要借助HTML的img标签了</p>
-<h3 id="文字强调"><a class="header-anchor" href="#文字强调"> </a>文字强调</h3>
-<ol>
-<li>**变成粗体 需要加上两个 <code>*</code> **</li>
-<li><em>变成斜体，需要加上一个</em>  <code>*</code></li>
-<li><u>加上下划线，可以使用</u> <code>&lt;u&gt;</code> <u>标记</u></li>
-<li>用<code>~~</code> 可以给文字加上<s>删除线</s></li>
-<li>用<code>==</code> 可以 ==把文字变成高亮==</li>
-</ol>
-<h3 id="其他杂项"><a class="header-anchor" href="#其他杂项"> </a>其他杂项</h3>
-<ol>
-<li>
-<p>​😄   <code>:smile:</code> 两个冒号括起来就可以使用Emoji表情了</p>
-</li>
-<li>
-<p>行内数学公式，用<code>$</code>   <code>$</code> 进行触发： $\LaTeX$      $\lim{x \to \infty} \exp(-x) = 0$</p>
-</li>
-<li>
-<p>脚注<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>  ，这里的语法是<code>[^footnote]</code></p>
-</li>
-<li>
-<p>上标用<code>^</code> 来标记，比如 X<sup>999</sup></p>
-</li>
-<li>
-<p>下标用<code>~</code> 来标记，比如X<sub>long test</sub>  H<sub>2</sub>O</p>
-</li>
-<li>
-<p><code>YAML</code> Front Matter，在文章顶部输入 <code>---</code>就可以生成一个配置块，填入相关参数</p>
-</li>
-</ol>
-<p>详细内容可以参考<a href="http://support.typora.io/Markdown-Reference/" target="_blank" rel="external">Typora官网文档</a></p>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>这里是第一个脚注说明 <a href="#fnref1" class="footnote-backref">↩</a></p>
-</li>
-</ol>
-</section>
+        <p>看到<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">Linode</a>上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。</p>
+<p>新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾去，也没成功。后来发现<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">Linode</a>有个新功能是stackscript，可以在初始化机器的时候，顺便安装一些软件，其中就有自动安装VPN的脚本</p>
+<p><img src="/images/stackscript.png" alt=""></p>
+<p>这个脚本也是一个中国人开发，并且在github上开源的，具体介绍点击这里[<a href="https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn" target="_blank" rel="external">https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn</a>]。</p>
+<p>用了好几年Linode了，感觉特别不错，尤其选择在东京的机房，速度也觉得杠杠的，比那些在美国的机器好用多了。而且国外机房的好处就是做个网站不用备案，有想法立刻可以在那边实现。</p>
+<p>如果哪位朋友想尝试Linode，请点击我的<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">推荐链接</a>：）</p>
 
       
     </div>
@@ -495,6 +409,16 @@ $$</p>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/VPN/" rel="tag"># VPN</a>
+          
+            <a href="/tags/L2TP/" rel="tag"># L2TP</a>
+          
+        </div>
+      
 
       
       
@@ -504,8 +428,8 @@ $$</p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/09/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/07/17/20170717-HTML 语言 和 CSS/" rel="next" title="HTML 语言 和 CSS">
+                <i class="fa fa-chevron-left"></i> HTML 语言 和 CSS
               </a>
             
           </div>
@@ -513,10 +437,6 @@ $$</p>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/17/Tensor/" rel="prev" title="TF编程方式很别扭">
-                TF编程方式很别扭 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,17 +483,8 @@ $$</p>
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -635,22 +546,6 @@ $$</p>
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#段落"><span class="nav-number">1.</span> <span class="nav-text"> 段落</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标题"><span class="nav-number">2.</span> <span class="nav-text"> 标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">3.</span> <span class="nav-text"> 引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">4.</span> <span class="nav-text"> 列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学公式"><span class="nav-number">5.</span> <span class="nav-text"> 数学公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块"><span class="nav-number">6.</span> <span class="nav-text"> 代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">7.</span> <span class="nav-text"> 表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">8.</span> <span class="nav-text"> 链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">9.</span> <span class="nav-text"> 图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字强调"><span class="nav-number">10.</span> <span class="nav-text"> 文字强调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他杂项"><span class="nav-number">11.</span> <span class="nav-text"> 其他杂项</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -277,6 +277,156 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/07/20/在Ubuntu-16.04上安装VPN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/20/在Ubuntu-16.04上安装VPN/" itemprop="url">在Ubuntu 16.04上安装VPN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T15:35:04+08:00">
+                2017-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/20/在Ubuntu-16.04上安装VPN/" class="leancloud_visitors" data-flag-title="在Ubuntu 16.04上安装VPN">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看到<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">Linode</a>上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。</p>
+<p>新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾去，也没成功。后来发现<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">Linode</a>有个新功能是stackscript，可以在初始化机器的时候，顺便安装一些软件，其中就有自动安装VPN的脚本</p>
+<p><img src="/images/stackscript.png" alt=""></p>
+<p>这个脚本也是一个中国人开发，并且在github上开源的，具体介绍点击这里[<a href="https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn" target="_blank" rel="external">https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn</a>]。</p>
+<p>用了好几年Linode了，感觉特别不错，尤其选择在东京的机房，速度也觉得杠杠的，比那些在美国的机器好用多了。而且国外机房的好处就是做个网站不用备案，有想法立刻可以在那边实现。</p>
+<p>如果哪位朋友想尝试Linode，请点击我的<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="external">推荐链接</a>：）</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/07/17/20170717-HTML 语言 和 CSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1250,7 +1400,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1261,7 +1411,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1272,7 +1422,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
