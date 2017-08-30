@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="css, position, IIFE," />
 
 
 
@@ -93,18 +93,17 @@
 
 
 
-<meta name="description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
+<meta name="description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
+<meta name="keywords" content="css, position, IIFE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tensorflow从文件读取数据">
-<meta property="og:url" content="http://befree2008.github.io/2017/06/18/readingdata/index.html">
+<meta property="og:title" content="可吸附到顶部的导航条的实现">
+<meta property="og:url" content="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
-<meta property="og:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
-<meta property="og:updated_time" content="2017-06-17T16:24:25.000Z">
+<meta property="og:description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
+<meta property="og:updated_time" content="2017-08-30T11:29:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tensorflow从文件读取数据">
-<meta name="twitter:description" content="从文件读取数据 函数tf.train.string_input_producer文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predi">
-<meta name="twitter:image" content="https://www.tensorflow.org/images/AnimatedFileQueues.gif">
+<meta name="twitter:title" content="可吸附到顶部的导航条的实现">
+<meta name="twitter:description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
 
 
 
@@ -132,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/06/18/readingdata/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/"/>
 
 
 
 
 
-  <title>Tensorflow从文件读取数据 | 天一阁</title>
+  <title>可吸附到顶部的导航条的实现 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/18/readingdata/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -295,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Tensorflow从文件读取数据</h1>
+          <h1 class="post-title" itemprop="name headline">可吸附到顶部的导航条的实现</h1>
         
 
         <div class="post-meta">
@@ -307,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T00:24:25+08:00">
-                2017-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T11:20:04+08:00">
+                2017-08-30
               </time>
             
 
@@ -318,6 +317,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -325,7 +346,7 @@
 
           
           
-             <span id="/2017/06/18/readingdata/" class="leancloud_visitors" data-flag-title="Tensorflow从文件读取数据">
+             <span id="/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/" class="leancloud_visitors" data-flag-title="可吸附到顶部的导航条的实现">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,18 +374,40 @@
       
 
       
-        <h4 id="从文件读取数据"><a class="header-anchor" href="#从文件读取数据"> </a>从文件读取数据</h4>
-<p>函数<code>tf.train.string_input_producer</code>文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predict。 <a id="more"></a></p>
-<blockquote>
-<p>疑问：这里为啥要把filename做成一个队列呢？reader每次read一个文件一行，下次是从第二行开始么？</p>
-</blockquote>
-<p>整个读文件的过程分为建文件队列、建立reader、建立decoder、形成tensor，把文件读取的过程分的特别细致。除了<code>tf.TextLineReader</code>还有支持二进制和TF Record的reader。</p>
-<p>得到数据以后，可以在开始train之前，进行必要的数据预处理，正则化，或者加噪音等等。</p>
-<h4 id="数据打包-batch"><a class="header-anchor" href="#数据打包-batch"> </a>数据打包（batch）</h4>
-<p><img src="https://www.tensorflow.org/images/AnimatedFileQueues.gif" alt=""></p>
-<p>reader读出来的数据，再放到一个队列中，凑够一批再传给graph计算，这样会高效很多。不明白为啥要把流程搞得这么复杂，仅仅是读数据，却要两个队列，N个线程，N<sup>2</sup> 个函数来配合。而且结束的时候，也需要通过exception的方式来判断，并且要等所有线程都停止了，才能结束。感觉好麻烦啊。</p>
-<p>似乎想明白一点，其实就是说整个train的过程，并不关心数据从哪里来，怎么来的，他只是调用一个<code>input_fn()</code>，然后就得到一批数据，就可以进行计算了。这些数据实际上是多个线程放入到一个数据队列中的，这些线程其实也不关心这些数据怎么用，谁会用，他们只是按照一定规则把数据入队，就算完成任务了。</p>
-<p><a href="https://www.tensorflow.org/programmers_guide/reading_data" target="_blank" rel="external">官网上有更详细的解释</a></p>
+        <p>一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。<a id="more"></a></p>
+<p>###Position样式</p>
+<p>整个网页在展现时，浏览器使用的是盒模型。</p>
+<p>默认的布局模式叫文档流，我的理解就是，HTML里面的每个元素像在河上流动的物体一样，在页面上，从上到下一个个流出来。通过更改position的属性，可以实现一些特殊效果。</p>
+<p>position选值包括static, relative, absolute, fixed, sticky</p>
+<ul>
+<li>static  是默认的方式，按照盒模型的基本方式进行展示。对于基本的布局，position其实也用不上，用好float就可以了。可能flex的方式更加符合现在的布局特点。</li>
+<li>relative 是在普通的static基础上，对元素的位置进行微调，通过设置top, right, bottom, left这四个值，可以让元素在原本应在的位置上，做偏移。原位置上会留下空白，后续的元素并不会受影响。</li>
+<li>absolute 是把元素从文档流中取出，然后相对于最近的非static的父元素，进行偏移。这个元素的子元素，都会跟着他一起定位到新地方去。后续的兄弟元素在布局时，全当没看见过他，继续正常的盒模型。</li>
+<li>fixed 也不为元素留空间，根据viewport进行偏移，相当于是无论网页怎么滚动变化，这个元素相对于浏览器窗口的位置是不变的(Top, left相对左上不变， Bottom, right，相对右下不变)</li>
+</ul>
+<p>对于要动态置顶的元素块，就是让positioin从static到fixed之间切换，必要时，还需要一个placeholder，避免此元素从文档流中取出后，破坏后面元素的布局。和布局相关的样式还包括display、float、flex这几个都是布局相关的。</p>
+<p>###Scroll事件</p>
+<p>当页面发生滚动事件时，就会调用绑定的事件处理函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onscroll = funcRef;</div></pre></td></tr></table></figure>
+<ul>
+<li>funcRef 是个函数类型的对象引用或者匿名函数.</li>
+</ul>
+<p>可以在页面DOM加载完成时，绑定onscroll函数，比如这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当页面加载完毕时</span></div><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"window.onload"</span>);</div><div class="line">    <span class="comment">//获取要吸附的元素</span></div><div class="line">    <span class="keyword">var</span> oDiv1=<span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</div><div class="line">    <span class="comment">//获取被吸附时，原位置占位的元素，以免影响其他元素布局（占位元素样式一致，背景透明，初始不可见）</span></div><div class="line">    <span class="keyword">var</span> oDiv2=<span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>);</div><div class="line">    <span class="comment">//设置一个变量存储元素到顶部的距离</span></div><div class="line">    <span class="keyword">var</span> divT=getPos(oDiv1).top;<span class="comment">//调用json里的数据对应top的值</span></div><div class="line">    <span class="comment">//当滚动条变化时，执行函数</span></div><div class="line">    <span class="built_in">window</span>.onscroll=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//定义一个变量，获取并存储滚动条纵向移动的距离</span></div><div class="line">        <span class="keyword">var</span> scrollTop=<span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;</div><div class="line">        <span class="comment">//判断吸顶条效果产生时需要的条件是否成立（当滚动距离大于或者等于元素离顶部距离的时候，吸附效果呈现）</span></div><div class="line">        <span class="keyword">if</span>(scrollTop &gt;= divT)&#123;</div><div class="line">            <span class="comment">//设置css样式产生吸附效果</span></div><div class="line">            oDiv1.style.position=<span class="string">'fixed'</span>;</div><div class="line">            oDiv1.style.left=<span class="number">0</span>;</div><div class="line">            oDiv1.style.top=<span class="number">0</span>;</div><div class="line">            <span class="comment">//并且让占位元素显示</span></div><div class="line">            oDiv2.style.display=<span class="string">'block'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//当条件不成立时，物体返回原位（还原之前的的样式）</span></div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//取消定位</span></div><div class="line">            oDiv1.style.position=<span class="string">''</span>;</div><div class="line">            <span class="comment">//并且让占位元素隐藏</span></div><div class="line">            oDiv2.style.display=<span class="string">'none'</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>###立即执行函数表达式（IIFE）</p>
+<p>总是不能明白IIFE的作用，实际上就是一个立即执行的代码段，因为所有的代码是在一个函数里面，所以这里面定义的变量不会污染全局环境。而且如果这段代码在HTML的最底部，他会有window.onload类似的效果，常用的语法形式就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	。 。 。</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<p>PS：一点感想，能把一个知识点清晰地有条理有层次的表达出来是件不容易的事情，需要经过一定的锻炼。这是第三篇了，我看看我写个100篇会怎么样？以前我也是因为忙，也是因为懒，很多问题没有深入，止步于看上去可以run了，既不去管背后的原理，也不去追求更好的解决方案，使得自己进步的不“实在”。看上去好像能够解决很多的问题，但实际上对于知识结构的升级，没有系统性。不仅仅是技术，对于其他知识也是如此，这应该是一种思维习惯的锻炼。之前能够拿出可以run的解决方案，但是只要一评审，总会有很多地方被人问到哑口无言，就是因为只看了表面的，而没有自己的理解。后面，时间也比较充裕，争取改进一下。</p>
+<p>#####参考文档</p>
+<p>关于相关CSS</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/CSS/position</a></p>
+<p><a href="http://www.awaimai.com/447.html" target="_blank" rel="external">http://www.awaimai.com/447.html</a></p>
+<p><a href="http://www.jianshu.com/p/59e8924c0fd4" target="_blank" rel="external">http://www.jianshu.com/p/59e8924c0fd4</a></p>
+<p>关于window.onload事件</p>
+<p><a href="http://www.cnblogs.com/lovesong/p/5641834.html" target="_blank" rel="external">http://www.cnblogs.com/lovesong/p/5641834.html</a></p>
+<p><a href="https://stackoverflow.com/questions/588040/window-onload-vs-document-onload" target="_blank" rel="external">https://stackoverflow.com/questions/588040/window-onload-vs-document-onload</a></p>
+<p>关于立即执行函数表达式（IIFE）</p>
+<p><a href="https://segmentfault.com/a/1190000003985390" target="_blank" rel="external">https://segmentfault.com/a/1190000003985390</a></p>
 
       
     </div>
@@ -392,6 +435,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/css-position-IIFE/" rel="tag"># css, position, IIFE</a>
+          
+        </div>
+      
 
       
       
@@ -401,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/17/Tensor/" rel="next" title="TF编程方式很别扭">
-                <i class="fa fa-chevron-left"></i> TF编程方式很别扭
+              <a href="/2017/08/29/20170829_近期反思/" rel="next" title="近期反思">
+                <i class="fa fa-chevron-left"></i> 近期反思
               </a>
             
           </div>
@@ -410,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/27/20170627-chineseProgram/" rel="prev" title="中文世界编程社区整理">
-                中文世界编程社区整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -460,17 +505,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -532,22 +568,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#从文件读取数据"><span class="nav-number">1.</span> <span class="nav-text"> 从文件读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据打包-batch"><span class="nav-number">2.</span> <span class="nav-text"> 数据打包（batch）</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
