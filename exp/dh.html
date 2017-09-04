@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+    div{
+      margin:50px;
+    }
+      a{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-decoration: none;
+        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        transition: all 1s ease;
+
+      }
+      a:hover{
+        border-top: 2px solid red;
+        border-bottom: 2px solid red;
+      }
+
+      .wrap {
+        height: 50px;
+        width: 200px;
+      }
+      .wrap .popup:before {
+        width: 10px;
+        height: 10px;
+        transform: rotate(-45deg);
+        background: #fff;
+        border: solid 1px #ddd;
+        border-width: 1px 1px 0 0;
+        position: absolute;
+        top: -6px;
+        right: 115px;
+        content: " ";
+      }
+
+      .wrap:hover .popup{
+          visibility: visible;
+          transform:scale(1);
+          transition: all 0.3s cubic-bezier(0.31, 0.57, 0.68, 1.36);
+      }
+      .wrap .popup{
+          margin:0px;
+          padding: 10px;
+          visibility: hidden;
+          transition: none;
+          transform:scale(0);
+          transform-origin: 50% 20%;
+          position: absolute;
+          background: #fff;
+          border: solid 1px #ddd;
+          box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+      }
+      .wrap{
+        position: relative;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <a id='link' href="http://www.wliang.me">我的博客这里加入下划线</a>
+    </div>
+    <div>
+      <button type="button" name="button" onclick='bottomBorder()'>点我，看效果</button>
+    </div>
+
+    <div class='wrap'>
+      <p> 假设这里是个导航条链接</p>
+      <div class='popup'>
+        <p>这里就是弹出层了</p>
+        <p>这里可能有一些二级子菜单</p>
+        <p>关键是这里可以用动画的方式弹出</p>
+        <p>这种效果以前我一直觉得很神奇</p>
+      </div>
+    </div>
+    <div>
+      <p>
+        这里还能添加一些正文么
+
+      </p>
+      <a id='link' href="http://www.wliang.me">返回我的博客</a>
+    </div>
+  </body>
+  <script>
+    var isBorder = true;
+    function bottomBorder(){
+      var link = document.getElementById('link');
+
+      if (isBorder ){
+        link.style.borderTop='2px solid red';
+        link.style.borderBottom='2px solid red';
+      }
+      else{
+        link.style.borderTop='2px solid transparent';
+        link.style.borderBottom='2px solid transparent';
+      }
+      isBorder = !isBorder;
+
+    }
+  </script>
+</html>
