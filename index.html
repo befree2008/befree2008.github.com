@@ -377,30 +377,18 @@
 
       
         
-          
-            <h3 id="网页上加vanila-modal"><a class="header-anchor" href="#网页上加vanila-modal"> </a>网页上加vanila modal</h3>
+          <h3 id="网页上加vanila-modal"><a class="header-anchor" href="#网页上加vanila-modal"> </a>网页上加vanila modal</h3>
 <p>模态框就是显示在当前页面上面的一个对话框或弹出窗口</p>
 <div class="note success"><p>A modal is a dialog box/popup window that is displayed on top of the current page—— W3School</p>
 </div>
-<p>最简单的方式就是做一个宽高都是100%的div，相当于能够用所谓半透明的遮罩覆盖整个屏幕，然后在这个div里面加入各种数据，看上去像是一个对话框一样，其实就是在切换一个层的显示和隐藏。模态层默认是不显示，当某些click事件被触发以后，就可以显示了。具体操作方式就是通过js将对应div的display css属性在none和block之间进行切换。</p>
-<p>这类用户交互功能的开发，对我来说特别的不熟悉，因为之前做后台开发，基本不需要处理这类功能，以前只是根据前端的请求做好后端数据的处理就OK了，需要花心思的地方主要是在于性能、容量、可维护、可靠性这类问题上。这类用户操作，在我看来很多都是障眼法，比如以前也开发过桌面应用，那个时候弹出一个对话框，其实是调用一个系统或框架API，而web开发实际上是利用CSS的显示隐藏完成这样的一种交互。也许慢慢熟悉就好了。</p>
-<p><a href="http://www.wliang.me/m.html" target="_blank" rel="external">例子</a></p>
-<p>前端开发净是障眼法，比如这个关闭按钮的 × , 他就是一个放大了的十叉，利用<code>float:right</code>看上去好像在右边。遍地都是障眼法，遍地都是小trick。 既鄙视，又不能掌握，真是郁闷。</p>
-<p>除了普通的modal，那些从天而降，或	者从底部冒出来的modal又需要css3的animation来配合，上次研究了一下<a href="http://www.wliang.me/2017/09/04/20170904_css3%E7%9A%84transition%E5%8A%A8%E7%94%BB/" target="_blank" rel="external">css的transition</a>，下次研究一下animation</p>
-<h3 id="bootstrap的模态对话框"><a class="header-anchor" href="#bootstrap的模态对话框"> </a>Bootstrap的模态对话框</h3>
-<p>框架的作用就是把这些烦人的工作，都由他们统一来处理了。Bootstrap里面就带有modal 对话框的功能，但是需要加载jquery和bootstrap.min.js。</p>
-<h3 id="vue里面加modal"><a class="header-anchor" href="#vue里面加modal"> </a>vue里面加modal</h3>
-<p>还没有研究</p>
-<p>前端开发看来就是三个主要部分，</p>
-<p>1，HTML，这个叫结构？还是叫数据？反正就是内容。利用CSS来作样式调整，目的是为了减少耦合。但其实也没有分离的特别干净。比如多列布局的时候，就需要HTML和CSS同时考虑一个div到底是占一行，占一列，还是利用坐标定位，宽高是自适应，还是指定好的？这些都是要和CSS一起配合的，不会说完全解耦。</p>
-<p>2，CSS，我觉得CSS就设置一下字体、颜色、间距不就可以了么？他还不只是这么甘当配角，他还要实现布局、动画、等功能，我赶脚到CSS8的时候，还得继续改。</p>
-<p>3，JS，js是在处理页面交互逻辑，这算不算就是所谓的view modal？反正他是处理交互逻辑用，比如根据用户的点击做相应的反映，点个按钮，我这边变一下，可是有些效果又是CSS实现的，比如hover。js还可以做一些ajax，利用浏览器的支持，异步拉取数据，然后把数据写在DOM中。这里JS又和HTML, CSS搅和在一起，js又能添加DOM，又能改变某个dom的style。所以看上去特别乱啊。如果真的是后台开发，怎么可能让你操作我呢？而且HTML、CSS都是按行执行的标记语言，他没有所谓的for, if ，但是又有一些简单逻辑比如说@media什么的。</p>
-<p>抱怨了一大堆，但还得再学学，可能多写，多临摹就慢慢掌握了，也许能够想明白了。</p>
-<p>参考文档</p>
-<p><a href="https://www.w3schools.com/howto/howto_css_modals.asp" target="_blank" rel="external">https://www.w3schools.com/howto/howto_css_modals.asp</a></p>
-<p><a href="https://getbootstrap.com/docs/3.3/javascript/#modals" target="_blank" rel="external">https://getbootstrap.com/docs/3.3/javascript/#modals</a></p>
-
-          
+<p>最简单的方式就是做一个宽高都是100%的div，相当于能够用所谓半透明的遮罩覆盖整个屏幕，然后在这个div里面加入各种数据，看上去像是一个对话框一样，其实就是在切换一个层的显示和隐藏。模态层默认是不显示，当某些click事件被触发以后，就可以显示了。具体操作方式就是通过js将对应div的display css属性在none和block之间进行切换。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/06/20170906_模态对话框/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
