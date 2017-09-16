@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="css, position, IIFE," />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
-<meta name="keywords" content="css, position, IIFE">
+<meta name="description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可吸附到顶部的导航条的实现">
-<meta property="og:url" content="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/index.html">
+<meta property="og:title" content="Using VueJS to Interact with the DOM笔记">
+<meta property="og:url" content="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
-<meta property="og:updated_time" content="2017-08-30T11:52:26.000Z">
+<meta property="og:description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
+<meta property="og:updated_time" content="2017-09-16T14:18:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="可吸附到顶部的导航条的实现">
-<meta name="twitter:description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
+<meta name="twitter:title" content="Using VueJS to Interact with the DOM笔记">
+<meta name="twitter:description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/"/>
 
 
 
 
 
-  <title>可吸附到顶部的导航条的实现 | 天一阁</title>
+  <title>Using VueJS to Interact with the DOM笔记 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">可吸附到顶部的导航条的实现</h1>
+          <h1 class="post-title" itemprop="name headline">Using VueJS to Interact with the DOM笔记</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T19:52:26+08:00">
-                2017-08-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T19:27:41+08:00">
+                2017-09-16
               </time>
             
 
@@ -346,7 +346,7 @@
 
           
           
-             <span id="/2017/08/30/20170830_页面滚动时可吸附顶部的导航条/" class="leancloud_visitors" data-flag-title="可吸附到顶部的导航条的实现">
+             <span id="/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/" class="leancloud_visitors" data-flag-title="Using VueJS to Interact with the DOM笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,41 +374,26 @@
       
 
       
-        <p>一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。<a id="more"></a></p>
-<h3 id="position样式"><a class="header-anchor" href="#position样式"> </a>Position样式</h3>
-<p>整个网页在展现时，浏览器使用的是盒模型。</p>
-<p>默认的布局模式叫文档流，我的理解就是，HTML里面的每个元素像在河上流动的物体一样，在页面上，从上到下一个个流出来。通过更改position的属性，可以实现一些特殊效果。</p>
-<p>position选值包括static, relative, absolute, fixed, sticky</p>
-<ul>
-<li>static  是默认的方式，按照盒模型的基本方式进行展示。对于基本的布局，position其实也用不上，用好float就可以了。可能flex的方式更加符合现在的布局特点。</li>
-<li>relative 是在普通的static基础上，对元素的位置进行微调，通过设置top, right, bottom, left这四个值，可以让元素在原本应在的位置上，做偏移。原位置上会留下空白，后续的元素并不会受影响。</li>
-<li>absolute 是把元素从文档流中取出，然后相对于最近的非static的父元素，进行偏移。这个元素的子元素，都会跟着他一起定位到新地方去。后续的兄弟元素在布局时，全当没看见过他，继续正常的盒模型。</li>
-<li>fixed 也不为元素留空间，根据viewport进行偏移，相当于是无论网页怎么滚动变化，这个元素相对于浏览器窗口的位置是不变的(Top, left相对左上不变， Bottom, right，相对右下不变)</li>
-</ul>
-<p>对于要动态置顶的元素块，就是让positioin从static到fixed之间切换，必要时，还需要一个placeholder，避免此元素从文档流中取出后，破坏后面元素的布局。和布局相关的样式还包括display、float、flex这几个都是布局相关的。</p>
-<h3 id="scroll事件"><a class="header-anchor" href="#scroll事件"> </a>Scroll事件</h3>
-<p>当页面发生滚动事件时，就会调用绑定的事件处理函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onscroll = funcRef;</div></pre></td></tr></table></figure>
-<ul>
-<li>funcRef 是个函数类型的对象引用或者匿名函数.</li>
-</ul>
-<p>可以在页面DOM加载完成时，绑定onscroll函数，比如这样：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当页面加载完毕时</span></div><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"window.onload"</span>);</div><div class="line">    <span class="comment">//获取要吸附的元素</span></div><div class="line">    <span class="keyword">var</span> oDiv1=<span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</div><div class="line">    <span class="comment">//获取被吸附时，原位置占位的元素，以免影响其他元素布局（占位元素样式一致，背景透明，初始不可见）</span></div><div class="line">    <span class="keyword">var</span> oDiv2=<span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>);</div><div class="line">    <span class="comment">//设置一个变量存储元素到顶部的距离</span></div><div class="line">    <span class="keyword">var</span> divT=getPos(oDiv1).top;<span class="comment">//调用json里的数据对应top的值</span></div><div class="line">    <span class="comment">//当滚动条变化时，执行函数</span></div><div class="line">    <span class="built_in">window</span>.onscroll=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//定义一个变量，获取并存储滚动条纵向移动的距离</span></div><div class="line">        <span class="keyword">var</span> scrollTop=<span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;</div><div class="line">        <span class="comment">//判断吸顶条效果产生时需要的条件是否成立（当滚动距离大于或者等于元素离顶部距离的时候，吸附效果呈现）</span></div><div class="line">        <span class="keyword">if</span>(scrollTop &gt;= divT)&#123;</div><div class="line">            <span class="comment">//设置css样式产生吸附效果</span></div><div class="line">            oDiv1.style.position=<span class="string">'fixed'</span>;</div><div class="line">            oDiv1.style.left=<span class="number">0</span>;</div><div class="line">            oDiv1.style.top=<span class="number">0</span>;</div><div class="line">            <span class="comment">//并且让占位元素显示</span></div><div class="line">            oDiv2.style.display=<span class="string">'block'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//当条件不成立时，物体返回原位（还原之前的的样式）</span></div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//取消定位</span></div><div class="line">            oDiv1.style.position=<span class="string">''</span>;</div><div class="line">            <span class="comment">//并且让占位元素隐藏</span></div><div class="line">            oDiv2.style.display=<span class="string">'none'</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h3 id="立即执行函数表达式-iife"><a class="header-anchor" href="#立即执行函数表达式-iife"> </a>立即执行函数表达式（IIFE）</h3>
-<p>总是不能明白IIFE的作用，实际上就是一个立即执行的代码段，因为所有的代码是在一个函数里面，所以这里面定义的变量不会污染全局环境。而且如果这段代码在HTML的最底部，他会有window.onload类似的效果，常用的语法形式就是</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	。 。 。</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
-<p>PS：一点感想，能把一个知识点清晰地有条理有层次的表达出来是件不容易的事情，需要经过一定的锻炼。这是第三篇了，我看看我写个100篇会怎么样？以前我也是因为忙，也是因为懒，很多问题没有深入，止步于看上去可以run了，既不去管背后的原理，也不去追求更好的解决方案，使得自己进步的不“实在”。看上去好像能够解决很多的问题，但实际上对于知识结构的升级，没有系统性。不仅仅是技术，对于其他知识也是如此，这应该是一种思维习惯的锻炼。之前能够拿出可以run的解决方案，但是只要一评审，总会有很多地方被人问到哑口无言，就是因为只看了表面的，而没有自己的理解。后面，时间也比较充裕，争取改进一下。</p>
-<h5 id="demo"><a class="header-anchor" href="#demo"> </a><a href="http://www.wliang.me/exp/xiding.html" target="_blank" rel="external">DEMO</a></h5>
-<h5 id="参考文档"><a class="header-anchor" href="#参考文档"> </a>参考文档</h5>
-<p>关于相关CSS</p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/CSS/position</a></p>
-<p><a href="http://www.awaimai.com/447.html" target="_blank" rel="external">http://www.awaimai.com/447.html</a></p>
-<p><a href="http://www.jianshu.com/p/59e8924c0fd4" target="_blank" rel="external">http://www.jianshu.com/p/59e8924c0fd4</a></p>
-<p>关于window.onload事件</p>
-<p><a href="http://www.cnblogs.com/lovesong/p/5641834.html" target="_blank" rel="external">http://www.cnblogs.com/lovesong/p/5641834.html</a></p>
-<p><a href="https://stackoverflow.com/questions/588040/window-onload-vs-document-onload" target="_blank" rel="external">https://stackoverflow.com/questions/588040/window-onload-vs-document-onload</a></p>
-<p>关于立即执行函数表达式（IIFE）</p>
-<p><a href="https://segmentfault.com/a/1190000003985390" target="_blank" rel="external">https://segmentfault.com/a/1190000003985390</a></p>
+        <p>在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？）</p>
+<p>而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加<code>this</code> 。但是在vue的method中，如果要引用data的属性，则需要加上<code>this.</code>。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue.js是怎么做到的呢？也许他如何做到的，对于现在的我来说压根就不重要。<a id="more"></a></p>
+<h5 id="v-bind-数据绑定"><a class="header-anchor" href="#v-bind-数据绑定"> </a>v-bind 数据绑定</h5>
+`{{ dataMember }}` 两个大括号的用法可以用在HTML中，但是没法用在HTML元素的属性中，属性的值不会被VUE自动替换。所以这个时候就需要vue的指令v-bind , 简写就是`:`
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'app'</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span> &#123;&#123; sayHello() &#125;&#125; - <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">'link'</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">  new Vue(&#123;</div><div class="line">  	el:'#app',</div><div class="line">  	data: &#123;</div><div class="line">      title: "Hello World", </div><div class="line">      link: "http://google.com",</div><div class="line">  	&#125;,</div><div class="line">  	methods: &#123;</div><div class="line">  	  sayHello:function()&#123;</div><div class="line">        return this.title;</div><div class="line">  	  &#125;</div><div class="line">  	&#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如上这样去写就能把<code>a</code>标签的href属性，通过<code>v-bind</code>指令和Vue实例中的link变量绑定到一起，他的链接地址永远和link的值是一致的。</p>
+<h5 id="v-html指令"><a class="header-anchor" href="#v-html指令"> </a>v-html指令</h5>
+`{{ } }` 这种形式只会被vue替换为html的文本，他不能放入到html元素的属性中，同时他会将HTML转义为普通文本。如果想把某段代码直接转为HTML，需要在html元素标签上加上v-html指令，比如：
+<p><code>&lt;p v-html=' finishedLink'&gt; &lt;/p&gt;</code></p>
+<h5 id="v-on-事件绑定"><a class="header-anchor" href="#v-on-事件绑定"> </a>v-on 事件绑定</h5>
+<p>通过v-bind可以把vue的数据传送到页面上展示出来，而v-on指令则可以监听HTML事件，并进行对应的逻辑处理。比如：<code>&lt;button v-on:click='increase'&gt;Click me&lt;/button&gt;</code>, 这里的·increase就是定义在vue实例中methods的一个事件处理函数，并且通过 v-on指令绑定在button元素的点击事件上了。当button被点击，increase函数就会被调用。v-on可以用<code>@</code>符号简写。</p>
+<p>v-on指定还支持modifier，可以实现stop，prevent或者键盘事件中，支持.enter判断等等</p>
+<h5 id="v-model-数据双向绑定"><a class="header-anchor" href="#v-model-数据双向绑定"> </a>v-model 数据双向绑定</h5>
+<p>对于input这样控件，当使用v-model和某个data域中的属性进行双向绑定后，input输入变化时，变量值自动跟着变，并且会同步到所有地方。</p>
+<h5 id="computed-特性"><a class="header-anchor" href="#computed-特性"> </a>Computed 特性</h5>
+<p>有些变量之间会有依赖关系，当有多个函数需要修改A时，必须在函数对B进行修改。在不同函数中也许修改A的逻辑不变但修改B逻辑可能是相同的。在Vue中，可以把B变成一个methods，通过函数来计算，但是如果变量C、D变化时，也许计算一遍B，因为B是通过methods实现。为了节省计算资源，Vue的实例中有一个computed选项，引用这里的变量可以和data中的一样，直接引用即可，而且他比methods的好处在于，只在修改的依赖变量时，才会重新计算。</p>
+<h5 id="watch特性"><a class="header-anchor" href="#watch特性"> </a>watch特性</h5>
+<p>除了computed, 还可以使用watch针对变量值变化，进行相应逻辑处理。watch是需要指定对某个变量进行监听，并且且内部逻辑可以异步执行，可以通过闭包方式，实现比较复杂逻辑</p>
+<h5 id="vue操作css"><a class="header-anchor" href="#vue操作css"> </a>vue操作CSS</h5>
+<p>前端的逻辑主要是展示数据，响应用户操作，和修改样式。vue通过v-bind, v-on能够帮我们实现DOM数据和事件监听。而且vue通过绑定class和style两个属性，可以很便捷的修改HTML元素的样式。这两个属性，既可以直接绑定data里面的变量，也可以通过对象的形式，还能用数组的方式实现多个值共同起作用。class的多个值，表示要多个类的样式，style的多个值，表示要设置多个css属性的值。</p>
 
       
     </div>
@@ -438,7 +423,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css-position-IIFE/" rel="tag"># css, position, IIFE</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -451,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/29/20170829_近期反思/" rel="next" title="近期反思">
-                <i class="fa fa-chevron-left"></i> 近期反思
+              <a href="/2017/09/14/20170914_vue-Getting-Started_2/" rel="next" title="Getting Started笔记（Vue JS 2 - The Complete Guide）">
+                <i class="fa fa-chevron-left"></i> Getting Started笔记（Vue JS 2 - The Complete Guide）
               </a>
             
           </div>
@@ -460,10 +445,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/04/20170904_css3的transition动画/" rel="prev" title="CSS3的Transition动画">
-                CSS3的Transition动画 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -592,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#position样式"><span class="nav-number">1.</span> <span class="nav-text"> Position样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll事件"><span class="nav-number">2.</span> <span class="nav-text"> Scroll事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#立即执行函数表达式-iife"><span class="nav-number">3.</span> <span class="nav-text"> 立即执行函数表达式（IIFE）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#demo"><span class="nav-number">3.0.1.</span> <span class="nav-text"> DEMO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.0.2.</span> <span class="nav-text"> 参考文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#v-bind-数据绑定"><span class="nav-number">1.</span> <span class="nav-text"> v-bind 数据绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-html指令"><span class="nav-number">2.</span> <span class="nav-text"> v-html指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-on-事件绑定"><span class="nav-number">3.</span> <span class="nav-text"> v-on 事件绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-model-数据双向绑定"><span class="nav-number">4.</span> <span class="nav-text"> v-model 数据双向绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#computed-特性"><span class="nav-number">5.</span> <span class="nav-text"> Computed 特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#watch特性"><span class="nav-number">6.</span> <span class="nav-text"> watch特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vue操作css"><span class="nav-number">7.</span> <span class="nav-text"> vue操作CSS</span></a></li></ol></div>
             
 
           </div>
