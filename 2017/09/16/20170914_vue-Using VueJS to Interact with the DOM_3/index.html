@@ -378,7 +378,7 @@
 <p>而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加<code>this</code> 。但是在vue的method中，如果要引用data的属性，则需要加上<code>this.</code>。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue.js是怎么做到的呢？也许他如何做到的，对于现在的我来说压根就不重要。<a id="more"></a></p>
 <h5 id="v-bind-数据绑定"><a class="header-anchor" href="#v-bind-数据绑定"> </a>v-bind 数据绑定</h5>
 `{{ dataMember }}` 两个大括号的用法可以用在HTML中，但是没法用在HTML元素的属性中，属性的值不会被VUE自动替换。所以这个时候就需要vue的指令v-bind , 简写就是`:`
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'app'</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span> &#123;&#123; sayHello() &#125;&#125; - <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">'link'</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">  new Vue(&#123;</div><div class="line">  	el:'#app',</div><div class="line">  	data: &#123;</div><div class="line">      title: "Hello World", </div><div class="line">      link: "http://google.com",</div><div class="line">  	&#125;,</div><div class="line">  	methods: &#123;</div><div class="line">  	  sayHello:function()&#123;</div><div class="line">        return this.title;</div><div class="line">  	  &#125;</div><div class="line">  	&#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'app'</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span> &#123;&#123; sayHello() &#125;&#125; - <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">'link'</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">  	<span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  	<span class="attr">data</span>: &#123;</div><div class="line">      <span class="attr">title</span>: <span class="string">"Hello World"</span>, </div><div class="line">      <span class="attr">link</span>: <span class="string">"http://google.com"</span>,</div><div class="line">  	&#125;,</div><div class="line">  	<span class="attr">methods</span>: &#123;</div><div class="line">  	  <span class="attr">sayHello</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.title;</div><div class="line">  	  &#125;</div><div class="line">  	&#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>如上这样去写就能把<code>a</code>标签的href属性，通过<code>v-bind</code>指令和Vue实例中的link变量绑定到一起，他的链接地址永远和link的值是一致的。</p>
 <h5 id="v-html指令"><a class="header-anchor" href="#v-html指令"> </a>v-html指令</h5>
 `{{ } }` 这种形式只会被vue替换为html的文本，他不能放入到html元素的属性中，同时他会将HTML转义为普通文本。如果想把某段代码直接转为HTML，需要在html元素标签上加上v-html指令，比如：
@@ -445,6 +445,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/18/20170918_vue条件渲染&循环列表_4/" rel="prev" title="Using Conditionals and Rendering Lists笔记">
+                Using Conditionals and Rendering Lists笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -516,7 +520,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
