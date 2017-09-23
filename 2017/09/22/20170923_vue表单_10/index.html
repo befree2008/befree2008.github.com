@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="创业," />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
-<meta name="keywords" content="创业">
+<meta name="description" content="Handling User Input with Forms笔记 表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。  原始形式的表单 表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。&amp;lt;form&amp;gt;标签下放上几个&amp;lt;input&amp;gt;，当点击&amp;lt;submit&amp;gt;标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="互联网的能力是有限的">
-<meta property="og:url" content="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/index.html">
+<meta property="og:title" content="VUE表单v-model处理">
+<meta property="og:url" content="http://befree2008.github.io/2017/09/22/20170923_vue表单_10/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
-<meta property="og:updated_time" content="2017-06-27T06:52:50.000Z">
+<meta property="og:description" content="Handling User Input with Forms笔记 表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。  原始形式的表单 表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。&amp;lt;form&amp;gt;标签下放上几个&amp;lt;input&amp;gt;，当点击&amp;lt;submit&amp;gt;标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发">
+<meta property="og:updated_time" content="2017-09-23T10:41:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="互联网的能力是有限的">
-<meta name="twitter:description" content="互联网能力的局限性 在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。 然而仔细想想其实互联网的能力是十分有限的。首先互联网能处理的内容很有限。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。">
+<meta name="twitter:title" content="VUE表单v-model处理">
+<meta name="twitter:description" content="Handling User Input with Forms笔记 表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。  原始形式的表单 表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。&amp;lt;form&amp;gt;标签下放上几个&amp;lt;input&amp;gt;，当点击&amp;lt;submit&amp;gt;标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2017/09/22/20170923_vue表单_10/"/>
 
 
 
 
 
-  <title>互联网的能力是有限的 | 天一阁</title>
+  <title>VUE表单v-model处理 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/06/27/20170627-互联网的能力是有限的/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/22/20170923_vue表单_10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">互联网的能力是有限的</h1>
+          <h1 class="post-title" itemprop="name headline">VUE表单v-model处理</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T14:52:00+08:00">
-                2017-06-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T18:03:52+08:00">
+                2017-09-22
               </time>
             
 
@@ -329,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/business/" itemprop="url" rel="index">
-                    <span itemprop="name">商业</span>
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
                   </a>
                 </span>
 
@@ -346,7 +346,7 @@
 
           
           
-             <span id="/2017/06/27/20170627-互联网的能力是有限的/" class="leancloud_visitors" data-flag-title="互联网的能力是有限的">
+             <span id="/2017/09/22/20170923_vue表单_10/" class="leancloud_visitors" data-flag-title="VUE表单v-model处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,19 +374,25 @@
       
 
       
-        <h3 id="互联网能力的局限性"><a class="header-anchor" href="#互联网能力的局限性"> </a>互联网能力的局限性</h3>
-<p>在我原来的认知里，互联网简直就是万能的，能娱乐，能泡妞，能学习，好像有一根网线就能得到全世界。</p>
-<p>然而仔细想想其实互联网的能力是十分有限的。首先<strong>互联网能处理的内容很有限</strong>。计算机只能处理可以被数字化的内容。银行账户上的钱数可以在网络上传递，但是像房产、艺术品这样的财产，在网络上是没法传递的。这些可被处理的信息的具体形式就那么几种：数字、文字、图片、音乐、视频。<a id="more"></a></p>
-<p>除了能处理的信息形式是有限的，<strong>互联网的功能是有限的</strong>，也就这么几种：信息发布、信息聚合、信息交流。启初互联网的作用就是传送文件，这样就不用拿软盘或光盘拷贝了。后来有了Email，大家沟通更加便捷了，就是想跟你说话这件事情变得更方便了。随后有了网页，我有什么长篇幅要阐述的内容，就可以放到网上，大家不受地域、时间的限制，都可以看到这些内容。随着发布的内容越来越多，信息的聚合筛选就变成了一种新的信息服务。同时大家不满足于单向的、1V1的信息交流，就开始有了论坛、聊天室这类的交流平台。从形式上看，互联网上也就这几种形式：工具、平台、内容。</p>
-<p>最近这几年其实变化不是很大了，趋于平稳了，能够处理的信息，信息交流的形式都相对稳定了。</p>
-<h3 id="互联网服务的可能性"><a class="header-anchor" href="#互联网服务的可能性"> </a>互联网服务的可能性</h3>
-<p>对于像我这样，特别想靠网络为生的人，做点什么事情可以赚到钱呢？如果想从互联网上挣到钱，可以做的事情也是有限的，对于我来说就更有限了。比如去表演直播这类的事情，就肯定没我什么事。</p>
-<p>回顾互联网的历史什么事情能做成呢？大部分好的服务，都是以前在网上没有，或者是中国还没有，于是有人创办了一个服务，他就存活下来了。随后这个服务受到很多用户喜欢，可以低成本扩展（是指平均用户成本很低），这样就会立刻成长为大公司，进而开始商业化，实现商业价值。</p>
-<p>怎么找到可以做的事情呢？可以从两个角度想：</p>
-<p>1，从自身出发（看我想要什么）</p>
-<p>2，从市场现有的供应出发（看别人想要什么）</p>
-<p>可能看了一圈，发现该有的，都有了，老天爷还能赏口饭给我么？要做更好的服务，要考虑在现有服务前面加限定词，进而看看这是不是新服务，是否满足“之前是没有的”这样的一个条件，同时如果这种服务可能是足够多的用户需要的，那这个事情就能支撑一家商业化公司了。我的目的就可以达到了。</p>
-<p>所以，下一步的行动想法就是，定期总结一些信息服务，不一定非要系统、全面的遍历这个互联网，可以是从最感兴趣的服务入手，对这一类服务进行调研，然后在服务前面加各种限定词，通过这种方式看看机会是否还存在。但愿能够有所收获。</p>
+        <p>Handling User Input with Forms笔记</p>
+<p>表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。</p>
+<h5 id="原始形式的表单"><a class="header-anchor" href="#原始形式的表单"> </a>原始形式的表单</h5>
+<p>表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。<code>&lt;form&gt;</code>标签下放上几个<code>&lt;input&gt;</code>，当点击<code>&lt;submit&gt;</code>标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发送的地址是form的属性action所指定的url。这里用到的是POST方法。</p>
+<p>这些机制都是HTTP协议和浏览器共同完成了，作为web developper只是把业务逻辑写好。其中radio、checkbox需要name属性一致，这样才能表示对应的数据。无论是PHP活着Flask都是判断当前是POST方法表示客户端提交了数据，然后解析request里面的form，进行数据处理，然后在根据业务逻辑，生成对应的页面。</p>
+<h5 id="vue的表单处理"><a class="header-anchor" href="#vue的表单处理"> </a>Vue的表单处理</h5>
+<p>原生的form是需要页面跳转的，或者说是整个页面刷新。有了Vue这样的前端框架，可以不再按原来的方式处理，直接就是前后端分离，然后submit按钮点击之后，采用ajax方式和后台交互数据，业务逻辑很多放到了前端。</p>
+<p>对vue对表单的来说，最需要的就是收集数据，基本上都是通过<code>v-model</code>这个指令和vue的data中的变量进行绑定，然后submit之后提交数据。其中checkbox是个数组，radio是一个包含value的字符串<a id="more"></a></p>
+<h5 id="v-model-背后机制"><a class="header-anchor" href="#v-model-背后机制"> </a>v-model 背后机制</h5>
+<p>v-model也是所谓语法糖，他实际是v-bind和v-on的组合。v-on监听的是input事件，这样实现了双向绑定。利用这个机制，就可以做一些自定义表单组件。只需要表单组件里面通过props能够接收value属性，并能$emit一个input事件，这个相当于父组件和子组件之间的协议，通过这个协议，和v-model指令，就可以做一个看上去像控件的自定义控件。</p>
+<h5 id="发点牢骚"><a class="header-anchor" href="#发点牢骚"> </a>发点牢骚</h5>
+<p>终于知道为什么我现在好难，目前还只是卡在开发层面上。一个startup，需要考虑太多事情。</p>
+<ol>
+<li><strong>idea阶段</strong> 先从宏观考虑用户需要，市场供应，分销渠道，价格策略</li>
+<li><strong>开发阶段</strong> 要考虑用户交互流程，UI风格，用户体验，然后前后台功能分离，前后台协议。需要一个个页面的切分，一个个元素去写。如果做大了，后台考虑安全性，可靠性，性能等等问题。</li>
+<li><strong>运营阶段</strong> 怎么拉到新用户，去哪里推广，怎么提高用户粘性，让用户留存。如何从用户反馈中获取新的需求，新的方向。</li>
+</ol>
+<p>对于现在的我来说，去开发一个漂亮的完整的软件的能力都不足。真的仅有一腔热血啊。没关系慢慢学，失败不可怕。每天进步一点点，持续进步。</p>
+<h5 id="none"><a class="header-anchor" href="#none"> </a></h5>
 
       
     </div>
@@ -416,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/创业/" rel="tag"># 创业</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -429,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/27/20170627-chineseProgram/" rel="next" title="中文世界编程社区整理">
-                <i class="fa fa-chevron-left"></i> 中文世界编程社区整理
+              <a href="/2017/09/22/20170922_组件的高级特性_9/" rel="next" title="Advanced Component Usage笔记">
+                <i class="fa fa-chevron-left"></i> Advanced Component Usage笔记
               </a>
             
           </div>
@@ -438,10 +444,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/17/20170717-HTML 语言 和 CSS/" rel="prev" title="HTML 语言 和 CSS">
-                HTML 语言 和 CSS <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -570,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#互联网能力的局限性"><span class="nav-number">1.</span> <span class="nav-text"> 互联网能力的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互联网服务的可能性"><span class="nav-number">2.</span> <span class="nav-text"> 互联网服务的可能性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#原始形式的表单"><span class="nav-number">1.</span> <span class="nav-text"> 原始形式的表单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vue的表单处理"><span class="nav-number">2.</span> <span class="nav-text"> Vue的表单处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-model-背后机制"><span class="nav-number">3.</span> <span class="nav-text"> v-model 背后机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发点牢骚"><span class="nav-number">4.</span> <span class="nav-text"> 发点牢骚</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#none"><span class="nav-number">5.</span> <span class="nav-text"> </span></a></li></ol></div>
             
 
           </div>
