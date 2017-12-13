@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://befree2008.github.io/2017/12/12/20171212_两篇关于WSGI和Web Framework的文章_23/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="《WSGI: The Server-Application Interface for Python 》这篇文章是我喜欢的那种套路，按时间进程交代技术眼花的过程。他讲到1993年，web开始兴起，但是都是静态页面。随后大牛在NCSA HTTPd（apache 前身）实现了CGI。从那之后，网上的内容都是动态网站了，互联网用户也大幅增长。 但CGI有很多问题，随后大牛们又实现了FastCGI(199">
-<meta property="og:updated_time" content="2017-12-12T07:06:16.000Z">
+<meta property="og:updated_time" content="2017-12-13T08:38:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐WSGI和Web Framework的推荐文档">
 <meta name="twitter:description" content="《WSGI: The Server-Application Interface for Python 》这篇文章是我喜欢的那种套路，按时间进程交代技术眼花的过程。他讲到1993年，web开始兴起，但是都是静态页面。随后大牛在NCSA HTTPd（apache 前身）实现了CGI。从那之后，网上的内容都是动态网站了，互联网用户也大幅增长。 但CGI有很多问题，随后大牛们又实现了FastCGI(199">
@@ -381,6 +381,15 @@
 <p>比较清晰解释了WebFramework的主要功能，现在web框架这么多，其实核心功能也就是这些了。</p>
 <p>首先要处理好HTTP协议的请求与应答。HTTP协议中主要的请求类型包括GET, POST, ，应答也是有固定套路的。这些都可以由框架完成。</p>
 <p>然后框架要处理好URL路由(routing)和模板(template)的问题，这样可以比较从容的对不同URL生成不同的页面。同时在配合一个ORM，这样就能写很多web应用了。大体上，都是使用MVC这个总的模式。</p>
+<p>web框架是不是要做好这几件事情：</p>
+<ol>
+<li>HTTP消息接受和发送</li>
+<li>URL的路由，根据url能够调用对应页面函数</li>
+<li>模板引擎，能够高效，简介的动态生成页面</li>
+<li>ORM，能够方便的访问数据库</li>
+<li>其他关于cookie, session, 表单验证, 都属于额外的附加功能。</li>
+</ol>
+<p>也就说其实理论就那么一点，只是很繁琐，框架的目的就是为了提高开发效率，但是如果要使用好框架，首先非常清楚工作原理，最好能够理解框架实现细节。</p>
 
       
     </div>
@@ -498,7 +507,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
