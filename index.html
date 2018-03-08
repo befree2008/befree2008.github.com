@@ -277,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/13/20121213_Flask源码学习笔记2：路由映射_25/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/02/05/20180205_deepleaning学习笔记_逻辑回归/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -296,7 +296,299 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/13/20121213_Flask源码学习笔记2：路由映射_25/" itemprop="url">Flask源码学习笔记2：路由映射</a></h1>
+                <a class="post-title-link" href="/2018/02/05/20180205_deepleaning学习笔记_逻辑回归/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T10:19:59+08:00">
+                2018-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/05/20180205_deepleaning学习笔记_逻辑回归/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">title: deepLearning学习笔记_逻辑回归</div><div class="line">categories: 技术</div><div class="line">tags: deeplearning</div></pre></td></tr></table></figure>
+<p>####Logistic Regression as a Neural Network</p>
+<ol>
+<li>二元分类：比如判断一张图片是猫</li>
+<li><strong>逻辑回归</strong>：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率</li>
+</ol>
+<p>$$
+\hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}}
+$$</p>
+<ol start="3">
+<li><strong>Lost Function</strong>:</li>
+</ol>
+<p>$$
+Loss= - (y\log{\hat{y}} + (1-y)\log{(1-\hat{y})})
+$$
+<strong>Cost Function</strong>:<br>
+$$
+J(w,b) = \frac{1}{m} \sum_{i=0}^m{L(\hat{y}, y)}
+$$</p>
+<ol start="4">
+<li>
+<p>梯度下降：根据LostFunc，给出dw,dx,db 的计算式，得到值。每个变量，沿梯度方向变化一点，整个loss就会变化，不停的反复迭代，就会找到最佳的参数。</p>
+<p>我一直有个错误的认识，就是dw, db和Loss值有关，dw，db需要使用Loss值进行计算，其实不是，dw只和LostFunc的表达式有关，只和其他参数当前值有关，有没有Loss值都不重要，只是每次迭代之后，需要看看Loss是不是在减少了，而不需要通过Loss计算梯度。</p>
+<p>​</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/18/正常的下载流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/18/正常的下载流程/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-18T21:19:13+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/18/正常的下载流程/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>正常的下载流程</p>
+<p>1，添加视频</p>
+<p>2，添加任务记录</p>
+<p>3，放入celery任务</p>
+<p>celery任务，</p>
+<p>1，下载视频</p>
+<p>2，scp会linode，</p>
+<p>3，更新video</p>
+<p>4，更新任务</p>
+<p>任务列表</p>
+<p>1，展示我的下载</p>
+<p>2，提示任务还在下载中</p>
+<p>3，完成的任务，进入播放</p>
+<p>poster</p>
+<p>movurl</p>
+<p>intro</p>
+<p>uploader</p>
+<p>view_count</p>
+<p>duration</p>
+<p>task state</p>
+<p>做了一个youtube下载的工具，<a href="http://fstack.io" target="_blank" rel="external">fstack.io</a>，可以搜索下载任意视频，你们觉得有用么</p>
+<p>youtube视频工具，<a href="http://fstack.io/%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E4%B8%8B%E8%BD%BDyoutube%E4%BB%BB%E6%84%8F%E8%A7%86%E9%A2%91" target="_blank" rel="external">http://fstack.io/，可以搜索下载youtube任意视频</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/13/20171213_Flask源码学习笔记2：路由映射_25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/13/20171213_Flask源码学习笔记2：路由映射_25/" itemprop="url">Flask源码学习笔记2：路由映射</a></h1>
         
 
         <div class="post-meta">
@@ -326,7 +618,7 @@
 
           
           
-             <span id="/2017/12/13/20121213_Flask源码学习笔记2：路由映射_25/" class="leancloud_visitors" data-flag-title="Flask源码学习笔记2：路由映射">
+             <span id="/2017/12/13/20171213_Flask源码学习笔记2：路由映射_25/" class="leancloud_visitors" data-flag-title="Flask源码学习笔记2：路由映射">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -406,7 +698,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/12/20121212_Flask源码学习笔记1：实例创建&消息流转_24/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/12/20171212_Flask源码学习笔记1：实例创建&消息流转_24/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -425,7 +717,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/12/20121212_Flask源码学习笔记1：实例创建&消息流转_24/" itemprop="url">Flask源码学习笔记1：实例创建，消息流转</a></h1>
+                <a class="post-title-link" href="/2017/12/12/20171212_Flask源码学习笔记1：实例创建&消息流转_24/" itemprop="url">Flask源码学习笔记1：实例创建，消息流转</a></h1>
         
 
         <div class="post-meta">
@@ -455,7 +747,7 @@
 
           
           
-             <span id="/2017/12/12/20121212_Flask源码学习笔记1：实例创建&消息流转_24/" class="leancloud_visitors" data-flag-title="Flask源码学习笔记1：实例创建，消息流转">
+             <span id="/2017/12/12/20171212_Flask源码学习笔记1：实例创建&消息流转_24/" class="leancloud_visitors" data-flag-title="Flask源码学习笔记1：实例创建，消息流转">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1487,323 +1779,6 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/17/20171017_初级web开发者怎么找工作_17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/17/20171017_初级web开发者怎么找工作_17/" itemprop="url">初级web开发者怎么找工作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T23:17:44+08:00">
-                2017-10-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/business/" itemprop="url" rel="index">
-                    <span itemprop="name">商业</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/10/17/20171017_初级web开发者怎么找工作_17/" class="leancloud_visitors" data-flag-title="初级web开发者怎么找工作">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天看了一个youtube频道，挺有意思，也是讲web开发的，他的特点是不仅仅讲技术，还讲了一点点思路和观点。他认为一个初学web开发的人，一定要做5各类型的project，然后一定可以找到工作。分别是租房网站、电商网站、个人简历、订餐网站、digital agency（？？）。</p>
-<p>暂且不论他说的这几个网站是否要做，但有一点是肯定的。软件开发里面有80%都是熟练性工作，只要熟悉了就不会有问题，剩下的就是工作量而已。如果想在这步省钱省时，就得自己上手。没办法穷人出身啊，不敢大手大脚</p>
-<p>重新捡起来web开发已经四个月了，感觉还是很多事情没法做，或者说做的不熟练。</p>
-<p>页面上的布局，结构的划分，内容的添加，各种装饰，各种控件，好多都不是特别容易想到，只能靠不停的模仿。</p>
-<p>前端还有js需要仔细研究，这个东西零碎的东西太多。名词好多，框架好多，每个框架的特性还没有学习熟练，这个框架好像就过时了。所以只是学习框架是没有意义的。还是需要多做。</p>
-<p>其实Web开发就这几样技术要学，HTML+CSS  ,  Javascript ,   后端开发语言PHP/Python/Ruby/Go,  DB, Cache, 等等这些前端就是一些熟练工作。那个视频还讲了一个思路挺好，就是如果不懂设计，可以去dribbble上看看，但是我找了一些UI的网站，很少有一些中规中矩的设计，都是过于突出设计感的设计作品。</p>
-<p>我目前主要的工具就是HTML+CSS+JS(Bootstrap, jQuery) , Vue（js, node , webpack, scss），Flask(python, webServer), Mysql , 这些其实已经足够用了。</p>
-<p>后面就是多做，多看，设计不是问题，大不了就去花钱。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/16/0200天代码计划/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/16/0200天代码计划/" itemprop="url">200天代码计划</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T14:38:49+08:00">
-                2017-10-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/10/16/0200天代码计划/" class="leancloud_visitors" data-flag-title="200天代码计划">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>效仿这位大神<a href="https://jenniferdewalt.com/index.html" target="_blank" rel="external">180天180个页面</a>，我也做一个试试，不过人家是学美术的，做的页面都很有艺术感，我感觉我做不到那么好，但是我也可以做到那么多。</p>
-<ol>
-<li>2017.11.1 - 2017.11.2 strength的trainlog页面，db逻辑生疏了</li>
-<li>2017.10.31 strength的login, reg的页面的后台逻辑，已经可以登录了</li>
-<li>2017.10.30 strength的login, reg的页面</li>
-<li>2017.10.29     &lt;空窗&gt;</li>
-<li>2017.10.28 <a href="http://liliangju.ruimeigg.cn/" target="_blank" rel="external">力量举计算器(带后台逻辑)</a></li>
-<li>2017.10.27 <a href="http://ruimeigg.cn/wlexp/strength/calc_s.html" target="_blank" rel="external">力量举计算器</a></li>
-<li>2017.10.26 <a href="http://liliangju.ruimeigg.cn/standard.html" target="_blank" rel="external">各单项力量数据</a></li>
-<li>2017.10.25 <a href="http://www.ruimeigg.cn/wlexp/strength/standard.html" target="_blank" rel="external">力量举标准页面</a></li>
-<li>2017.10.24 <a href="http://www.ruimeigg.cn/wlexp/singlePage/css_gradient.html" target="_blank" rel="external">CSS使用渐变的效果</a></li>
-<li>2017.10.23 <a href="http://www.ruimeigg.cn//wlexp/portfolio/" target="_blank" rel="external">Portfolio</a></li>
-<li>2017.10.22 Glozzom之<a href="http://ruimeigg.cn/wlexp/glozzom/about.html" target="_blank" rel="external">About</a>和<a href="http://ruimeigg.cn/wlexp/glozzom/services.html" target="_blank" rel="external">Service</a></li>
-<li>2017.10.21 <a href="http://ruimeigg.cn/wlexp/glozzom/" target="_blank" rel="external">Glozzom很漂亮的首页</a></li>
-<li>2017.10.20 Blog Admin之 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/profile.html" target="_blank" rel="external">Profile</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/settings.html" target="_blank" rel="external">Settings</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/login.html" target="_blank" rel="external">Login</a></li>
-<li>2017.10.19 Blog Admin之 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/posts.html" target="_blank" rel="external">Post</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/categories.html" target="_blank" rel="external">Category</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/users.html" target="_blank" rel="external">User</a></li>
-<li>2017.10.18 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/" target="_blank" rel="external">Blog Admin</a></li>
-<li>2017.10.17 <a href="http://www.ruimeigg.cn/wlexp/mizuxe/index.html" target="_blank" rel="external">bootstrap4 Project</a></li>
-<li>2017.10.16  <a href="http://www.wliang.me/exp/002/index.html" target="_blank" rel="external">webpack小实验</a></li>
-<li>2017.10.15 <a href="http://www.ruimeigg.cn" target="_blank" rel="external">我的ProductHunt</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1853,7 +1828,7 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1917,7 +1892,7 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
