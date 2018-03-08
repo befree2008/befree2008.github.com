@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="deeplearning," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://befree2008.github.io/archives/2017/page/5/index.html">
+<meta name="description" content="####Logistic Regression as a Neural Network  二元分类：比如判断一张图片是猫 逻辑回归：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率  $$ \hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}} $$">
+<meta name="keywords" content="deeplearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deepLearning学习笔记_逻辑回归">
+<meta property="og:url" content="http://befree2008.github.io/2018/02/05/20180205_DL学习笔记_逻辑回归/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="####Logistic Regression as a Neural Network  二元分类：比如判断一张图片是猫 逻辑回归：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率  $$ \hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}} $$">
+<meta property="og:updated_time" content="2018-03-08T08:00:07.629Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天一阁">
-<meta name="twitter:description" content="以互联网精神为信仰">
+<meta name="twitter:title" content="deepLearning学习笔记_逻辑回归">
+<meta name="twitter:description" content="####Logistic Regression as a Neural Network  二元分类：比如判断一张图片是猫 逻辑回归：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率  $$ \hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}} $$">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/archives/2017/page/5/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2018/02/05/20180205_DL学习笔记_逻辑回归/"/>
 
 
 
 
 
-  <title>归档 | 天一阁</title>
+  <title>deepLearning学习笔记_逻辑回归 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-right  page-archive  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -265,143 +267,209 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 45 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/02/05/20180205_DL学习笔记_逻辑回归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">deepLearning学习笔记_逻辑回归</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T10:19:59+08:00">
+                2018-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/05/20180205_DL学习笔记_逻辑回归/" class="leancloud_visitors" data-flag-title="deepLearning学习笔记_逻辑回归">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <p>####Logistic Regression as a Neural Network</p>
+<ol>
+<li>二元分类：比如判断一张图片是猫</li>
+<li><strong>逻辑回归</strong>：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率</li>
+</ol>
+<p>$$
+\hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}}
+$$</p>
+<ol start="3">
+<li><strong>Lost Function</strong>:</li>
+</ol>
+<p>$$
+Loss= - (y\log{\hat{y}} + (1-y)\log{(1-\hat{y})})
+$$
+<strong>Cost Function</strong>:<br>
+$$
+J(w,b) = \frac{1}{m} \sum_{i=0}^m{L(\hat{y}, y)}
+$$</p>
+<ol start="4">
+<li>
+<p>梯度下降：根据LostFunc，给出dw,dx,db 的计算式，得到值。每个变量，沿梯度方向变化一点，整个loss就会变化，不停的反复迭代，就会找到最佳的参数。</p>
+<p>我一直有个错误的认识，就是dw, db和Loss值有关，dw，db需要使用Loss值进行计算，其实不是，dw只和LostFunc的表达式有关，只和其他参数当前值有关，有没有Loss值都不重要，只是每次迭代之后，需要看看Loss是不是在减少了，而不需要通过Loss计算梯度。</p>
+<p>​</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
+          
         </div>
       
+
+      
+      
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/18/正常的下载流程/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          <span class="post-nav-divider"></span>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/18/readingdata/" itemprop="url">
-              
-                <span itemprop="name">Tensorflow从文件读取数据</span>
-              
-            </a>
-        
-      </h2>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/08/20180308_Python小收获/" rel="prev" title="Python的一些小收获点">
+                Python的一些小收获点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-18T00:24:25+08:00"
-              content="2017-06-18" >
-          06-18
-        </time>
-      </div>
-
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/17/Tensor/" itemprop="url">
-              
-                <span itemprop="name">TF编程方式很别扭</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-17T15:34:30+08:00"
-              content="2017-06-17" >
-          06-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/10/Markdown语法 & Typora特性/" itemprop="url">
-              
-                <span itemprop="name">Markdown语法 & Typora特性</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-10T15:42:53+08:00"
-              content="2017-06-10" >
-          06-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2017/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -409,6 +477,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -611,11 +683,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
