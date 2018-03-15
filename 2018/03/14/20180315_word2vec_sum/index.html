@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="deeplearning," />
 
 
 
@@ -93,15 +93,19 @@
 
 
 
-<meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://befree2008.github.io/archives/2018/02/index.html">
+<meta name="description" content="最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数 $$ \log{\sigma(v_{w_{O}}^{&apos;T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{&apos;T}v_{w_{I}})] $$">
+<meta name="keywords" content="deeplearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Word Embedding的参数推导和直观理解_DL体会总结_3">
+<meta property="og:url" content="http://befree2008.github.io/2018/03/14/20180315_word2vec_sum/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数 $$ \log{\sigma(v_{w_{O}}^{&apos;T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{&apos;T}v_{w_{I}})] $$">
+<meta property="og:image" content="http://cache.ruimeigg.cn/word2vec.png">
+<meta property="og:updated_time" content="2018-03-15T09:22:29.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天一阁">
-<meta name="twitter:description" content="以互联网精神为信仰">
+<meta name="twitter:title" content="Word Embedding的参数推导和直观理解_DL体会总结_3">
+<meta name="twitter:description" content="最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数 $$ \log{\sigma(v_{w_{O}}^{&apos;T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{&apos;T}v_{w_{I}})] $$">
+<meta name="twitter:image" content="http://cache.ruimeigg.cn/word2vec.png">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/archives/2018/02/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2018/03/14/20180315_word2vec_sum/"/>
 
 
 
 
 
-  <title>归档 | 天一阁</title>
+  <title>Word Embedding的参数推导和直观理解_DL体会总结_3 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-right  page-archive  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -265,65 +269,223 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 46 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/03/14/20180315_word2vec_sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Word Embedding的参数推导和直观理解_DL体会总结_3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T20:29:40+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/14/20180315_word2vec_sum/" class="leancloud_visitors" data-flag-title="Word Embedding的参数推导和直观理解_DL体会总结_3">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <p>最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数</p>
+<p>$$
+\log{\sigma(v_{w_{O}}^{'T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{'T}v_{w_{I}})]
+$$</p>
+<p>这是什么？原论文基本没有写细节。我特别想知道，这样的函数怎么做back propagation。于是总算找到这个：《word2vec Parameter Learning Explained》。人家确认牛，不仅深入浅出的给出数学推导，还能给出一个直观的，说人话的解释，让人更加能够明白word2vec到底在干什么。我想尝试整理一下，看看都学到了哪些，所以总结如下：</p>
+<h3 id="1-forward过程"><a class="header-anchor" href="#1-forward过程"> </a>1, Forward过程</h3>
+<p>训练word embedding的网络结构是这样的，他的隐藏层后面并没有任何非线性函数。</p>
+<p><img src="http://cache.ruimeigg.cn/word2vec.png" alt="wordvec"></p>
+<p>为了说明计算过程，模型简化为1对1 的预测，类似bigram。</p>
+<h4 id="input-hidden"><a class="header-anchor" href="#input-hidden"> </a>Input -&gt; Hidden</h4>
+<p>模型的输入到hidden的计算是</p>
+<p>$$h=W^{T}X = W_{(k,.)}^{T}$$</p>
+<p>X是one-hot向量，是V*1的列向量，W是V*N的矩阵，就是word embed，每行代表词表中的一个词。h是N*1的列向量。</p>
+<h4 id="hidden-output"><a class="header-anchor" href="#hidden-output"> </a>Hidden -&gt; Output</h4>
+<p>h向量就是W的第k行，也就是词表中第k个词的向量。$$W^{’}$$ 是N*V的矩阵，可理解为另外一组word embed。 从h预测output时，相当于是输入词的embed和输出词embed做内积，得出一个score u</p>
+<p>$$ u= W^{'T}h$$</p>
+<p>u是V*1的向量，通过softmax，得出预测的每个词的概率y     $$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</p>
+<h4 id="loss-func"><a class="header-anchor" href="#loss-func"> </a>Loss Func</h4>
+<p>有了预测概率，有了true target，就可以通过交叉熵来计算损失函数了，经过基本变形就得到了
+$$
+\begin{align*}
+E &amp;= - log \space y_{j^{<em>}} \ &amp;= -u_{j^{</em>}} + \log \sum_{j’=1}^{V} exp(u_{j’})<br>
+\end{align*}
+$$</p>
+<p>我真正的困惑是从下面开始，不知道怎么去做导数反向传递，好在《word2vec Parameter Learning Explained》给出的推导过程特别详细，我才能勉强看懂。</p>
+<h3 id="2-backward过程"><a class="header-anchor" href="#2-backward过程"> </a>2, Backward过程</h3>
+<ol>
+<li>$$h=W^{T}X = W_{(k,.)}^{T}$$</li>
+<li>$$ u= W^{'T}h$$</li>
+<li>$$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</li>
+<li>$$ E = -u_{j^{*}} + \log \sum_{j<sup>{’}=1}</sup>{V} exp(u_{j^{’}}) $$</li>
+</ol>
+<p>就是这几个公式依次求导。可是反向求导为啥难理解呢，我觉得主要是因为，前向过程都是用矩阵或向量计算的，求导时需要很多变换，还需要考虑转置的问题，行列的问题，转换步骤一多，思维就乱掉了。</p>
+<p>首先求关于$$u_{j}$$ 的导数
+$$
+\frac{\partial E}{\partial u_{j}} = y_{j} - t_{j} := e_{j} \qquad j\in [1,V]
+$$
+然后求关于$$W_{i,j}^{’}$$ 的导数
+$$
+\begin{align*} \frac{\partial E}{\partial W_{ij}^{’}} &amp;= \frac{\partial E}{\partial u_{j}} .  \frac{\partial u_{j}}{\partial W_{ij}^{’}} \ \&amp;=e <em>{j}.h</em>{i} \qquad\qquad  j\in [1,V]\quad i \in [1,N]   \end{align*}
+$$
+这个要理解我觉得最好还是把矩阵画出来，然后一步步去推导比较容易理解。其实最后$$\frac{\partial E}{\partial W^{’}} $$ 会最终变为一个矩阵，参数更新也都是通过矩阵运算的方式。这个公式在原论文中给出了一个直观理解，就是对于输出参数矩阵的每个词，根据预测的概率误差，相应的远离输入词。相当于这次word vector在他们的高维空间，不停的移动，已获得最佳的位置。当训练样本足够多了，每个word vector也就基本稳定不会移动了，这时候就可以把参数矩阵拿出来直接当做word embedding使用了。这些word embedding中包含了很多语义特征。</p>
+<p>其他的推导懒得写了，如果以后忘记了，就回看论文好了。</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
+          
         </div>
       
+
+      
+      
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/13/20180308_lr_nn/" rel="next" title="逻辑回归和神经网络_DL体会总结_2">
+                <i class="fa fa-chevron-left"></i> 逻辑回归和神经网络_DL体会总结_2
+              </a>
+            
+          </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          <span class="post-nav-divider"></span>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/05/20180205_DL学习笔记_逻辑回归/" itemprop="url">
-              
-                <span itemprop="name">逻辑回归_DL体会总结_1</span>
-              
-            </a>
-        
-      </h2>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-05T10:19:59+08:00"
-              content="2018-02-05" >
-          02-05
-        </time>
-      </div>
-
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -331,6 +493,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -350,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -413,6 +588,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-forward过程"><span class="nav-number">1.</span> <span class="nav-text"> 1, Forward过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#input-hidden"><span class="nav-number">1.1.</span> <span class="nav-text"> Input -> Hidden</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-output"><span class="nav-number">1.2.</span> <span class="nav-text"> Hidden -> Output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loss-func"><span class="nav-number">1.3.</span> <span class="nav-text"> Loss Func</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-backward过程"><span class="nav-number">2.</span> <span class="nav-text"> 2, Backward过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -533,11 +724,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
