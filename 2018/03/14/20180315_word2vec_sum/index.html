@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数 $$ \log{\sigma(v_{w_{O}}^{&apos;T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{&apos;T}v_{w_{I}})] $$">
 <meta property="og:image" content="http://cache.ruimeigg.cn/word2vec.png">
-<meta property="og:updated_time" content="2018-03-15T09:22:29.230Z">
+<meta property="og:updated_time" content="2018-05-07T01:35:14.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word Embedding的参数推导和直观理解_DL体会总结_3">
 <meta name="twitter:description" content="最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数 $$ \log{\sigma(v_{w_{O}}^{&apos;T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{&apos;T}v_{w_{I}})] $$">
@@ -137,6 +137,8 @@
 
 
 
+<script src="http://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='http://unpkg.com/valine/dist/Valine.min.js'></script
 
 
   <title>Word Embedding的参数推导和直观理解_DL体会总结_3 | 天一阁</title>
@@ -471,6 +473,10 @@ $$
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/05/07/20180507_hexo评论/" rel="prev" title="Hexo+ Next主题 增加Valine评论">
+                Hexo+ Next主题 增加Valine评论 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -486,6 +492,20 @@ $$
       
     </div>
   </div>
+  <div id='comment'>
+  </div>
+  <script>
+    new Valine({
+      el: '#comment' ,
+      notify:false,
+      verify:false,
+      appId: 'yPpQtWmQaIKqlFG0qI85twGC-gzGzoHsz',
+      appKey: 'sDCNS4srpSEYbk6csjPi8VCY',
+      placeholder: 'just go go',
+      path:window.location.pathname,
+      avatar:'mm'
+    });
+  </script>
 
 
           </div>
@@ -541,7 +561,7 @@ $$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -563,7 +583,7 @@ $$
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
