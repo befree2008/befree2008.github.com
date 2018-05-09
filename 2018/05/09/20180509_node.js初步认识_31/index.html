@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vue," />
+  <meta name="keywords" content="node.js," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
-<meta name="keywords" content="vue">
+<meta name="description" content="Node.js是干啥的 之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。">
+<meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Using VueJS to Interact with the DOM笔记">
-<meta property="og:url" content="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/index.html">
+<meta property="og:title" content="node.js初步认识">
+<meta property="og:url" content="http://befree2008.github.io/2018/05/09/20180509_node.js初步认识_31/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
-<meta property="og:updated_time" content="2017-09-16T14:18:18.000Z">
+<meta property="og:description" content="Node.js是干啥的 之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。">
+<meta property="og:updated_time" content="2018-05-09T14:04:08.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Using VueJS to Interact with the DOM笔记">
-<meta name="twitter:description" content="在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？） 而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加this 。但是在vue的method中，如果要引用data的属性，则需要加上this.。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue">
+<meta name="twitter:title" content="node.js初步认识">
+<meta name="twitter:description" content="Node.js是干啥的 之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。">
 
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2018/05/09/20180509_node.js初步认识_31/"/>
 
 
 
@@ -139,7 +139,7 @@
 <script src='http://unpkg.com/valine/dist/Valine.min.js'></script
 
 
-  <title>Using VueJS to Interact with the DOM笔记 | 天一阁</title>
+  <title>node.js初步认识 | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/05/09/20180509_node.js初步认识_31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -296,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Using VueJS to Interact with the DOM笔记</h1>
+          <h1 class="post-title" itemprop="name headline">node.js初步认识</h1>
         
 
         <div class="post-meta">
@@ -308,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T19:27:41+08:00">
-                2017-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T21:58:51+08:00">
+                2018-05-09
               </time>
             
 
@@ -348,7 +348,7 @@
 
           
           
-             <span id="/2017/09/16/20170914_vue-Using VueJS to Interact with the DOM_3/" class="leancloud_visitors" data-flag-title="Using VueJS to Interact with the DOM笔记">
+             <span id="/2018/05/09/20180509_node.js初步认识_31/" class="leancloud_visitors" data-flag-title="node.js初步认识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,26 +376,35 @@
       
 
       
-        <p>在vue中，通过new Vue实例，所有的变量、相应事件的函数，都通过js的构造函数就设置好的，（怎么实现的呢？）</p>
-<p>而且，在vue模板中，如果需要打印变量的值，或者函数的返回结果，直接用`{{ xxx } }` 直接调用，而不用加<code>this</code> 。但是在vue的method中，如果要引用data的属性，则需要加上<code>this.</code>。看上去特别像C++这样的语言，然而你如果去细扣其中的语法，又完全解释不通？vue.js是怎么做到的呢？也许他如何做到的，对于现在的我来说压根就不重要。<a id="more"></a></p>
-<h5 id="v-bind-数据绑定"><a class="header-anchor" href="#v-bind-数据绑定"> </a>v-bind 数据绑定</h5>
-`{{ dataMember }}` 两个大括号的用法可以用在HTML中，但是没法用在HTML元素的属性中，属性的值不会被VUE自动替换。所以这个时候就需要vue的指令v-bind , 简写就是`:`
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'app'</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span> &#123;&#123; sayHello() &#125;&#125; - <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">'link'</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">  	<span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  	<span class="attr">data</span>: &#123;</div><div class="line">      <span class="attr">title</span>: <span class="string">"Hello World"</span>, </div><div class="line">      <span class="attr">link</span>: <span class="string">"http://google.com"</span>,</div><div class="line">  	&#125;,</div><div class="line">  	<span class="attr">methods</span>: &#123;</div><div class="line">  	  <span class="attr">sayHello</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.title;</div><div class="line">  	  &#125;</div><div class="line">  	&#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>如上这样去写就能把<code>a</code>标签的href属性，通过<code>v-bind</code>指令和Vue实例中的link变量绑定到一起，他的链接地址永远和link的值是一致的。</p>
-<h5 id="v-html指令"><a class="header-anchor" href="#v-html指令"> </a>v-html指令</h5>
-`{{ } }` 这种形式只会被vue替换为html的文本，他不能放入到html元素的属性中，同时他会将HTML转义为普通文本。如果想把某段代码直接转为HTML，需要在html元素标签上加上v-html指令，比如：
-<p><code>&lt;p v-html=' finishedLink'&gt; &lt;/p&gt;</code></p>
-<h5 id="v-on-事件绑定"><a class="header-anchor" href="#v-on-事件绑定"> </a>v-on 事件绑定</h5>
-<p>通过v-bind可以把vue的数据传送到页面上展示出来，而v-on指令则可以监听HTML事件，并进行对应的逻辑处理。比如：<code>&lt;button v-on:click='increase'&gt;Click me&lt;/button&gt;</code>, 这里的·increase就是定义在vue实例中methods的一个事件处理函数，并且通过 v-on指令绑定在button元素的点击事件上了。当button被点击，increase函数就会被调用。v-on可以用<code>@</code>符号简写。</p>
-<p>v-on指定还支持modifier，可以实现stop，prevent或者键盘事件中，支持.enter判断等等</p>
-<h5 id="v-model-数据双向绑定"><a class="header-anchor" href="#v-model-数据双向绑定"> </a>v-model 数据双向绑定</h5>
-<p>对于input这样控件，当使用v-model和某个data域中的属性进行双向绑定后，input输入变化时，变量值自动跟着变，并且会同步到所有地方。</p>
-<h5 id="computed-特性"><a class="header-anchor" href="#computed-特性"> </a>Computed 特性</h5>
-<p>有些变量之间会有依赖关系，当有多个函数需要修改A时，必须在函数对B进行修改。在不同函数中也许修改A的逻辑不变但修改B逻辑可能是相同的。在Vue中，可以把B变成一个methods，通过函数来计算，但是如果变量C、D变化时，也许计算一遍B，因为B是通过methods实现。为了节省计算资源，Vue的实例中有一个computed选项，引用这里的变量可以和data中的一样，直接引用即可，而且他比methods的好处在于，只在修改的依赖变量时，才会重新计算。</p>
-<h5 id="watch特性"><a class="header-anchor" href="#watch特性"> </a>watch特性</h5>
-<p>除了computed, 还可以使用watch针对变量值变化，进行相应逻辑处理。watch是需要指定对某个变量进行监听，并且且内部逻辑可以异步执行，可以通过闭包方式，实现比较复杂逻辑</p>
-<h5 id="vue操作css"><a class="header-anchor" href="#vue操作css"> </a>vue操作CSS</h5>
-<p>前端的逻辑主要是展示数据，响应用户操作，和修改样式。vue通过v-bind, v-on能够帮我们实现DOM数据和事件监听。而且vue通过绑定class和style两个属性，可以很便捷的修改HTML元素的样式。这两个属性，既可以直接绑定data里面的变量，也可以通过对象的形式，还能用数组的方式实现多个值共同起作用。class的多个值，表示要多个类的样式，style的多个值，表示要设置多个css属性的值。</p>
+        <h4 id="node-js是干啥的"><a class="header-anchor" href="#node-js是干啥的"> </a>Node.js是干啥的</h4>
+<p>之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。<a id="more"></a></p>
+<h4 id="特点"><a class="header-anchor" href="#特点"> </a>特点</h4>
+<p>Node是利用google的V8 Javascript引擎，可以高性能的解析Javascript，Node在V8基础上封装了很多后端应用才会用到的Module。这样就发生了一个很神奇的现象，就是一种浏览器脚本，常见于前端页面开发的语言，竟然可以开发后台Server开发。而且Node的设计理念是单线程，全异步，在某些场合会比较高效，单机的QPS、吞吐量也会相对高一些。</p>
+<p>而且因为是使用JS语言，这样可以使得前后端使用同一种语言，语言切换成本变低了很多。加上JS这么语言有很多灵活的语法，可以让开发更加快速。</p>
+<p>同时Node里面还有一种包管理机制，我的理解就是各种类库。这些类库可以很方便的通过工具npm，从网络上下载对应版本。这些类库有几万个，涵盖了各种功能，很像乐高积木一样，堆堆搭搭就形成了一个后台服务，提供您Restful API或者 返回普通HTML页面。</p>
+<p>基于Node也有比较成熟的Web开发框架——Express.js , 虽然我还没深入研究，估计这个就是类似Lavaral, Flask, Django，这类的MVC框架，只要写好URL路由，做下ORM，然后在各个Controller里面写业务逻辑，就能返回View了。</p>
+<h4 id="js的特性"><a class="header-anchor" href="#js的特性"> </a>JS的特性</h4>
+<p>看了一些代码，很多看不懂，让我自己写，也是让我头疼的不行。主要原因是对Node不熟悉，更重要的是对JS的语法和开发形式不熟悉。我估计以后得有人写“Javascript编程思想”这类的书了。js里面有些新特性，我后面还得慢慢体会和测试，比如匿名函数、闭包、函数式编程、链式调用、回调函数。回头把这几个概念搞清楚。</p>
+<h4 id="对比感想"><a class="header-anchor" href="#对比感想"> </a>对比感想</h4>
+<p>有时真的很感慨。就在10年前，这些搞PHP的都被看做是做前台的。本来就是么，PHP最终的输出就是一个个也HTML页面，尽管页面上有很多数据，但之前他们是不能直接连接DB的，他们获取数据的方式必须通过后台Server啊。</p>
+<p>而十年过去了，弹指一挥间。这些前端开发语言，脚本语言成了主流，他们具有了和C++一样的，甚至更好的特性，开发工具也越来越好，人也越来越聪明，知识也学的越来越快。反倒是像我这样的，经验反而成了负累。</p>
+<p>虽然思路是一样的，多进程/多线程，异步IO，cache，DB，面向对象，封装，继承，多态，然而现在没有什么多态，只有callback Function。以前做后台开发还要自己设计消息结构，消息头，消息体，现在好了，底下HTTP，上面用JSON基本是万能的了。各种精巧的接口和注意事项，已经全然无用了。不过这样顺应了时势发展，本来以前的所谓C++Server其实很多一旦把一些类似Redis，RabbitMQ，进程间通信，这些通用逻辑一旦剥离出去，其实就剩下基本的业务逻辑判断了，无非就是if, else, for , write , update这类的简单操作了。</p>
+<h4 id="后续的学习想法"><a class="header-anchor" href="#后续的学习想法"> </a>后续的学习想法</h4>
+<p>本来是要记录技术的，结果又发了一大堆牢骚。以后不发牢骚了，忘记过去吧，大部分经验都是枷锁，丢下枷锁，才能真的获得自由。</p>
+<p>我看现在IT信息技术，有这么几类</p>
+<h5 id="应用开发"><a class="header-anchor" href="#应用开发"> </a>应用开发</h5>
+<p><strong>后端</strong></p>
+<p>现在看其实在应用开发中，主要就是后台数据服务，其实就是业务逻辑，业务逻辑可能复杂，不过主要也就是是对各种数据增，查，改，删，CRUD，一般是PHP, Python, JS也有少部分。数据量大了，访问量大了，业务环节多了，可能总体的解决方案就会用上各种知识和智慧了。</p>
+<p><strong>前端</strong></p>
+<p>Web前端主要是HTML ，CSS，JS和各种类库，框架，还是为了开发的快捷性。iOS前端和android前端，稍微会复杂一点，因为除了要处理界面展示问题，还要处理一些其他的逻辑，他们更是完整的MVC模式。web前端更多是V，而web后端是M和C的逻辑多一些。</p>
+<p>应用类开发更加侧重工程性，工程就是当访问量很大时，用哪些现有技术可以更加高效、快捷、高性价比的满足业务场景的需要。所以工程性好，就是代码本身设计结构合理，系统间各层级，各模块功能划分合理，耦合度低；而且充分利用好各种行业通用的工具，无论是开发工具，还是代码类库。同时要有好的开发方式，让很多人同时顺畅的合作。这才是应用开发中更多需要考虑的内容，至于用了哪些创新算法，其实根本不care，一般来说行业内一定有比较优秀的解决方案，最多是做剪裁和优化。当然能够把所有现有的技术全部掌握精通，那也是非常了不起的，毕竟范围太广，而且不停的在更新。</p>
+<h5 id="算法"><a class="header-anchor" href="#算法"> </a>算法</h5>
+<p>这里可能涉及一些分类，预测，推荐等各种算法，但如果是为产品服务的话，其实更多也是利用现有的模型，然后在基于自己场景做调参。</p>
+<h5 id="系统软件-框架"><a class="header-anchor" href="#系统软件-框架"> </a>系统软件/框架</h5>
+<p>这类给应用程序员开发的软件，其实也未必是有多么技术含量，只不过就是人家已经形成规模了，而且很多是免费，都是可能一个大型系统中的某个组件，顺便就开源了，然后有更多人参与进来，然后就成了行业规范或惯例。比如OS，DB，Cache，编译器、解释器，一些开发框架、类库都可能是这样的。这些东西学习一下挺好的，就是涨涨见识，未必能够真的能超越。</p>
+<h5 id="底层硬件"><a class="header-anchor" href="#底层硬件"> </a>底层硬件</h5>
+<p>从CPU，磁盘，网络，到树莓派，ardinuo等等，这些硬件知识应该去了解，但是很难学得深，一个是有点跨专业，一个是缺少实践的机会。</p>
+<p>这么多内容一个大问题就是学完就忘，我想全学也没啥意义，应该是从业务角度出发。去解决问题，而不是一味的在这里遍历技术。在解决问题的过程中，再去思考技术上的创新。</p>
 
       
     </div>
@@ -425,7 +434,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vue/" rel="tag"># vue</a>
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
           
         </div>
       
@@ -438,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/14/20170914_vue-Getting-Started_2/" rel="next" title="Getting Started笔记（Vue JS 2 - The Complete Guide）">
-                <i class="fa fa-chevron-left"></i> Getting Started笔记（Vue JS 2 - The Complete Guide）
+              <a href="/2018/05/07/20180507_hexo评论/" rel="next" title="Hexo+ Next主题 增加Valine评论">
+                <i class="fa fa-chevron-left"></i> Hexo+ Next主题 增加Valine评论
               </a>
             
           </div>
@@ -447,10 +456,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/18/20170918_vue条件渲染&循环列表_4/" rel="prev" title="Using Conditionals and Rendering Lists笔记">
-                Using Conditionals and Rendering Lists笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#v-bind-数据绑定"><span class="nav-number">1.</span> <span class="nav-text"> v-bind 数据绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-html指令"><span class="nav-number">2.</span> <span class="nav-text"> v-html指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-on-事件绑定"><span class="nav-number">3.</span> <span class="nav-text"> v-on 事件绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v-model-数据双向绑定"><span class="nav-number">4.</span> <span class="nav-text"> v-model 数据双向绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#computed-特性"><span class="nav-number">5.</span> <span class="nav-text"> Computed 特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#watch特性"><span class="nav-number">6.</span> <span class="nav-text"> watch特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vue操作css"><span class="nav-number">7.</span> <span class="nav-text"> vue操作CSS</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#node-js是干啥的"><span class="nav-number">1.</span> <span class="nav-text"> Node.js是干啥的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">2.</span> <span class="nav-text"> 特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js的特性"><span class="nav-number">3.</span> <span class="nav-text"> JS的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对比感想"><span class="nav-number">4.</span> <span class="nav-text"> 对比感想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续的学习想法"><span class="nav-number">5.</span> <span class="nav-text"> 后续的学习想法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用开发"><span class="nav-number">5.1.</span> <span class="nav-text"> 应用开发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法"><span class="nav-number">5.2.</span> <span class="nav-text"> 算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统软件-框架"><span class="nav-number">5.3.</span> <span class="nav-text"> 系统软件/框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#底层硬件"><span class="nav-number">5.4.</span> <span class="nav-text"> 底层硬件</span></a></li></ol></li></ol></div>
             
 
           </div>
