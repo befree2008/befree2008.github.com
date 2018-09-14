@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="cnn," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://befree2008.github.io/tags/imvocab-com/index.html">
+<meta name="description" content="Inception提出了很多想法被后续的NN接受，比如1x1卷积减少计算量，两层3x3等价于一层5*5，非对称卷积，并行的pooling，平滑标签。 Inception和其他的CNN比起来，主要是足够宽了。但是超参太多了，尤其是涉及到网络结构的超参，这个可能就导致他们开始考虑做NAS了。">
+<meta name="keywords" content="cnn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN图像分类学习记录(四)——Network in Network">
+<meta property="og:url" content="http://befree2008.github.io/2018/09/12/20180913_CNN图像分类学习记录(Inception)/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="Inception提出了很多想法被后续的NN接受，比如1x1卷积减少计算量，两层3x3等价于一层5*5，非对称卷积，并行的pooling，平滑标签。 Inception和其他的CNN比起来，主要是足够宽了。但是超参太多了，尤其是涉及到网络结构的超参，这个可能就导致他们开始考虑做NAS了。">
+<meta property="og:updated_time" content="2018-09-14T01:12:27.366Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天一阁">
-<meta name="twitter:description" content="以互联网精神为信仰">
+<meta name="twitter:title" content="CNN图像分类学习记录(四)——Network in Network">
+<meta name="twitter:description" content="Inception提出了很多想法被后续的NN接受，比如1x1卷积减少计算量，两层3x3等价于一层5*5，非对称卷积，并行的pooling，平滑标签。 Inception和其他的CNN比起来，主要是足够宽了。但是超参太多了，尤其是涉及到网络结构的超参，这个可能就导致他们开始考虑做NAS了。">
 
 
 
@@ -129,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/tags/imvocab-com/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2018/09/12/20180913_CNN图像分类学习记录(Inception)/"/>
 
 
 
@@ -137,7 +139,7 @@
 <script src='http://unpkg.com/valine/dist/Valine.min.js'></script
 
 
-  <title>标签: imvocab.com | 天一阁</title>
+  <title>CNN图像分类学习记录(四)——Network in Network | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -173,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-right  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,44 +269,212 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>imvocab.com<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/09/12/20180913_CNN图像分类学习记录(Inception)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN图像分类学习记录(四)——Network in Network</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T16:56:18+08:00">
+                2018-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/12/20180913_CNN图像分类学习记录(Inception)/" class="leancloud_visitors" data-flag-title="CNN图像分类学习记录(四)——Network in Network">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>Inception提出了很多想法被后续的NN接受，比如1x1卷积减少计算量，两层3x3等价于一层5*5，非对称卷积，并行的pooling，平滑标签。</p>
+<p>Inception和其他的CNN比起来，主要是足够宽了。但是超参太多了，尤其是涉及到网络结构的超参，这个可能就导致他们开始考虑做NAS了。<a id="more"></a></p>
+<h4 id="inception-v1"><a class="header-anchor" href="#inception-v1"> </a>Inception v1</h4>
+<p>《Going deeper with convolutions》</p>
+<p>Inception V1是2014年时最好的CNN了，想研究一下内部细节。</p>
+<p>作者说改进NN的直接方法就是增加深度，增加宽度。而更多的参数会更容易导致overfitting。减少overfitting需要更多的标注数据，但这些数据不容易得到。另一个缺点就是，计算量会过大。</p>
+<p>文章还提到，可能解决问题的方式是从全连接的架构，转换成稀疏连接。《provable bounds for learning some deep representations》这个论文的结论是如果数据集的概率，可以通过一个很大，且稀疏的NN表示，那么这个NN的网络结构，可以逐层的构建出来。</p>
+<p>这篇文章可能是作者在做自动寻找NN的时候，提出来的模型，总是在一个更宏大的视角看CNN，导致很多内容是我等小白无法理解的。只能留到日后再看。</p>
+<p>inception用一组不同尺寸的filter去提取特征，作者非得管这个叫local sparse structure。利用1x1的filter进行降维，减少计算量。同时在最后也采用NiN的 average pooling的方式计算类别分值。</p>
+<p>inception和之前的CNN比较就是多个在同一层上，可以组合多个size的filter，而且max-pool stride为1的时候，也能产生相同output的feature map。</p>
+<p>但是为什么一组不同尺寸的conv操作，就能更好的提取特征？为什么1*1的conv降维再升维对信息representation没有影响，或影响是什么？这些好像都没看懂。</p>
+<h4 id="inception-v2-v3"><a class="header-anchor" href="#inception-v2-v3"> </a>Inception v2/v3</h4>
+<p>《Rethinking the Inception Architecture for Computer Vision》</p>
+<p>1，分解filter。因为相近的神经元非常相关，所以可以通过1x1降维。另外一方面，把一层5x5变成两个3x3也可以减少计算量。进一步，n*n还能通过分解为1*n和n*1两层，继续减少计算量，但只在中部层有用。</p>
+<p>2，新的pooling，可以既减少计算量，又能够保持信息</p>
+<h4 id="inception-v4"><a class="header-anchor" href="#inception-v4"> </a>Inception-v4</h4>
+<p>《Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning》</p>
+<p>上来就说自己保守了，网络太复杂了。幸亏我没太死扣，要不然亏死我了。这篇文章终于不是大段大段的讲那些思考方式、设计原则了，那些内容也许更有意义，但是我看不懂啊。这个只是简明扼要的把网络结构，实验结果放出来，我觉得这样其实挺好的。</p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/08/26/20170826_背单词www.imvocab.com上线了/" itemprop="url">
-              
-                <span itemprop="name">背单词 www.imvocab.com 上线了</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-26T16:07:26+08:00"
-              content="2017-08-26" >
-          08-26
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cnn/" rel="tag"># cnn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/20180912_CNN图像分类学习记录(NiN)/" rel="next" title="CNN图像分类学习记录(四)——Network in Network">
+                <i class="fa fa-chevron-left"></i> CNN图像分类学习记录(四)——Network in Network
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div id='comment'>
+  </div>
+  <script>
+    new Valine({
+      el: '#comment' ,
+      notify:false,
+      verify:false,
+      appId: 'yPpQtWmQaIKqlFG0qI85twGC-gzGzoHsz',
+      appKey: 'sDCNS4srpSEYbk6csjPi8VCY',
+      placeholder: 'just go go',
+      path:window.location.pathname,
+      avatar:'mm'
+    });
+  </script>
 
 
           </div>
@@ -312,6 +482,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -331,8 +505,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -394,6 +577,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#inception-v1"><span class="nav-number">1.</span> <span class="nav-text"> Inception v1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inception-v2-v3"><span class="nav-number">2.</span> <span class="nav-text"> Inception v2/v3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inception-v4"><span class="nav-number">3.</span> <span class="nav-text"> Inception-v4</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -519,10 +718,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
