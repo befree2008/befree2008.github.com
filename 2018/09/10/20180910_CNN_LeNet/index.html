@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="cnn," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://befree2008.github.io/tags/cnn/index.html">
+<meta name="description" content="《Gradient-based learning applied to document recognition》 之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。 卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出">
+<meta name="keywords" content="cnn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN图像分类学习记录(一)——LeNet">
+<meta property="og:url" content="http://befree2008.github.io/2018/09/10/20180910_CNN_LeNet/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="《Gradient-based learning applied to document recognition》 之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。 卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出">
+<meta property="og:updated_time" content="2018-09-10T04:55:28.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天一阁">
-<meta name="twitter:description" content="以互联网精神为信仰">
+<meta name="twitter:title" content="CNN图像分类学习记录(一)——LeNet">
+<meta name="twitter:description" content="《Gradient-based learning applied to document recognition》 之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。 卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出">
 
 
 
@@ -129,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="http://befree2008.github.io/tags/cnn/"/>
+  <link rel="canonical" href="http://befree2008.github.io/2018/09/10/20180910_CNN_LeNet/"/>
 
 
 
@@ -137,7 +139,7 @@
 <script src='http://unpkg.com/valine/dist/Valine.min.js'></script
 
 
-  <title>标签: cnn | 天一阁</title>
+  <title>CNN图像分类学习记录(一)——LeNet | 天一阁</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -173,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-right  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,212 +269,215 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>cnn<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/14/20180914_CNN图像分类学习记录(ResNet)/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(六)——ResNet, ResNeXt</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-14T16:06:57+08:00"
-              content="2018-09-14" >
-          09-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/12/20180913_CNN图像分类学习记录(Inception)/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(五)——Inception</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-12T16:56:18+08:00"
-              content="2018-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/12/20180912_CNN图像分类学习记录(NiN)/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(四)——Network in Network</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-12T13:46:43+08:00"
-              content="2018-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/12/20180912_CNN图像分类学习记录(Vgg)/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(三)——VGGNet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-12T08:36:25+08:00"
-              content="2018-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/11/20180911_CNN图像分类学习记录(AlexNet)/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(二)——AlexNet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-11T11:54:17+08:00"
-              content="2018-09-11" >
-          09-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/10/20180910_CNN_LeNet/" itemprop="url">
-              
-                <span itemprop="name">CNN图像分类学习记录(一)——LeNet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T12:54:16+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/06/20180906_CNN图像分类/" itemprop="url">
-              
-                <span itemprop="name">近期要读的CNN图像分类论文列表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-06T12:55:50+08:00"
-              content="2018-09-06" >
-          09-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/09/10/20180910_CNN_LeNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN图像分类学习记录(一)——LeNet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T12:54:16+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/10/20180910_CNN_LeNet/" class="leancloud_visitors" data-flag-title="CNN图像分类学习记录(一)——LeNet">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《Gradient-based learning applied to document recognition》</p>
+<p>之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。</p>
+<p>卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出基本视觉元素，比如边缘，角点，终点。这些特征再被后续的层去提取更高维度的特征。一个卷积神经元输出一个feature map，完整的卷积层由多个卷积核组成。</p>
+<p>池化层的作用是减少feature的精确位置，只关注特征之间的相对位置。</p>
+<p>LeNet-5结构</p>
+<p>1，C1，6个5*5的filter</p>
+<p>2，S2，avg_pooling, 12个参数</p>
+<p>3，C3，16个5*5的filter，但是不是完全卷积</p>
+<p>4，S4，2<em>2的avg pooling  , 16</em>2=32个参数</p>
+<p>5，C5，120个5*5卷积filter，这一层又是完全卷积了，只有C3特殊</p>
+<p>6，F6，是全连接层，有84的神经元，这一个层后用了tanh，作为激活函数</p>
+<p>7，Output，F7层也不是普通的全连接层，而是用了所谓RBF函数，实际是把F6层输出84维向量，和10个分类的向量求欧式距离</p>
+<p>8，Loss Func也不是现在常用的交叉熵，而是一个我看不懂的公式</p>
+<p>原始LeNet和现在通用模式，还是有很多差别。比如C3层就不是对S2层的完全卷积操作，而是不同的卷积核对应不同的层，作者说是为了减少计算量，更重要是为了打破对称。而在卷积处理后，是现在avg_pool，并且还是乘上一个参数，再加一个bias，才得到采样以后的数值，这个数值还要进行sigmoid。早先的论文很多都是数学公式，不想现在更注重简化，方便工程实现。</p>
+<p>可以看出LeNet的时候，还没有dropout, max_pool, relu等优化，但已经把CNN的大框架定下来了。</p>
+<p>这篇文章还讲了很多图像分割，后处理等技术，实在看不懂，留到后续再学习吧，现在先把LeNet的结构搞懂就不错。</p>
+<p>也就是说，在1998年人们就开始利用CNN自动选择特征，发展到2010s以后，就开始用GPU寻找feature vector，而且有了大量的标注数据。此后，人工寻找好的NN结构，用不同的超参做实验，俗称炼丹师，到2017年后，开始机器寻找好的网络结构(NAS, PNAS, ENAS)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cnn/" rel="tag"># cnn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/06/20180906_CNN图像分类/" rel="next" title="近期要读的CNN图像分类论文列表">
+                <i class="fa fa-chevron-left"></i> 近期要读的CNN图像分类论文列表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/11/20180911_CNN图像分类学习记录(AlexNet)/" rel="prev" title="CNN图像分类学习记录(二)——AlexNet">
+                CNN图像分类学习记录(二)——AlexNet <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div id='comment'>
+  </div>
+  <script>
+    new Valine({
+      el: '#comment' ,
+      notify:false,
+      verify:false,
+      appId: 'yPpQtWmQaIKqlFG0qI85twGC-gzGzoHsz',
+      appKey: 'sDCNS4srpSEYbk6csjPi8VCY',
+      placeholder: 'just go go',
+      path:window.location.pathname,
+      avatar:'mm'
+    });
+  </script>
 
 
           </div>
@@ -480,6 +485,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -687,10 +696,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
