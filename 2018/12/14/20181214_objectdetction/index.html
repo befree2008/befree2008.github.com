@@ -100,17 +100,17 @@
 <meta property="og:url" content="http://befree2008.github.io/2018/12/14/20181214_objectdetction/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="目标检测 CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。  因为滑动窗口截图的方式过于简单粗暴，人们又提出了Selective Search算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（regions of interest ROI">
-<meta property="og:image" content="http://befree2008.github.io/images/sw.png">
-<meta property="og:image" content="http://befree2008.github.io/images/rcnn.png">
-<meta property="og:image" content="http://befree2008.github.io/images/fastrcnn.png">
-<meta property="og:image" content="http://befree2008.github.io/images/roi_pooling.gif">
-<meta property="og:image" content="http://befree2008.github.io/images/fasterrcnn.jpeg">
-<meta property="og:image" content="http://befree2008.github.io/images/rpn.jpeg">
-<meta property="og:updated_time" content="2018-12-14T02:42:07.393Z">
+<meta property="og:image" content="http://static.aixpaper.com/wl/sw.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/rcnn.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/fastrcnn.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/roi_pooling.gif">
+<meta property="og:image" content="http://static.aixpaper.com/wl/fasterrcnn.jpeg">
+<meta property="og:image" content="http://static.aixpaper.com/wl/rpn.jpeg">
+<meta property="og:updated_time" content="2018-12-14T03:06:48.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测学习笔记(一)_RCNN系列">
 <meta name="twitter:description" content="目标检测 CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。  因为滑动窗口截图的方式过于简单粗暴，人们又提出了Selective Search算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（regions of interest ROI">
-<meta name="twitter:image" content="http://befree2008.github.io/images/sw.png">
+<meta name="twitter:image" content="http://static.aixpaper.com/wl/sw.png">
 
 
 
@@ -385,25 +385,25 @@
       
         <h2 id="目标检测"><a class="header-anchor" href="#目标检测"> </a>目标检测</h2>
 <p>CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。</p>
-<p><img src="/images/sw.png" alt=""></p>
+<p><img src="http://static.aixpaper.com/wl/sw.png" alt=""></p>
 <p>因为滑动窗口截图的方式过于简单粗暴，人们又提出了<a href="http://aixpaper.com/view/selective_search_for_object_recognition" target="_blank" rel="external"><strong>Selective Search</strong></a>算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（<strong>regions of interest</strong> ROI），这样可以节省很多计算量。</p>
 <h3 id="rcnn"><a class="header-anchor" href="#rcnn"> </a>RCNN</h3>
 <p>有了SS算法，加上CNN，大牛Ross Girshick在2014年提出<a href="http://aixpaper.com/view/rich_feature_hierarchies_for_accurate_object_detection_and_semantic_segmentation" target="_blank" rel="external">RCNN目标检测算法</a>。思路也挺直观，就是SS算法选区域，然后把小图片缩放成相同尺寸进入CNN，得到特征向量，然后分别进行类别判断和bbox的调整。</p>
-<p><img src="/images/rcnn.png" alt="rcnn"></p>
+<p><img src="http://static.aixpaper.com/wl/rcnn.png" alt="rcnn"></p>
 <h3 id="fast-rcnn"><a class="header-anchor" href="#fast-rcnn"> </a>Fast-RCNN</h3>
 <p>RCNN在ROI选择上使用了SS算法，但需要进行多次的CNN计算，整体的检测速度还是很慢。所以还是Ross Girshick在2015年又整出来<a href="http://aixpaper.com/view/fast_rcnn" target="_blank" rel="external">Fast-RCNN目标检测算法</a>。所谓Fast就是减少CNN计算次数。先把图片送入CNN得到Feature Map，然后根据ROI的坐标，直接在Feature Map上截取特征值，然后在进行后续的分类和边框回归。</p>
-<p><img src="/images/fastrcnn.png" alt="fast rcnn"></p>
+<p><img src="http://static.aixpaper.com/wl/fastrcnn.png" alt="fast rcnn"></p>
 <h4 id="roi-pooling"><a class="header-anchor" href="#roi-pooling"> </a>RoI Pooling</h4>
 <p>网络最后的分类和边框回归是全连接层，需要输入的大小是确定且统一的。RoI的框框是大小不一的，RCNN是截取原图，把小图进行缩放，可以得到相同大小的向量。但是使用RoI从FeatureMap上截取出来的特征向量，是没法缩放的。于是rgb就提出了RoI Pooling。</p>
 <p>Pooling这个词翻译成池化，Max Pooling, Average Pooling，或者是RoI Pooling都翻译成池化，“池化”这是什么鬼，这绝对是狗屎翻译。Pooling这个词是有<strong>共用，合并</strong>的意思的。“池化”这样的翻译，会让人很难理解。</p>
 <p>继续说RoI Pooling，RoIPooling的主要思想就是把大小不一的特征向量，变成统一的大小，他在原向量上，划分成固定的M*N份，然后每份做Max Pooling，得到最终统一的一个特征向量。下面这个动图，还是解释的很清楚的。</p>
-<p><img src="/images/roi_pooling.gif" alt="roi pooling"></p>
+<p><img src="http://static.aixpaper.com/wl/roi_pooling.gif" alt="roi pooling"></p>
 <h3 id="faster-rcnn"><a class="header-anchor" href="#faster-rcnn"> </a>Faster-RCNN</h3>
 <p>Fast-RCNN算法的检测区域提取上，还是使用SS算法，这个算法因为没法利用GPU，所以这个框架还是比较慢。于是这位大牛Ross Girshick在2015年又提出了<a href="http://aixpaper.com/view/faster_rcnn_towards_realtime_object_detection_with_region_proposal_networks" target="_blank" rel="external">Faster-RCNN目标检测算法</a>。</p>
-<p><img src="/images/fasterrcnn.jpeg" alt="faster rcnn"></p>
+<p><img src="http://static.aixpaper.com/wl/fasterrcnn.jpeg" alt="faster rcnn"></p>
 <h4 id="region-proposal-network"><a class="header-anchor" href="#region-proposal-network"> </a>Region proposal network</h4>
 <p>Faster-RCNN的主要改进是把Selective Search算法替换成一个NN模块，取名叫<strong>Region proposal network</strong>。我理解RPN就是GPU版本的滑动窗口算法。还记得最早目标检测的方法么，用各种尺寸的框框遍历整张图片，然后把截取出来的小图进行分类判断。RPN其实也差不多，就是用默认的大小的边框，截取图片的FeatureMap，然后判断在这个框框中是否有物体，他们管这个预制的边框叫anchor。</p>
-<p><img src="/images/rpn.jpeg" alt="rpn"></p>
+<p><img src="http://static.aixpaper.com/wl/rpn.jpeg" alt="rpn"></p>
 <p>对FeatureMap上的每个点都进行一次小型CNN计算，可能是ZF或VGG16之类的网络，然后得出2k个数值，k表示有几个默认框(anchor)，每个anchor得到两个值，这两个值做次softmax就能知道在这个位置上，对应的边框里是否有待检测的目标了。</p>
 <p>至此，一个相对完整的目标检测网络框架就基本成型了。当然如果看代码，还是会有很多细节。比如在训练过程中的Target Build，Inference时的NMS(非极大值抑制)，还有就是GPU上的BBox的IoU计算，都是技巧性非常强的代码，值得仔细学习一下。但不管怎样，整体的框架就是这样了。总算是比之前更清楚一点了。</p>
 <p>有意思的地方是，这篇文章的作者中有大神KaimingHe，而且那时他们都是在微软工作。同年年底KaimingHe发了ResNet的论文。随后在2016，2017也是这两位再发的ResNeXt，FPN，以及Mask RCNN就都是在Fackbook工作了。在2016年FAIR又推出了PyTorch，随后又推出Detectron。在物体识别和目标检测上，估计Fackbook可以碾压任何对手了。不知道此刻，微软的心理阴影面积有多大。虽然不能接触到大神，看看他们的变化也挺有戏剧性的。</p>
