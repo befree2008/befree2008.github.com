@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/12/14/20181214_目标检测/">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/12/14/20181214_objectdetction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Befree">
@@ -298,7 +298,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/20181214_目标检测/" itemprop="url">目标检测学习笔记(一)_FasterRcnn</a></h1>
+                <a class="post-title-link" href="/2018/12/14/20181214_objectdetction/" itemprop="url">目标检测学习笔记(一)_FasterRcnn</a></h1>
         
 
         <div class="post-meta">
@@ -350,7 +350,7 @@
 
           
           
-             <span id="/2018/12/14/20181214_目标检测/" class="leancloud_visitors" data-flag-title="目标检测学习笔记(一)_FasterRcnn">
+             <span id="/2018/12/14/20181214_objectdetction/" class="leancloud_visitors" data-flag-title="目标检测学习笔记(一)_FasterRcnn">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -380,17 +380,17 @@
       
         
           
-            <p>###目标检测</p>
+            <h3 id="目标检测"><a class="header-anchor" href="#目标检测"> </a>目标检测</h3>
 <p>CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。</p>
 <p><img src="../images/sw.png" alt=""></p>
 <p>因为滑动窗口截图的方式过于简单粗暴，人们又提出了<a href="http://aixpaper.com/view/selective_search_for_object_recognition" target="_blank" rel="external"><strong>Selective Search</strong></a>算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（<strong>regions of interest</strong> ROI），这样可以节省很多计算量。</p>
-<p>####RCNN</p>
+<h4 id="rcnn"><a class="header-anchor" href="#rcnn"> </a>RCNN</h4>
 <p>有了SS算法，加上CNN，大牛Ross Girshick在2014年提出<a href="http://aixpaper.com/view/rich_feature_hierarchies_for_accurate_object_detection_and_semantic_segmentation" target="_blank" rel="external">RCNN目标检测算法</a>。思路也挺直观，就是SS算法选区域，然后把小图片缩放成相同尺寸进入CNN，得到特征向量，然后分别进行类别判断和bbox的调整。</p>
 <p><img src="../images/rcnn.png" alt="rcnn"></p>
-<p>####Fast-RCNN</p>
+<h4 id="fast-rcnn"><a class="header-anchor" href="#fast-rcnn"> </a>Fast-RCNN</h4>
 <p>RCNN在ROI选择上使用了SS算法，但需要进行多次的CNN计算，整体的检测速度还是很慢。所以还是Ross Girshick在2015年又整出来<a href="http://aixpaper.com/view/fast_rcnn" target="_blank" rel="external">Fast-RCNN目标检测算法</a>。所谓Fast就是减少CNN计算次数。先把图片送入CNN得到Feature Map，然后根据ROI的坐标，直接在Feature Map上截取特征值，然后在进行后续的分类和边框回归。</p>
 <p><img src="../images/fastrcnn.png" alt="fast rcnn"></p>
-<p>#####RoI Pooling</p>
+<h5 id="roi-pooling"><a class="header-anchor" href="#roi-pooling"> </a>RoI Pooling</h5>
 <p>网络最后的分类和边框回归是全连接层，需要输入的大小是确定且统一的。RoI的框框是大小不一的，RCNN是截取原图，把小图进行缩放，可以得到相同大小的向量。但是使用RoI从FeatureMap上截取出来的特征向量，是没法缩放的。于是rgb就提出了RoI Pooling。</p>
 <p>Pooling这个词翻译成池化，Max Pooling, Average Pooling，或者是RoI Pooling都翻译成池化，“池化”这是什么鬼，这绝对是狗屎翻译。Pooling这个词是有<strong>共用，合并</strong>的意思的。“池化”这样的翻译，会让人很难理解。</p>
 <p>继续说RoI Pooling，RoIPooling的主要思想就是把大小不一的特征向量，变成统一的大小，他在原向量上，划分成固定的M*N份，然后每份做Max Pooling，得到最终统一的一个特征向量。下面这个动图，还是解释的很清楚的。</p>
@@ -398,7 +398,7 @@
 <h4 id="faster-rcnn"><a class="header-anchor" href="#faster-rcnn"> </a>Faster-RCNN</h4>
 <p>Fast-RCNN算法的检测区域提取上，还是使用SS算法，这个算法因为没法利用GPU，所以这个框架还是比较慢。于是这位大牛Ross Girshick在2015年又提出了<a href="http://aixpaper.com/view/faster_rcnn_towards_realtime_object_detection_with_region_proposal_networks" target="_blank" rel="external">Faster-RCNN目标检测算法</a>。</p>
 <p><img src="../images/fasterrcnn.jpeg" alt="faster rcnn"></p>
-<p>#####Region proposal network</p>
+<h5 id="region-proposal-network"><a class="header-anchor" href="#region-proposal-network"> </a>Region proposal network</h5>
 <p>Faster-RCNN的主要改进是把Selective Search算法替换成一个NN模块，取名叫<strong>Region proposal network</strong>。我理解RPN就是GPU版本的滑动窗口算法。还记得最早目标检测的方法么，用各种尺寸的框框遍历整张图片，然后把截取出来的小图进行分类判断。RPN其实也差不多，就是用默认的大小的边框，截取图片的FeatureMap，然后判断在这个框框中是否有物体，他们管这个预制的边框叫anchor。</p>
 <p><img src="../images/rpn.jpeg" alt="rpn"></p>
 <p>对FeatureMap上的每个点都进行一次小型CNN计算，可能是ZF或VGG16之类的网络，然后得出2k个数值，k表示有几个默认框(anchor)，每个anchor得到两个值，这两个值做次softmax就能知道在这个位置上，对应的边框里是否有待检测的目标了。</p>
