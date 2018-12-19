@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://befree2008.github.io/2018/12/17/20181217_maskrcnn-benchmark源码分析(1)_网络构建/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="maskrcnn-benchmark 源码分析 代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。 GeneralizedRCNN里面由三部分组成">
-<meta property="og:updated_time" content="2018-12-17T11:04:34.703Z">
+<meta property="og:updated_time" content="2018-12-18T01:17:37.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maskrcnn-benchmark源码分析(1)_网络构建.md">
 <meta name="twitter:description" content="maskrcnn-benchmark 源码分析 代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。 GeneralizedRCNN里面由三部分组成">
@@ -402,7 +402,7 @@
 <li>rpn		RPNModule
 <ul>
 <li>head 	RPNHead   //rpn的cnn网络，对featuremap每个点计算对应的bbox和cls_logits</li>
-<li>anchor_generator   //根据rpn_head的计算结果，找到最可能的bbox的坐标</li>
+<li>anchor_generator  AnchorGenerator  //根据rpn_head的计算结果，找到最可能的bbox的坐标</li>
 <li>box_selector_train	RPNPostProcessor</li>
 <li>loss_evaluator  		RPNLossComputation 	// 评估RPN网络的Loss</li>
 <li>rpn是一个cnn网络，输入是feature map，输出是bbox坐标。</li>
@@ -488,6 +488,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" rel="prev" title="maskrcnn-benchmark源码分析(2)_RPN计算.md">
+                maskrcnn-benchmark源码分析(2)_RPN计算.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -563,7 +567,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">65</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
