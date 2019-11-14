@@ -379,80 +379,14 @@
 
       
         
-          
-            <h5 id="ld"><a class="header-anchor" href="#ld"> </a>LD</h5>
-<ul>
-<li>
-<p>-m 指定模拟的机器</p>
-</li>
-<li>
-<p>-V 列出所支持的模拟器</p>
-</li>
-<li>
-<p>-nostdlib  不链接默认的库文件</p>
-</li>
-<li>
-<p>-N  把text和data节设置为可读写.同时,取消数据节的页对齐</p>
-</li>
-<li>
-<p>-e ENTRY  使用ENTRY作为程序入口</p>
-</li>
-<li>
-<p>-Ttext ORG  使用ORG, 指定section在输出文件中的绝对地址</p>
-</li>
-</ul>
-<p><a href="http://manpages.ubuntu.com/manpages/xenial/zh_CN/man1/ld.1.html" target="_blank" rel="external">参考这里</a></p>
-<h5 id="gcc"><a class="header-anchor" href="#gcc"> </a>GCC</h5>
-<ul>
-<li>
-<p>-fno-stack-protector 禁用栈保护代码</p>
-</li>
-<li>
-<p>-fno-builtin	禁用buildin函数优化</p>
-</li>
-<li>
-<p>-fno-PIC	PIC就是position independent code，PIC生成相对地址，no-pic生成含有绝对地址的程序</p>
-</li>
-<li>
-<p>-nostdinc 不搜索标准系统目录的头文件，只用-I选项指定的目录</p>
-</li>
-<li>
-<p>-E  做完预处理后，停止编译</p>
-</li>
-<li>
-<p>-x c   指定源代码的语言</p>
-</li>
-<li>
-<p>-MM  生成依赖头文件</p>
-</li>
-<li>
-<p>-MT	指定依赖文件中的目标</p>
-</li>
-<li>
-<p>-march=i686  把目标文件编译为i686指令</p>
-</li>
-</ul>
-<p><code>gcc -Q --help=target</code> 获取默认值</p>
-<p>#####GDB</p>
-<p>#####Objdump</p>
-<p>objdump工具用来显示二进制文件的信息，就是以一种可阅读的格式让你更多地了解二进制文件可能带有的附加信息。</p>
-<ul>
-<li>-f 显示文件头信息</li>
-<li>-D 反汇编所有section (-d反汇编特定section)</li>
-<li>-h 显示目标文件各个section的头部摘要信息</li>
-<li>-x 显示所有可用的头信息，包括符号表、重定位入口。-x 等价于 -a -f -h -r -t 同时指定。</li>
-<li>-i 显示对于 -b 或者 -m 选项可用的架构和目标格式列表。</li>
-<li>-r 显示文件的重定位入口。如果和-d或者-D一起使用，重定位部分以反汇编后的格式显示出来。</li>
-<li>-R 显示文件的动态重定位入口，仅仅对于动态目标文件有意义，比如某些共享库。</li>
-<li>-S 尽可能反汇编出源代码，尤其当编译的时候指定了-g这种调试参数时，效果比较明显。隐含了-d参数。</li>
-<li>-t 显示文件的符号表入口。类似于nm -s提供的信息</li>
-</ul>
-<p>#####Objcopy</p>
-<p>objcopy –O binary test.o test.bin</p>
-<p>将test.o转换成raw binary文件格式。</p>
-<p>当将object文件转换成raw binary格式时，通常将去除掉symbols和relocation信息。在生成s-record过程中，有时需要用选项“-S”，“-R”去除掉binary文件，s-record文件不需要的相应信息。</p>
-
-          
+          <p>这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/14/20191114_gcc/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

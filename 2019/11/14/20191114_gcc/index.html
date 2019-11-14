@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="LD   -m 指定模拟的机器   -V 列出所支持的模拟器   -nostdlib  不链接默认的库文件   -N  把text和data节设置为可读写.同时,取消数据节的页对齐   -e ENTRY  使用ENTRY作为程序入口   -Ttext ORG  使用ORG, 指定section在输出文件中的绝对地址   参考这里  GCC   -fno-stack-protector 禁用栈保护">
+<meta name="description" content="这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员">
 <meta name="keywords" content="gcc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发工具选项笔记">
 <meta property="og:url" content="http://befree2008.github.io/2019/11/14/20191114_gcc/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="LD   -m 指定模拟的机器   -V 列出所支持的模拟器   -nostdlib  不链接默认的库文件   -N  把text和data节设置为可读写.同时,取消数据节的页对齐   -e ENTRY  使用ENTRY作为程序入口   -Ttext ORG  使用ORG, 指定section在输出文件中的绝对地址   参考这里  GCC   -fno-stack-protector 禁用栈保护">
-<meta property="og:updated_time" content="2019-11-14T11:45:36.236Z">
+<meta property="og:description" content="这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员">
+<meta property="og:updated_time" content="2019-11-14T11:49:17.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发工具选项笔记">
-<meta name="twitter:description" content="LD   -m 指定模拟的机器   -V 列出所支持的模拟器   -nostdlib  不链接默认的库文件   -N  把text和data节设置为可读写.同时,取消数据节的页对齐   -e ENTRY  使用ENTRY作为程序入口   -Ttext ORG  使用ORG, 指定section在输出文件中的绝对地址   参考这里  GCC   -fno-stack-protector 禁用栈保护">
+<meta name="twitter:description" content="这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员">
 
 
 
@@ -376,7 +376,8 @@
       
 
       
-        <h5 id="ld"><a class="header-anchor" href="#ld"> </a>LD</h5>
+        <p>这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员<a id="more"></a></p>
+<h5 id="ld"><a class="header-anchor" href="#ld"> </a>LD</h5>
 <ul>
 <li>
 <p>-m 指定模拟的机器</p>
@@ -429,8 +430,8 @@
 </li>
 </ul>
 <p><code>gcc -Q --help=target</code> 获取默认值</p>
-<p>#####GDB</p>
-<p>#####Objdump</p>
+<h5 id="gdb"><a class="header-anchor" href="#gdb"> </a>GDB</h5>
+<h5 id="objdump"><a class="header-anchor" href="#objdump"> </a>Objdump</h5>
 <p>objdump工具用来显示二进制文件的信息，就是以一种可阅读的格式让你更多地了解二进制文件可能带有的附加信息。</p>
 <ul>
 <li>-f 显示文件头信息</li>
@@ -443,7 +444,7 @@
 <li>-S 尽可能反汇编出源代码，尤其当编译的时候指定了-g这种调试参数时，效果比较明显。隐含了-d参数。</li>
 <li>-t 显示文件的符号表入口。类似于nm -s提供的信息</li>
 </ul>
-<p>#####Objcopy</p>
+<h5 id="objcopy"><a class="header-anchor" href="#objcopy"> </a>Objcopy</h5>
 <p>objcopy –O binary test.o test.bin</p>
 <p>将test.o转换成raw binary文件格式。</p>
 <p>当将object文件转换成raw binary格式时，通常将去除掉symbols和relocation信息。在生成s-record过程中，有时需要用选项“-S”，“-R”去除掉binary文件，s-record文件不需要的相应信息。</p>
@@ -640,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#ld"><span class="nav-number">1.</span> <span class="nav-text"> LD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gcc"><span class="nav-number">2.</span> <span class="nav-text"> GCC</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#ld"><span class="nav-number">1.</span> <span class="nav-text"> LD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gcc"><span class="nav-number">2.</span> <span class="nav-text"> GCC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gdb"><span class="nav-number">3.</span> <span class="nav-text"> GDB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#objdump"><span class="nav-number">4.</span> <span class="nav-text"> Objdump</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#objcopy"><span class="nav-number">5.</span> <span class="nav-text"> Objcopy</span></a></li></ol></div>
             
 
           </div>
