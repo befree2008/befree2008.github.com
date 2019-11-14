@@ -279,6 +279,541 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2019/11/14/20191114_gcc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/14/20191114_gcc/" itemprop="url">开发工具选项笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-14T19:45:36+08:00">
+                2019-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/14/20191114_gcc/" class="leancloud_visitors" data-flag-title="开发工具选项笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="ld"><a class="header-anchor" href="#ld"> </a>LD</h5>
+<ul>
+<li>
+<p>-m 指定模拟的机器</p>
+</li>
+<li>
+<p>-V 列出所支持的模拟器</p>
+</li>
+<li>
+<p>-nostdlib  不链接默认的库文件</p>
+</li>
+<li>
+<p>-N  把text和data节设置为可读写.同时,取消数据节的页对齐</p>
+</li>
+<li>
+<p>-e ENTRY  使用ENTRY作为程序入口</p>
+</li>
+<li>
+<p>-Ttext ORG  使用ORG, 指定section在输出文件中的绝对地址</p>
+</li>
+</ul>
+<p><a href="http://manpages.ubuntu.com/manpages/xenial/zh_CN/man1/ld.1.html" target="_blank" rel="external">参考这里</a></p>
+<h5 id="gcc"><a class="header-anchor" href="#gcc"> </a>GCC</h5>
+<ul>
+<li>
+<p>-fno-stack-protector 禁用栈保护代码</p>
+</li>
+<li>
+<p>-fno-builtin	禁用buildin函数优化</p>
+</li>
+<li>
+<p>-fno-PIC	PIC就是position independent code，PIC生成相对地址，no-pic生成含有绝对地址的程序</p>
+</li>
+<li>
+<p>-nostdinc 不搜索标准系统目录的头文件，只用-I选项指定的目录</p>
+</li>
+<li>
+<p>-E  做完预处理后，停止编译</p>
+</li>
+<li>
+<p>-x c   指定源代码的语言</p>
+</li>
+<li>
+<p>-MM  生成依赖头文件</p>
+</li>
+<li>
+<p>-MT	指定依赖文件中的目标</p>
+</li>
+<li>
+<p>-march=i686  把目标文件编译为i686指令</p>
+</li>
+</ul>
+<p><code>gcc -Q --help=target</code> 获取默认值</p>
+<p>#####GDB</p>
+<p>#####Objdump</p>
+<p>objdump工具用来显示二进制文件的信息，就是以一种可阅读的格式让你更多地了解二进制文件可能带有的附加信息。</p>
+<ul>
+<li>-f 显示文件头信息</li>
+<li>-D 反汇编所有section (-d反汇编特定section)</li>
+<li>-h 显示目标文件各个section的头部摘要信息</li>
+<li>-x 显示所有可用的头信息，包括符号表、重定位入口。-x 等价于 -a -f -h -r -t 同时指定。</li>
+<li>-i 显示对于 -b 或者 -m 选项可用的架构和目标格式列表。</li>
+<li>-r 显示文件的重定位入口。如果和-d或者-D一起使用，重定位部分以反汇编后的格式显示出来。</li>
+<li>-R 显示文件的动态重定位入口，仅仅对于动态目标文件有意义，比如某些共享库。</li>
+<li>-S 尽可能反汇编出源代码，尤其当编译的时候指定了-g这种调试参数时，效果比较明显。隐含了-d参数。</li>
+<li>-t 显示文件的符号表入口。类似于nm -s提供的信息</li>
+</ul>
+<p>#####Objcopy</p>
+<p>objcopy –O binary test.o test.bin</p>
+<p>将test.o转换成raw binary文件格式。</p>
+<p>当将object文件转换成raw binary格式时，通常将去除掉symbols和relocation信息。在生成s-record过程中，有时需要用选项“-S”，“-R”去除掉binary文件，s-record文件不需要的相应信息。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2019/11/14/20191114_makefile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/14/20191114_makefile/" itemprop="url">Makefile学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-14T09:18:59+08:00">
+                2019-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/14/20191114_makefile/" class="leancloud_visitors" data-flag-title="Makefile学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Make 是自动构建工具。根据依赖关系，检查文件的更新时间，一旦有新的依赖文件，就把木匾文件重新构建一次。最早是贝尔实验室1976年开发的，后来GNU在标准make的基础上，增加了一些拓展，目前Linux下的make主要是GNU的make。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/14/20191114_makefile/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2019/10/28/20191028_gccassembly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/28/20191028_gccassembly/" itemprop="url">GCC 内联汇编</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-28T13:56:53+08:00">
+                2019-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/10/28/20191028_gccassembly/" class="leancloud_visitors" data-flag-title="GCC 内联汇编">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="gcc-内联汇编"><a class="header-anchor" href="#gcc-内联汇编"> </a>GCC 内联汇编</h3>
+<p>GCC内联汇编就是可以在c代码里面加入汇编指令。有部分CPU指令是在C语言中没有提供对应功能的，比如lgdt, lidt等等。这些指令需要通过使用汇编直接操作CPU。在操作系统内核的代码中，这类汇编代码段非常常见，需要学习一下基本语法才能看懂OS内核代码的含义。</p>
+<h4 id="gcc-uses-at-t-unix-assembly-syntax-主要区别"><a class="header-anchor" href="#gcc-uses-at-t-unix-assembly-syntax-主要区别"> </a>GCC uses <strong>AT&amp;T</strong>/<strong>UNIX</strong> assembly syntax。主要区别</h4>
+<ol>
+<li>操作数是源地址在前，目的地址在后的顺序in AT&amp;T syntax the first operand is the source and the second operand is the destination</li>
+</ol>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;Op-code dst src&quot; in Intel syntax changes to</div><div class="line"></div><div class="line">&quot;Op-code src dst&quot; in AT&amp;T syntax.</div></pre></td></tr></table></figure>
+<ol start="3">
+<li>
+<p>寄存器名称前面需要加%</p>
+</li>
+<li>
+<p>立即数用$开头</p>
+</li>
+<li>
+<p>命令后缀’b’,‘w’,‘l’, 表示要操作的内存大小。<strong>b</strong>yte(8-bit), <strong>w</strong>ord(16-bit), and <strong>l</strong>ong(32-bit)</p>
+</li>
+<li>
+<p>内存寻址：</p>
+<p>section:disp(base, index, scale) in AT&amp;T.      section:[base + index*scale + disp]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">asm(&quot;movl %ecx %eax&quot;); /* 把ecx的数据移动到eax */</div><div class="line">__asm__(&quot;movb %bh (%eax)&quot;); /*把bh的一个字节放到eax所指的内存单元中，moves the byte from bh to the memory pointed by eax */</div></pre></td></tr></table></figure>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/28/20191028_gccassembly/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/12/20/20181220_Broadcasting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -298,7 +833,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/20/20181220_Broadcasting/" itemprop="url">矩阵 Broadcasting.md</a></h1>
+                <a class="post-title-link" href="/2018/12/20/20181220_Broadcasting/" itemprop="url">矩阵 Broadcasting</a></h1>
         
 
         <div class="post-meta">
@@ -350,7 +885,7 @@
 
           
           
-             <span id="/2018/12/20/20181220_Broadcasting/" class="leancloud_visitors" data-flag-title="矩阵 Broadcasting.md">
+             <span id="/2018/12/20/20181220_Broadcasting/" class="leancloud_visitors" data-flag-title="矩阵 Broadcasting">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1360,459 +1895,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/09/12/20180913_CNN图像分类学习记录(Inception)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/20180913_CNN图像分类学习记录(Inception)/" itemprop="url">CNN图像分类学习记录(五)——Inception</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T16:56:18+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/12/20180913_CNN图像分类学习记录(Inception)/" class="leancloud_visitors" data-flag-title="CNN图像分类学习记录(五)——Inception">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Inception提出了很多想法被后续的NN接受，比如1x1卷积减少计算量，两层3x3等价于一层5*5，非对称卷积，并行的pooling，平滑标签。</p>
-<p>Inception和其他的CNN比起来，主要是足够宽了。但是超参太多了，尤其是涉及到网络结构的超参，这个可能就导致他们开始考虑做NAS了。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/12/20180913_CNN图像分类学习记录(Inception)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/09/12/20180912_CNN图像分类学习记录(NiN)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/20180912_CNN图像分类学习记录(NiN)/" itemprop="url">CNN图像分类学习记录(四)——Network in Network</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T13:46:43+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/12/20180912_CNN图像分类学习记录(NiN)/" class="leancloud_visitors" data-flag-title="CNN图像分类学习记录(四)——Network in Network">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>作者认为CNN的卷积核是一种泛化的线性模型(generalized linear model  GLM)，把GLM换成一种非线性近似函数能提高局域的特征提取能力。他说CNN的假设是说需要提出特征都是线性可分的，但是很多特征是以非线性流型的形式存在。非线性流型（nonlinear manifold）这是啥玩意?</p>
-<p>他说自己是NiN，就是在普通卷积核之后增加了一个小的普通NN，以提高特征提取能力。而且在网络最后去掉了全连接层，通过 average pooling layer直接进入softmax分类器。</p>
-<h4 id="mlpconv"><a class="header-anchor" href="#mlpconv"> </a>MLPconv</h4>
-<p>就是在普通conv后增加了全连接层，但是这篇文章厉害的地方是把这个Full Connect Layer视为1*1的conv layer。这个新颖的观点后来被Inception、resnet使用了，并且google还在论文中感谢了这边文章的作者。</p>
-<h4 id="global-average-pooling"><a class="header-anchor" href="#global-average-pooling"> </a>Global Average Pooling</h4>
-<p>文中提到很多FC layer的弊病，如过拟合，参数多等。于是他用的方法是，把最后一层每个通道的feature map看做是类别的特征，把feature map的每个channel 求一个平均数，作为对应类别的分数，然后在求loss。</p>
-<p>这篇文章虽然很多细节上没有交代，比如网络结构参数等等。但是他的想法还是很新奇的。并且被很多后续很成功的Net所采用。</p>
-<p>论文基于AlexnNet修改，CIFAR100可以到65.3%</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/09/12/20180912_CNN_Vgg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/20180912_CNN_Vgg/" itemprop="url">CNN图像分类学习记录(三)——VGGNet</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T08:36:25+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/12/20180912_CNN_Vgg/" class="leancloud_visitors" data-flag-title="CNN图像分类学习记录(三)——VGGNet">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>LeNet，证明多层的CNN是有价值的，可以拿来做图像识别</p>
-<p>AlexNet，提出数据多，网络深就可以有好结果，但是计算速度、过拟合是问题，所以给出了ReLU，Dropout</p>
-<p>VGG，说他们有效是因为用了很小的filters(3*3)，因为小的filter可以让网络变得很深。VGG说LRN没啥效果。</p>
-<p>使用小filter可以使参数变少，计算量变小。3层3*3就相当于是一层7*7，同时因为之间加入了ReLU，所以使得判定函数（decision function）更加具有判别力，不知道这个的根据是啥？</p>
-<p>VGG训练时，是一点点涨起来的，先训练11层的，等稳定了，把网络扩展13层，旧的layer还用原来的参数，新的layer随机初始化参数。</p>
-<p>实际在测试VGG时，感觉不是那么好用，首先我用的1060的卡，只能跑很小的batch_size，这样训练就很慢。而且再cifar100上，也没看到特别明显的效果。还不如直接在AlexNet上加几层3*3的Conv Layer。这可能也和数据集有关，可能在ImageNet2012上VGG表现更好。</p>
-<p>Vgg Acc@1能到 63%，AlexNet Acc@1能到50%左右</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1862,7 +1944,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1884,7 +1966,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1926,7 +2008,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
