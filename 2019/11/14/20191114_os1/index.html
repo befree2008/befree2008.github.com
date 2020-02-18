@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
+<meta name="description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 填中断门描述符 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
 <meta name="keywords" content="os">
 <meta property="og:type" content="article">
 <meta property="og:title" content="系统启动和中断机制">
 <meta property="og:url" content="http://befree2008.github.io/2019/11/14/20191114_os1/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
-<meta property="og:updated_time" content="2019-11-16T02:05:52.194Z">
+<meta property="og:description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 填中断门描述符 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
+<meta property="og:updated_time" content="2019-11-18T06:04:11.409Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统启动和中断机制">
-<meta name="twitter:description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
+<meta name="twitter:description" content="系统启动  CPU上电，加载BIOS BIOS从MBR上加载BootLoader BootLoader设置保护模式，加载内核 内核进行初始化，进入用户shell   中断机制  中断初始化 填中断门描述符 时钟中断 int 0x80 系统调用 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。 trapframe">
 
 
 
@@ -385,7 +385,8 @@
 </ol>
 <h4 id="中断机制"><a class="header-anchor" href="#中断机制"> </a>中断机制</h4>
 <ol>
-<li>中断初始化</li>
+<li>中断初始化
+填中断门描述符</li>
 <li>时钟中断</li>
 <li>int 0x80 系统调用
 系统调用是操作系统给应用程序提供的接口API。通过中断，应用程序可以对外设、网络进行读写。</li>
@@ -393,6 +394,36 @@
 </ol>
 <a id="more"></a>
 <h4 id="函数调用约定"><a class="header-anchor" href="#函数调用约定"> </a>函数调用约定</h4>
+<p>栈底对应高地址，栈顶对应低地址，栈由内存高地址向低地址生长</p>
+<p><strong>bp(base pointer)</strong>: 用于存放执行中的函数对应的栈帧的栈底地址
+<strong>sp(stack poinger)</strong>: 用于存放执行中的函数对应的栈帧的栈顶地址</p>
+<p>esp，保存栈最后一个元素，不是第一个可用空间。push，pop操作等价于如下伪代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*--ESP = value;	// push</div><div class="line"></div><div class="line">value = *ESP++;	// pop</div></pre></td></tr></table></figure>
+<p>ebp，用来引用函数参数，和局部变量。</p>
+<p>eip，保存下一条要被执行的指令的地址。调用call指令时，eip会被cpu自动压栈。而jmp指令只是直接修改eip.</p>
+<p>cdecl(C declaration，即C声明)是源起C语言的一种调用约定</p>
+<ol>
+<li>
+<p>参数从右向左压栈</p>
+</li>
+<li>
+<p>调用函数，call指令，eip压栈，进入新函数</p>
+<ol>
+<li>进入新函数后，ebp压栈，esp的值赋给ebp。
+0(%ebp)保存上一个栈frame的其实位置
+4(%ebp) 保存函数返回地址
+8(%ebp), 12(%ebp) 保存函数参数</li>
+<li>保存寄存器值</li>
+<li>为函数临时变量申请空间，直接减去esp的值，引用时使用ebp。**-4(%ebp)**表示第一个临时变量</li>
+<li>函数执行</li>
+<li>leave指令恢复esp，ebp；等价于movl %ebp %esp ；popl %ebp</li>
+<li>ret指令返回，cpu会做pop eip</li>
+</ol>
+</li>
+<li>
+<p>清理参数</p>
+</li>
+</ol>
 <h4 id="其他"><a class="header-anchor" href="#其他"> </a>其他</h4>
 <ol>
 <li><a href="http://www.wliang.me/2019/11/14/20191114_makefile/" target="_blank" rel="external">Makefile的编写</a></li>
@@ -450,6 +481,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/20/20191120_os2_mm/" rel="prev" title="操作系统内存管理">
+                操作系统内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -535,7 +570,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -557,7 +592,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -615,7 +650,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

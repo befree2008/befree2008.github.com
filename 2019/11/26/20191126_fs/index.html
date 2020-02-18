@@ -1,0 +1,1044 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="os," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="虚拟这两个字太讨厌了。虚拟文件系统一点都不虚拟，做了很多实在的工作。  文件系统   对于要长期保存的数据，独立保存起来，这块数据叫做一个文件。文件和目录形成文件系统。   裸机情况下，硬盘只能根据地址定位一段数据的读写，没法用。需要os进行统一分配和管理   文件描述符，“描述符”，类似还有全局描述符，页目录描述符，其实就是一个struct，里面有各种属性信息。文件被打开后，os会在内核记录被打">
+<meta name="keywords" content="os">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统文件系统">
+<meta property="og:url" content="http://befree2008.github.io/2019/11/26/20191126_fs/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="虚拟这两个字太讨厌了。虚拟文件系统一点都不虚拟，做了很多实在的工作。  文件系统   对于要长期保存的数据，独立保存起来，这块数据叫做一个文件。文件和目录形成文件系统。   裸机情况下，硬盘只能根据地址定位一段数据的读写，没法用。需要os进行统一分配和管理   文件描述符，“描述符”，类似还有全局描述符，页目录描述符，其实就是一个struct，里面有各种属性信息。文件被打开后，os会在内核记录被打">
+<meta property="og:updated_time" content="2019-11-28T07:40:12.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统文件系统">
+<meta name="twitter:description" content="虚拟这两个字太讨厌了。虚拟文件系统一点都不虚拟，做了很多实在的工作。  文件系统   对于要长期保存的数据，独立保存起来，这块数据叫做一个文件。文件和目录形成文件系统。   裸机情况下，硬盘只能根据地址定位一段数据的读写，没法用。需要os进行统一分配和管理   文件描述符，“描述符”，类似还有全局描述符，页目录描述符，其实就是一个struct，里面有各种属性信息。文件被打开后，os会在内核记录被打">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://befree2008.github.io/2019/11/26/20191126_fs/"/>
+
+
+
+<script src="http://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='http://unpkg.com/valine/dist/Valine.min.js'></script
+
+
+  <title>操作系统文件系统 | 天一阁</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天一阁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2019/11/26/20191126_fs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统文件系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T08:47:14+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/26/20191126_fs/" class="leancloud_visitors" data-flag-title="操作系统文件系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虚拟这两个字太讨厌了。虚拟文件系统一点都不虚拟，做了很多实在的工作。</p>
+<h5 id="文件系统"><a class="header-anchor" href="#文件系统"> </a>文件系统</h5>
+<ul>
+<li>
+<p>对于要长期保存的数据，独立保存起来，这块数据叫做一个文件。文件和目录形成文件系统。</p>
+</li>
+<li>
+<p>裸机情况下，硬盘只能根据地址定位一段数据的读写，没法用。需要os进行统一分配和管理</p>
+</li>
+<li>
+<p>文件描述符，“描述符”，类似还有全局描述符，页目录描述符，其实就是一个struct，里面有各种属性信息。文件被打开后，os会在内核记录被打开文件的属性，还包括状态和信息</p>
+<ul>
+<li>文件指针，最近一次读写位置，每个进程维护自己</li>
+<li>打开次数</li>
+<li>文件磁盘位置，缓存</li>
+</ul>
+</li>
+<li>
+<p>os：文件就是数据块；用户：文件是数据结构</p>
+</li>
+<li>
+<p>文件读写必须以块为单位，内存是以字节为单位：</p>
+<ul>
+<li>读：读出一块，返回对应部分；写：读出一块，修改，写回一块</li>
+</ul>
+</li>
+<li>
+<p>目录实现</p>
+<ul>
+<li>列表、hash表</li>
+<li>根目录在磁盘中位置固定</li>
+<li>PWD,当前工作路径</li>
+</ul>
+</li>
+</ul>
+<h5 id="文件系统分层"><a class="header-anchor" href="#文件系统分层"> </a>文件系统分层</h5>
+<p>类unix文件系统，把标准输入，输出，磁盘文件，网络socket都看成文件。这样就会给程序员，有统一的读写接口。最基础的接口无非就是open, read, write, close。整体分层如下：</p>
+<ul>
+<li>libc的接口(如：open，read)</li>
+<li>syscall接口（sys_read,  sys_write)</li>
+<li>vfs接口 （vfs_open, vfs_read)
+<ul>
+<li>为什么有这层？主要是为了同一个不同io的接口。统一都使用inode表示一个文件。inode是个索引节点，通过inode，可以找到文件具体在磁盘上的位置。</li>
+</ul>
+</li>
+<li>具体文件系统接口
+<ul>
+<li>每个文件系统都有自己的数据结构，主要是如何把数据放到磁盘上</li>
+<li>一般来说，都是前面有个superblock，记录整体信息</li>
+<li>然后是根目录的inode。对于目录的inode就是记录了每一项的inode位置。</li>
+<li>通过目录inode，就可以找到文件的inode。</li>
+<li>文件的inode记录每块数据的存储位置。</li>
+</ul>
+</li>
+<li>设备接口（driver）
+<ul>
+<li>具体向io发起指令的部分，跟外设相关</li>
+</ul>
+</li>
+</ul>
+<h5 id="文件系统功能"><a class="header-anchor" href="#文件系统功能"> </a>文件系统功能</h5>
+<p>分配磁盘空间</p>
+<p>管理文件块</p>
+<p>空闲空间管理</p>
+<p>分配算法</p>
+<h5 id="文件操作"><a class="header-anchor" href="#文件操作"> </a>文件操作</h5>
+<ul>
+<li>
+<p>打开：</p>
+<ul>
+<li>内核会记录所有打开的文件</li>
+</ul>
+</li>
+<li>
+<p>读文件</p>
+<ul>
+<li>获取字节所在数据块</li>
+</ul>
+</li>
+<li>
+<p>写文件</p>
+<ul>
+<li>先读一块，修改，然后写会</li>
+</ul>
+</li>
+</ul>
+<h5 id="基本数据结构"><a class="header-anchor" href="#基本数据结构"> </a>基本数据结构</h5>
+<p>文件系统基本数据结构，这些全部是在硬盘上的</p>
+<ul>
+<li>
+<p>文件卷控制块（superblock）</p>
+<ul>
+<li>对应文件系统，空余块</li>
+<li>在磁盘上位置是固定的，他指向目录项</li>
+<li><strong>文件系统mount的时候，就是读取这部分数据</strong></li>
+</ul>
+</li>
+<li>
+<p>文件控制块</p>
+<ul>
+<li>每个文件一个</li>
+<li>数据块位置</li>
+</ul>
+</li>
+<li>
+<p>目录项</p>
+<ul>
+<li>指向文件数据块，父目录，子目录</li>
+</ul>
+</li>
+</ul>
+<p>文件描述符</p>
+<ul>
+<li>对应打开的文件</li>
+<li>文件状态信息</li>
+<li>系统有系统级全局的打开文件表，每个进程有自己的打开文件表</li>
+<li>打开文件，目录项和文件都需要被打开</li>
+</ul>
+<h5 id="加载内存时间"><a class="header-anchor" href="#加载内存时间"> </a>加载内存时间</h5>
+<ul>
+<li>卷控制块：文件系统挂载时，载入内存</li>
+<li>文件控制块：当文件被访问的时候</li>
+<li>目录节点：在遍历文件路径</li>
+</ul>
+<h5 id="文件分配"><a class="header-anchor" href="#文件分配"> </a>文件分配</h5>
+<ul>
+<li>三种分配方式：连续、链式、索引</li>
+<li>索引分配：在文件头里指向索引块，索引块保存指向每个数据块指针</li>
+<li>对于大文件，用链式索引块，或多级索引块</li>
+<li>UFS多级索引分配，文件头包含13个指针</li>
+</ul>
+<h5 id="文件打开操作"><a class="header-anchor" href="#文件打开操作"> </a>文件打开操作</h5>
+<ul>
+<li>先找到对应设备</li>
+<li>从对应设备的mount的fs，进行lookup</li>
+<li>找到文件inode，读磁盘加载</li>
+<li>保存对应文件inode，到file列表</li>
+<li>返回fd给应用进程</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/os/" rel="tag"># os</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/22/20191122_process/" rel="next" title="操作系统进程管理">
+                <i class="fa fa-chevron-left"></i> 操作系统进程管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/18/20200218_fullstack/" rel="prev" title="真正的全栈开发">
+                真正的全栈开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div id='comment'>
+  </div>
+  <script>
+    new Valine({
+      el: '#comment' ,
+      notify:false,
+      verify:false,
+      appId: 'yPpQtWmQaIKqlFG0qI85twGC-gzGzoHsz',
+      appKey: 'sDCNS4srpSEYbk6csjPi8VCY',
+      placeholder: 'just go go',
+      path:window.location.pathname,
+      avatar:'mm'
+    });
+  </script>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Befree" />
+          <p class="site-author-name" itemprop="name">Befree</p>
+           
+              <p class="site-description motion-element" itemprop="description">以互联网精神为信仰</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统"><span class="nav-number">1.</span> <span class="nav-text"> 文件系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统分层"><span class="nav-number">2.</span> <span class="nav-text"> 文件系统分层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统功能"><span class="nav-number">3.</span> <span class="nav-text"> 文件系统功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件操作"><span class="nav-number">4.</span> <span class="nav-text"> 文件操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本数据结构"><span class="nav-number">5.</span> <span class="nav-text"> 基本数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载内存时间"><span class="nav-number">6.</span> <span class="nav-text"> 加载内存时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件分配"><span class="nav-number">7.</span> <span class="nav-text"> 文件分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件打开操作"><span class="nav-number">8.</span> <span class="nav-text"> 文件打开操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="powered-by">
+  <a class="theme-link" href="http://wliang.me/cs/">技术备忘录</a>
+</div>
+
+<div class="powered-by">
+  <a class="theme-link" href="http://www.aixpaper.com">智能论文笔记</a>
+</div>
+
+
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz", "KJcivh13NLSQp5elMAAX1SNj");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
