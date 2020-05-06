@@ -279,6 +279,811 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/12/20171212_两篇关于WSGI和Web Framework的文章_23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/12/20171212_两篇关于WSGI和Web Framework的文章_23/" itemprop="url">推荐WSGI和Web Framework的推荐文档</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T14:57:01+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/12/20171212_两篇关于WSGI和Web Framework的文章_23/" class="leancloud_visitors" data-flag-title="推荐WSGI和Web Framework的推荐文档">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.toptal.com/python/pythons-wsgi-server-application-interface" target="_blank" rel="external">《WSGI: The Server-Application Interface for Python 》</a>这篇文章是我喜欢的那种套路，按时间进程交代技术眼花的过程。他讲到1993年，web开始兴起，但是都是静态页面。随后大牛在NCSA HTTPd（apache 前身）实现了CGI。从那之后，网上的内容都是动态网站了，互联网用户也大幅增长。</p>
+<p>但CGI有很多问题，随后大牛们又实现了FastCGI(1996)和mod_python(2000)。在2003年，又提出了PEP-3333实现WSGI，是个高层抽象，统一的接口。</p>
+<p>WSGI对应用的要求就是要有一个接口能接受<code>environ</code>和<code>start_response</code>两个参数。而且能够返回一个iterable的body。</p>
+<p>另外一篇是<a href="https://jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/" target="_blank" rel="external">《https://jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/》</a>  <a href="http://cizixs.com/2015/09/21/what-is-a-web-framework" target="_blank" rel="external">中文版在这</a></p>
+<p>比较清晰解释了WebFramework的主要功能，现在web框架这么多，其实核心功能也就是这些了。</p>
+<p>首先要处理好HTTP协议的请求与应答。HTTP协议中主要的请求类型包括GET, POST, ，应答也是有固定套路的。这些都可以由框架完成。</p>
+<p>然后框架要处理好URL路由(routing)和模板(template)的问题，这样可以比较从容的对不同URL生成不同的页面。同时在配合一个ORM，这样就能写很多web应用了。大体上，都是使用MVC这个总的模式。</p>
+<p>web框架是不是要做好这几件事情：</p>
+<ol>
+<li>HTTP消息接受和发送</li>
+<li>URL的路由，根据url能够调用对应页面函数</li>
+<li>模板引擎，能够高效，简介的动态生成页面</li>
+<li>ORM，能够方便的访问数据库</li>
+<li>其他关于cookie, session, 表单验证, 都属于额外的附加功能。</li>
+</ol>
+<p>也就说其实理论就那么一点，只是很繁琐，框架的目的就是为了提高开发效率，但是如果要使用好框架，首先非常清楚工作原理，最好能够理解框架实现细节。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/07/20171207_Flask文档笔记-蓝图(Blueprint)_22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/07/20171207_Flask文档笔记-蓝图(Blueprint)_22/" itemprop="url">Flask文档笔记-蓝图(Blueprint)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-07T11:48:02+08:00">
+                2017-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/07/20171207_Flask文档笔记-蓝图(Blueprint)_22/" class="leancloud_visitors" data-flag-title="Flask文档笔记-蓝图(Blueprint)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Flask是个很轻便的框架，如果网站简单，就用一个app.py就把所有业务逻辑都写完了。但是如果业务逻辑多，需要多人开发，写一个文件，就很头疼。</p>
+<p>所以Flask用蓝图(Blueprint)的概念，使得代码可以进行拆分。Blueprint的工作方式和Flask对象很接近，但两者又不一样。</p>
+<h4 id="创建blueprint"><a class="header-anchor" href="#创建blueprint"> </a>创建Blueprint</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, render_template, abort</div><div class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> TemplateNotFound</div><div class="line"></div><div class="line">simple_page = Blueprint(<span class="string">'simple_page'</span>, __name__,</div><div class="line">                        template_folder=<span class="string">'templates'</span>)</div><div class="line"></div><div class="line"><span class="meta">@simple_page.route('/', defaults=&#123;'page': 'index'&#125;)</span></div><div class="line"><span class="meta">@simple_page.route('/&lt;page&gt;')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(page)</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">return</span> render_template(<span class="string">'pages/%s.html'</span> % page)</div><div class="line">    <span class="keyword">except</span> TemplateNotFound:</div><div class="line">        abort(<span class="number">404</span>)</div></pre></td></tr></table></figure>
+<p>这是官网上的一个例子。其实就是创建一个Blueprint对象，指定路由，绑定视图函数。这样就可以把相关的业务逻辑，页面模板，静态文件组成一个package。通过这种方式把一个工程，拆解成不用的模块，减少耦合，并行开发。</p>
+<h4 id="注册blueprint"><a class="header-anchor" href="#注册blueprint"> </a>注册Blueprint</h4>
+<p>Blueprint需要在Flask对象中注册，这样才能确定最终的URL。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line"><span class="keyword">from</span> yourapplication.simple_page <span class="keyword">import</span> simple_page</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line">app.register_blueprint(simple_page, url_prefix=<span class="string">'/page'</span>)</div></pre></td></tr></table></figure>
+<p>通过url_prefix就可以确定蓝图的url路由。同时蓝图还能提供子域名的方式进行路由。使用subdomain='<a href="http://www.lutieg.com" target="_blank" rel="external">www.lutieg.com</a>’参数可以实现指定动态子域名的方式。还可以通过传入参数的方式指定URL</p>
+<p>参考链接:</p>
+<p>1, <a href="http://dormousehole.readthedocs.io/en/latest/blueprints.html" target="_blank" rel="external">http://dormousehole.readthedocs.io/en/latest/blueprints.html</a></p>
+<p>2, <a href="https://spacewander.github.io/explore-flask-zh/7-blueprints.html" target="_blank" rel="external">https://spacewander.github.io/explore-flask-zh/7-blueprints.html</a></p>
+<p>3, <a href="https://www.zhihu.com/question/31748237" target="_blank" rel="external">https://www.zhihu.com/question/31748237</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/12/06/20171207_Flask文档笔记-快速开始(QuickStart)_21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/06/20171207_Flask文档笔记-快速开始(QuickStart)_21/" itemprop="url">Flask文档笔记-快速开始(QuickStart)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-06T11:30:59+08:00">
+                2017-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/06/20171207_Flask文档笔记-快速开始(QuickStart)_21/" class="leancloud_visitors" data-flag-title="Flask文档笔记-快速开始(QuickStart)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>这是第二次用Flask了，感觉非常好用，因为简便，可以很快看到demo。</p>
+<p>Flask是使用python语言，基于Werkzeug，Jinja2的web开发微框架。作者<strong>Armin Ronacher</strong> 是出生于1989年的奥地利程序员，2010年时发布了第一版的Flask。目前0.12.2版本的flask也就3k多行代码，但是功能还是相对完善的，主要得益于flask的插件机制。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/06/20171207_Flask文档笔记-快速开始(QuickStart)_21/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/31/20171031_Flask快速开发Web应用_20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/31/20171031_Flask快速开发Web应用_20/" itemprop="url">Flask快速开发Web应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-31T20:52:40+08:00">
+                2017-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/31/20171031_Flask快速开发Web应用_20/" class="leancloud_visitors" data-flag-title="Flask快速开发Web应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Web开发是非常重要的技术手段，虽然技术难度不是很大，但是里面涉及的内容却很多。其实软件的世界里，没有什么是无法实现的，现在都是开源的，而且软件基本上没法申请专利，所以软件类的技术都不会有什么独家的技术。</p>
+<p>Web开发中，更加看重的是开发速度快，易维护，用户体验好，其实就是颜值要高，要漂亮，从开发角度看，基本上都是使用MVC的模式，做一些简单的CRUD应用，复杂数据处理，技巧性的，算法性的都放到了更后面的地方去了。各种Web开发语言都有很多种MVC框架，我最近比较喜欢Flask，主要是他轻巧，简单，而且是python语言的，但是如果深入到Flask内部，也还是各种的设计模式，理解起来还有点费劲，那就先从表面上梳理一下近期接触到的一些模块吧。</p>
+<h3 id="view"><a class="header-anchor" href="#view"> </a>View</h3>
+<p>​	view其实就是用户看到的页面，很久之前在windows上开发，还叫视图。这个大部分是前端的工作，基础的知识点就是，老三位HTML/CSS/JS。比较流行的类库比如Bootstrap, jQuery都是为了提高前端开发工作效率的，开发效率高，但是也有一定的学习成本。</p>
+<p>​	Flask在view这方面提供了Jinjia的模板引擎，他可以很方便的通过标记，对页面进行替换、生成，然后返回给用户。</p>
+<p>​	wtform是一个Flask插件，对View表单处理很方便，包括生成表单，表单校验非常方便</p>
+<h3 id="model"><a class="header-anchor" href="#model"> </a>Model</h3>
+<p>​	我理解Model其实就是数据，为了高效开发，或者说更符合OO原则，很多都是使用ORM。在Flask中，一般使用Flask-SqlAlchemy。一开始我还是挺排斥使用这类ORM的，总觉得直接使用SQL不是很痛苦么。但是发现，当要处理的数据多了，而且业务逻辑多了，把代码分解到不同的模块中，使用面向对象的方式来处理数据实体，还是很方便的。</p>
+<h3 id="controller"><a class="header-anchor" href="#controller"> </a>Controller</h3>
+<p>​	Flask作为框架，把底层通信，HTTP的request/response，都完美封装了。CRUD开发者只需要处理route，render_template, redirect，再结合Model和View就可以搭建最简单的应用。</p>
+<p>​	此外，Flask有很多插件可以很方便高效的处理一些通用业务逻辑比如Flask-login，Flask-Restful等等。</p>
+<p>总之，Flask还是一个挺小清新的web开发框架，只要掌握了基本的模板语言,wtform，SqlAlchemy，Flask基本函数和组件，剩下的就是把所有的创意变成MVP，然后一个个的idea去尝试，没准哪个就成了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/25/20171025_使用CSS渐变_19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/25/20171025_使用CSS渐变_19/" itemprop="url">使用CSS渐变</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T12:22:28+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/25/20171025_使用CSS渐变_19/" class="leancloud_visitors" data-flag-title="使用CSS渐变">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用CSS 渐变 是在 CSS3 Image Module 中新增加的 <image> 类型. 使用 CSS 渐变可以在两种颜色间制造出平滑的渐变效果. 用它代替图片，可以加快页面的载入时间、减小带宽占用。同时，因为渐变是由浏览器直接生成的，它在页面缩放时的效果比图片更好，因此你可以更加灵活、便捷的调整页面布局。</image></p>
+<p>浏览器支持两种类型的渐变：线性渐变 (linear)，通过 linear-gradient 函数定义，以及 径向渐变 (radial)，通过 radial-gradient 函数定义.</p>
+<h3 id="线性渐变"><a class="header-anchor" href="#线性渐变"> </a>线性渐变</h3>
+<p>为了创建一个线性渐变，你需要设置一个起始点和一个方向（指定为一个角度）的渐变效果。你还要定义终止色。终止色就是你想让Gecko去平滑的过渡，并且你必须指定至少两种，当然也会可以指定更多的颜色去创建更复杂的渐变效果。</p>
+<h4 id="简单线性渐变"><a class="header-anchor" href="#简单线性渐变"> </a>简单线性渐变</h4>
+<div style="background: linear-gradient(to bottom, blue, white); height:300px;width:300px;margin: auto;"></div>
+<p>这里是一个线性渐变从中间（水平方向）和顶部（垂直方向）开始，起始于蓝色，过渡到白色.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 旧语法，带前缀并且已经废弃，以支持老版本的浏览器 */</span></div><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">-prefix-linear-zgradient</span>(<span class="selector-tag">top</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>); </div><div class="line"></div><div class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></div><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">bottom</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</div></pre></td></tr></table></figure>
+<p>改变相同的渐变从左到右运行:</p>
+<div style="background: linear-gradient(to right, blue, white); height:300px;width:300px;margin: auto;"></div>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></div><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">right</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</div></pre></td></tr></table></figure>
+<p>可以同时指定水平方向和垂直方向的起始点使渐变对角线式的运行:</p>
+<div style="background: linear-gradient(to bottom right, blue, white); height:300px;width:300px;margin: auto;"></div>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></div><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">bottom</span> <span class="selector-tag">right</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</div></pre></td></tr></table></figure>
+<h4 id="使用角度"><a class="header-anchor" href="#使用角度"> </a>使用角度</h4>
+<p>如果你不指定一个角度，这个将自动基于给定的方向。如果你更喜欢控制渐变的方向，你可以设置特定的角度。</p>
+<p>例如，这两个渐变，第一个方向朝右，第二个有个70度的角。</p>
+<p><img src="https://developer.mozilla.org/@api/deki/files/3953/=linear_gradient_angle.png" alt="linear_gradient_angle.png"></p>
+<p>右边的这个使用的是这样的CSS样式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(70<span class="selector-tag">deg</span>, <span class="selector-tag">black</span>, <span class="selector-tag">white</span>);</div></pre></td></tr></table></figure>
+<h4 id="色标"><a class="header-anchor" href="#色标"> </a>色标</h4>
+<p>linear-grandient可以填写多于两个颜色，这样可以形成多个颜色的渐变。默认情况下每个颜色都占均等的宽度，但在颜色后面可以指定一个从0-100的百分数，来指定当前颜色的渐变位置。第一个颜色的位置默认为0， 最后一个默认为100</p>
+<div style="background: linear-gradient(to right, red, blue 20%, black); height:300px;width:300px;margin: auto;"></div>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">right</span>, <span class="selector-tag">red</span>, <span class="selector-tag">blue</span> 20%,<span class="selector-tag">black</span>);</div></pre></td></tr></table></figure>
+<h4 id="透明和渐变"><a class="header-anchor" href="#透明和渐变"> </a>透明和渐变</h4>
+<p>渐变是支持透明度的。 举个例子，当你叠加多个背景层，你可以使用这个在背景图片上来创建淡入淡出的效果 :</p>
+<p><img src="https://developer.mozilla.org/files/4275/linear_multibg_transparent2.png" alt="for Transparency and gradients example"></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)), url(http://foo.com/image.jpg);</div></pre></td></tr></table></figure>
+<h3 id="径向渐变"><a class="header-anchor" href="#径向渐变"> </a>径向渐变</h3>
+<p>径向渐变使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient" target="_blank" rel="external"><code>radial-gradient</code></a> 函数语法. 这个语法和线性渐变很类似, 除了你可以指定渐变结束时的形状 (可能时一个圆形或者一个椭圆形) 以及它的大小. 默认来说，结束形状是一个椭圆形并且和容器的大小比例保持一致。</p>
+<div style="background:radial-gradient(red, yellow, rgb(30, 144, 255)); height:300px;width:300px;margin: auto;"></div>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">radial-gradient</span>(<span class="selector-tag">red</span>, <span class="selector-tag">yellow</span>, <span class="selector-tag">rgb</span>(30, 144, 255));</div></pre></td></tr></table></figure>
+<h3 id="重复的渐变"><a class="header-anchor" href="#重复的渐变"> </a>重复的渐变</h3>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/linear-gradient" target="_blank" rel="external"><code>linear-gradient</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient" target="_blank" rel="external"><code>radial-gradient</code></a>不支持自动重复的色标。然而，  <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/repeating-linear-gradient" target="_blank" rel="external"><code>repeating-linear-gradient</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/repeating-radial-gradient" target="_blank" rel="external"><code>repeating-radial-gradient</code></a> 可以实现这个功能。</p>
+<div style="background:repeating-linear-gradient(-45deg, red, red 5px, white 5px, white 10px); height:300px;width:300px;margin: auto;"></div>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">repeating-linear-gradient</span>(<span class="selector-tag">-45deg</span>, <span class="selector-tag">red</span>, <span class="selector-tag">red</span> 5<span class="selector-tag">px</span>, <span class="selector-tag">white</span> 5<span class="selector-tag">px</span>, <span class="selector-tag">white</span> 10<span class="selector-tag">px</span>);</div></pre></td></tr></table></figure>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Using_CSS_gradients" target="_blank" rel="external">参考文档</a></p>
+<p><a href="http://www.ruimeigg.cn/wlexp/singlePage/css_gradient.html" target="_blank" rel="external">Demo</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/18/20171018_Wordpress不使用80端口_18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1041,745 +1846,6 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-课程视频免费下载_14/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-课程视频免费下载_14/" itemprop="url">Bootstrap 4 From Scratch With 5 Projects 课程视频免费下载</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T13:40:23+08:00">
-                2017-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-课程视频免费下载_14/" class="leancloud_visitors" data-flag-title="Bootstrap 4 From Scratch With 5 Projects 课程视频免费下载">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>《Bootstrap 4 From Scratch With 5 Projects》是一位Youtube上的讲师开发的关于bootstrap的课程。他的课程基本都很容易懂，我已经订阅了他的<a href="https://www.youtube.com/user/TechGuyWeb" target="_blank" rel="external">频道</a>。</p>
-<p>他最近开发了一门课程是关于Bootstrap4的，并且放到了<a href="https://www.udemy.com/bootstrap-4-from-scratch-with-5-projects/" target="_blank" rel="external">Udemy</a>上，可是价格太贵了，人民币要1800元，如果是100元我都愿意花钱买，可是1800实在承受不起了。于是通过各种方法终于找到了全部课程视频，我想把这个视频分享给各位。</p>
-
-
-<video src="http://www.wliang.me/mov/01%20Intro%20%26%20Getting%20Started/1_Welcome%20To%20The%20Course.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
-</video>
-
-
-<p>如果需要全部视频的话可以加我微信.</p>
-<img src="/images/wx.jpg" style="zoom:30%">
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/30/20170930_Bootstrap还是很好用啊_13/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/30/20170930_Bootstrap还是很好用啊_13/" itemprop="url">Bootstrap还是很好用啊</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T21:34:26+08:00">
-                2017-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/30/20170930_Bootstrap还是很好用啊_13/" class="leancloud_visitors" data-flag-title="Bootstrap还是很好用啊">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天看了这位老美的Bootstrap的讲座，可能对于长期搞前端的人来说，这没有什么，但对于我来说却特别惊艳。看上去这么复杂的页面竟然1个小时就能搞定了。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/30/20170930_Bootstrap还是很好用啊_13/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/30/20170930_无标题_12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/30/20170930_无标题_12/" itemprop="url">没有标题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T13:09:35+08:00">
-                2017-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/business/" itemprop="url" rel="index">
-                    <span itemprop="name">商业</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/30/20170930_无标题_12/" class="leancloud_visitors" data-flag-title="没有标题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>整个IT产业和一个大型软件一样，都是分层的。底层是硬件，CPU，内存，硬盘，网络。上面一层是OS，他负责管理各种硬件资源，需要和CPU打交道，充分利用CPU提供的能力，再管理好各个外部设备，为再上层的应用软件提供编程接口。OS能够提供的其实都是标准接口：进程管理，文件读写，内存分配，网络处理，中断处理，基本上是这些了。在OS只上，有一些软件相对底层，比如DB，Cache，WebServer，浏览器等。所谓底层有两个含义，一是他处理业务比较有共性，从业务角度看更加抽象，比如说DB保存一条记录，可以是任何业务，比如可以是订单，可以是用户数据，可以是文章，可以是流水log。但是他并不关心这些，他只需要关心，高性能，可靠性。另外底层的软件都会有一些比较复杂的算法，因为他更多在处理数据本身，数据处理要求高效的算法。所以底层软件的算法是比较复杂的。</p>
-<p>那么再上一层就是应用软件，无论是ios, android, web，其实大部分会处理CRUD的问题。只是看谁能更好的维护代码，谁能有更好的交互体验。也可以说是，谁长得漂亮，谁就有优势。当然长得好看是一方面，另外就是能否有好的功能，好的内容。因为应用软件在业务处理上比较类似，而且实现方法比较多，所以除了开发语言很多，还有很多开发框架，这些开发框架也带来了很多学习成本。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/30/20170930_无标题_12/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/27/20170927_Node.js-简单笔记_11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/27/20170927_Node.js-简单笔记_11/" itemprop="url">Node.js 简单笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T14:31:22+08:00">
-                2017-09-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/27/20170927_Node.js-简单笔记_11/" class="leancloud_visitors" data-flag-title="Node.js 简单笔记">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Node.js是2009年一个美国自由职业者开发的，这哥们现在去了Google Brain，玩神经网络去了。</p>
-<p>Node主要是利用chrome V8强大的能力，执行js代码，然后加上异步IO的机制，可以实现用javascript写后台server。以前我一直以为server都得是C++写，现在才明白有个HTTP协议，加上一套框架，不就是传递数据么，没有什么高级和低级，就有高效和低效。</p>
-<p>node写一个简单的server很容易</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>)</span>&#123;</div><div class="line">  response.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span>:<span class="string">'text/plain'</span>&#125;);</div><div class="line">  response.write(<span class="string">'Hello world'</span>);</div><div class="line">  response.end();</div><div class="line">&#125;</div><div class="line">http.createServer(onRequest).listen(<span class="number">8000</span>);</div></pre></td></tr></table></figure>
-<p>通过引入一个内置的核心模块http，就可以启动一个server，这个和python里面的方式也挺像的。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/27/20170927_Node.js-简单笔记_11/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2017/09/22/20170923_vue表单_10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/20170923_vue表单_10/" itemprop="url">VUE表单v-model处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T18:03:52+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/22/20170923_vue表单_10/" class="leancloud_visitors" data-flag-title="VUE表单v-model处理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Handling User Input with Forms笔记</p>
-<p>表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。</p>
-<h5 id="原始形式的表单"><a class="header-anchor" href="#原始形式的表单"> </a>原始形式的表单</h5>
-<p>表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。<code>&lt;form&gt;</code>标签下放上几个<code>&lt;input&gt;</code>，当点击<code>&lt;submit&gt;</code>标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发送的地址是form的属性action所指定的url。这里用到的是POST方法。</p>
-<p>这些机制都是HTTP协议和浏览器共同完成了，作为web developper只是把业务逻辑写好。其中radio、checkbox需要name属性一致，这样才能表示对应的数据。无论是PHP活着Flask都是判断当前是POST方法表示客户端提交了数据，然后解析request里面的form，进行数据处理，然后在根据业务逻辑，生成对应的页面。</p>
-<h5 id="vue的表单处理"><a class="header-anchor" href="#vue的表单处理"> </a>Vue的表单处理</h5>
-<p>原生的form是需要页面跳转的，或者说是整个页面刷新。有了Vue这样的前端框架，可以不再按原来的方式处理，直接就是前后端分离，然后submit按钮点击之后，采用ajax方式和后台交互数据，业务逻辑很多放到了前端。</p>
-<p>对vue对表单的来说，最需要的就是收集数据，基本上都是通过<code>v-model</code>这个指令和vue的data中的变量进行绑定，然后submit之后提交数据。其中checkbox是个数组，radio是一个包含value的字符串
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/22/20170923_vue表单_10/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1829,7 +1895,7 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1851,7 +1917,7 @@ define(‘WP_HOME’,’&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
