@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"befree2008.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="RPN整体逻辑 RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明） maskrcnn-benchmar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="maskrcnn-benchmark源码分析(2)_RPN计算.md">
-<meta property="og:url" content="http://befree2008.github.io/2018/12/19/20181219_maskrcnn-benchmark2_RPN/index.html">
+<meta property="og:url" content="http://wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="RPN整体逻辑 RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明） maskrcnn-benchmar">
 <meta property="article:published_time" content="2018-12-19T02:53:41.712Z">
@@ -32,7 +32,7 @@
 <meta property="article:tag" content="rcnn,mask">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://befree2008.github.io/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
+<link rel="canonical" href="http://wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
 
 
 <script id="page-configurations">
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://befree2008.github.io/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
+    <link itemprop="mainEntityOfPage" href="http://wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
