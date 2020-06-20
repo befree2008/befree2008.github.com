@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="LeNet，证明多层的CNN是有价值的，可以拿来做图像识别 AlexNet，提出数据多，网络深就可以有好结果，但是计算速度、过拟合是问题，所以给出了ReLU，Dropout VGG，说他们有效是因为用了很小的filters(3*3)，因为小的filter可以让网络变得很深。VGG说LRN没啥效果。 使用小filter可以使参数变少，计算量变小。3层3*3就相当于是一层7*7，同时因为之间加入了Re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CNN图像分类学习记录(三)——VGGNet">
-<meta property="og:url" content="http://wliang.me/2018/09/12/20180912_CNN_Vgg/index.html">
+<meta property="og:url" content="http://www.wliang.me/2018/09/12/20180912_CNN_Vgg/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="LeNet，证明多层的CNN是有价值的，可以拿来做图像识别 AlexNet，提出数据多，网络深就可以有好结果，但是计算速度、过拟合是问题，所以给出了ReLU，Dropout VGG，说他们有效是因为用了很小的filters(3*3)，因为小的filter可以让网络变得很深。VGG说LRN没啥效果。 使用小filter可以使参数变少，计算量变小。3层3*3就相当于是一层7*7，同时因为之间加入了Re">
 <meta property="article:published_time" content="2018-09-12T00:36:25.962Z">
@@ -32,7 +32,7 @@
 <meta property="article:tag" content="cnn">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wliang.me/2018/09/12/20180912_CNN_Vgg/">
+<link rel="canonical" href="http://www.wliang.me/2018/09/12/20180912_CNN_Vgg/">
 
 
 <script id="page-configurations">
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://wliang.me/2018/09/12/20180912_CNN_Vgg/">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/12/20180912_CNN_Vgg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
