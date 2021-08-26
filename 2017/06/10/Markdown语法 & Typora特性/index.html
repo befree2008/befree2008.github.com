@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​	Typora是一款极简风格的Markdown写作软件。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑&#x2F;预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是GitHub Flavored Markdown。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown语法 &amp; Typora特性">
+<meta property="og:url" content="http://www.wliang.me/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="​	Typora是一款极简风格的Markdown写作软件。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑&#x2F;预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是GitHub Flavored Markdown。">
+<meta property="og:image" content="http://www.wliang.me/images/tf.jpg">
+<meta property="article:published_time" content="2017-06-10T07:42:53.000Z">
+<meta property="article:modified_time" content="2020-06-20T02:12:39.604Z">
+<meta property="article:author" content="Befree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wliang.me/images/tf.jpg">
+
+<link rel="canonical" href="http://www.wliang.me/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Markdown语法 & Typora特性 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Markdown语法 & Typora特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-06-10 15:42:53" itemprop="dateCreated datePublished" datetime="2017-06-10T15:42:53+08:00">2017-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-20 10:12:39" itemprop="dateModified" datetime="2020-06-20T10:12:39+08:00">2020-06-20</time>
+              </span>
+
+          
+            <span id="/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/" class="post-meta-item leancloud_visitors" data-flag-title="Markdown语法 & Typora特性" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/06/10/Markdown%E8%AF%AD%E6%B3%95%20&%20Typora%E7%89%B9%E6%80%A7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>​	<span id='Markdown-gramma'>Typora是一款极简风格的Markdown写作软件</span>。他有很多强大的特性，让编辑文档更有快感，创新性的去掉了编辑/预览的双窗口模式，而是采用所见即所得的统一窗口模式。Typora使用的Markdown语法是<a href="https://help.github.com/categories/writing-on-github/" target="_blank" rel="noopener">GitHub Flavored Markdown</a>。<a id="more"></a></p>
+<p>​	Markdown是用纯文本方式编辑文档，方便阅读和写作，不会像HTML一样将内容都写在指令化的标记中。通过Markdown编辑好的文档，再通过各种工具转换为HTML或XHTML，以便发布到网上。期初的转换工具只是作者提供的一个perl脚本。随后产生了很多的可视化工具，我试用过一些感觉都不太好用。Typora是最清爽，最快速，功能非常丰富的App，值得推荐。</p>
+<h3 id="段落"><a class="header-anchor" href="#段落"> </a>段落</h3>
+<p>在Typora中，直接回车就可以生成一个新段落。使用<code>Shift+Enter</code> 生成一行分割的段落，为了其他Markdown解析器可以识别，最好在段落的最后加上两个空格，或者加上&lt;br&gt;标记</p>
+<h3 id="标题"><a class="header-anchor" href="#标题"> </a>标题</h3>
+<p>用<code>#</code>可以标示标题，共分六级。在typora中输入<code>[toc]</code>可以根据所有的标题，生成文章目录</p>
+<h3 id="引用"><a class="header-anchor" href="#引用"> </a>引用</h3>
+<blockquote>
+<p>Markdown使用 <code>&gt;</code>  标示引用</p>
+<p>在Typora中，输入一个 <code>&gt;</code> Typora就会自动生成一个引用块，很方便</p>
+</blockquote>
+<h3 id="列表"><a class="header-anchor" href="#列表"> </a>列表</h3>
+<p>##无序列表(<code>*</code>、<code>+</code>、 <code>-</code>都可以用来生成无序列表)</p>
+<ul>
+<li><font color='red'>Red</font></li>
+<li><font color='green'>Green</font></li>
+<li><font color='blue'>Blue</font></li>
+</ul>
+<p>##有序列表</p>
+<ol>
+<li><font color='red'>Red</font></li>
+<li><font color='green'>Green</font></li>
+<li><font color='blue'>Blue</font></li>
+</ol>
+<p>## 任务列表</p>
+<p><input type="checkbox" id="checkbox0"><label for="checkbox0">Task1</label></p>
+<p><input type="checkbox" id="checkbox1" checked="true"><label for="checkbox1">Task2</label></p>
+<p><input type="checkbox" id="checkbox2" checked="true"><label for="checkbox2">Task3</label></p>
+<h3 id="数学公式"><a class="header-anchor" href="#数学公式"> </a>数学公式</h3>
+<p>在Typora中输入<code>$$</code>就可以打开公式编辑器，使用的是Latex的公式语法。Latex的数学符号标记网上有很多参考文档，用到哪些再学哪些吧
+$$
+\mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp; \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp; \frac{\partial Y}{\partial v} &amp; 0 \\
+\end{vmatrix}
+$$</p>
+<h3 id="代码块"><a class="header-anchor" href="#代码块"> </a>代码块</h3>
+<p>在Typora中输入’‘’ 即可自动生成代码块，直接填写代码即可，同时选择一下语言，Typora可以进行语法高亮的操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  console.<span class="built_in">log</span>(<span class="string">"notice the blank line before this function?"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a class="header-anchor" href="#表格"> </a>表格</h3>
+<p>表格也比较简单，只要输入  <strong>| 字段一 | 字段二 |</strong>  ，Typora会弹出一个工具条，可以选择表格的大小和对齐方式</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Left-Aligned</th>
+<th style="text-align:center">Center Aligned</th>
+<th style="text-align:right">Right Aligned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">col 3 is</td>
+<td style="text-align:center">some wordy text</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td style="text-align:left">col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td style="text-align:left">zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接"><a class="header-anchor" href="#链接"> </a>链接</h3>
+<p>Markdown的链接语法是 <code>[链接文字](链接URL)</code> 方括号内是链接文字，小括号内是链接的URL，就可以得到这样的链接<a href="www.tianyige.com">点击这里</a></p>
+<p>Markdown也支持内部链接，<a href="#%E6%AE%B5%E8%90%BD">点击这里</a>就可以返回顶部</p>
+<p>还可以实现<a href="https://typora.io/" target="_blank" rel="noopener" title="Typora官网">参考链接</a>，只要写入<code>[][]</code>  即可</p>
+<p>直接使用尖括号，可以插入URL , 比如这样：&lt;<a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a>&gt;</p>
+<h3 id="图片"><a class="header-anchor" href="#图片"> </a>图片</h3>
+<p>插入图片的语法和连接的类似，只是需要前面加入一个<code>!</code></p>
+<p>这是一张图片<img src='/images/tf.jpg' style='zoom:50%'></p>
+<p>在<code>![Alt text](/path/to/img.jpg)</code>图片连接语法中，小括号内可以写图片的相对路径，或者就是一个URL</p>
+<p>如果要改变图片的大小，就需要借助HTML的img标签了</p>
+<h3 id="文字强调"><a class="header-anchor" href="#文字强调"> </a>文字强调</h3>
+<ol>
+<li>**变成粗体 需要加上两个 <code>*</code> **</li>
+<li><em>变成斜体，需要加上一个</em>  <code>*</code></li>
+<li><u>加上下划线，可以使用</u> <code>&lt;u&gt;</code> <u>标记</u></li>
+<li>用<code>~~</code> 可以给文字加上<s>删除线</s></li>
+<li>用<code>==</code> 可以 ==把文字变成高亮==</li>
+</ol>
+<h3 id="其他杂项"><a class="header-anchor" href="#其他杂项"> </a>其他杂项</h3>
+<ol>
+<li>
+<p>😄   <code>:smile:</code> 两个冒号括起来就可以使用Emoji表情了</p>
+</li>
+<li>
+<p>行内数学公式，用<code>$</code>   <code>$</code> 进行触发： $\LaTeX$      $\lim{x \to \infty} \exp(-x) = 0$</p>
+</li>
+<li>
+<p>脚注<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>  ，这里的语法是<code>[^footnote]</code></p>
+</li>
+<li>
+<p>上标用<code>^</code> 来标记，比如 X<sup>999</sup></p>
+</li>
+<li>
+<p>下标用<code>~</code> 来标记，比如X<sub>long test</sub>  H<sub>2</sub>O</p>
+</li>
+<li>
+<p><code>YAML</code> Front Matter，在文章顶部输入 <code>---</code>就可以生成一个配置块，填入相关参数</p>
+</li>
+</ol>
+<p>详细内容可以参考<a href="http://support.typora.io/Markdown-Reference/" target="_blank" rel="noopener">Typora官网文档</a></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>这里是第一个脚注说明 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/17/Tensor/" rel="next" title="TF编程方式很别扭">
+      TF编程方式很别扭 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#段落"><span class="nav-number">1.</span> <span class="nav-text">段落</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标题"><span class="nav-number">2.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">3.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">4.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学公式"><span class="nav-number">5.</span> <span class="nav-text">数学公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块"><span class="nav-number">6.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">7.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">8.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">9.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字强调"><span class="nav-number">10.</span> <span class="nav-text">文字强调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他杂项"><span class="nav-number">11.</span> <span class="nav-text">其他杂项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

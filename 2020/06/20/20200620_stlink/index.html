@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="TL;DR 支持STM32H7芯片的st-link已经修改好，放到我的github 上了（st-link已经禁止外人提交PR了）。这个是在1.6.1的版本基础是进行的修改，供大家参考，欢迎拍砖批评。当然代码中还有些问题，比如只使用了一个Bank，超过1M的bin文件会出问题，但目前至少能使用，其他后续再改。   背景 因为看上STM32H7的高性价比，所以买来一块正点原子的核心板学习一下。ST官">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32H743无法烧录Flash问题解决">
+<meta property="og:url" content="http://www.wliang.me/2020/06/20/20200620_stlink/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="TL;DR 支持STM32H7芯片的st-link已经修改好，放到我的github 上了（st-link已经禁止外人提交PR了）。这个是在1.6.1的版本基础是进行的修改，供大家参考，欢迎拍砖批评。当然代码中还有些问题，比如只使用了一个Bank，超过1M的bin文件会出问题，但目前至少能使用，其他后续再改。   背景 因为看上STM32H7的高性价比，所以买来一块正点原子的核心板学习一下。ST官">
+<meta property="article:published_time" content="2020-06-20T02:04:58.948Z">
+<meta property="article:modified_time" content="2020-06-20T03:09:15.778Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="stm32">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.wliang.me/2020/06/20/20200620_stlink/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>STM32H743无法烧录Flash问题解决 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2020/06/20/20200620_stlink/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STM32H743无法烧录Flash问题解决
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-20 10:04:58 / Modified: 11:09:15" itemprop="dateCreated datePublished" datetime="2020-06-20T10:04:58+08:00">2020-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/20/20200620_stlink/" class="post-meta-item leancloud_visitors" data-flag-title="STM32H743无法烧录Flash问题解决" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/20/20200620_stlink/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/20/20200620_stlink/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><font color='blue'><strong>TL;DR</strong></font></p>
+<p><font color='blue'>支持STM32H7芯片的st-link已经修改好，放到<a href="https://github.com/befree2008/stlink" target="_blank" rel="noopener">我的github</a> 上了（st-link已经禁止外人提交PR了）。这个是在1.6.1的版本基础是进行的修改，供大家参考，欢迎拍砖批评。当然代码中还有些问题，比如只使用了一个Bank，超过1M的bin文件会出问题，但目前至少能使用，其他后续再改。</font></p>
+</blockquote>
+<h4 id="背景"><a class="header-anchor" href="#背景"> </a>背景</h4>
+<p>因为看上STM32H7的高性价比，所以买来一块正点原子的核心板学习一下。ST官方文档中宣称STM32H743的JPEG(640*480)压缩能力能达到16fps，在考虑用H743准备做一个低成本的Camera。</p>
+<p>然而调试却不是那么顺利。我平时烧录和调试都用的是st-link，但是st-link不支持STM32H7系列的芯片！</p>
+<p>搜到st-link的相关issue:<a href="https://github.com/stlink-org/stlink/issues/671" target="_blank" rel="noopener">STM32H7xx support</a>，发现这个问题从2018年2月就有人提，到现在2年多还没解决。st-link官方推荐去使用openocd去烧录h7系列？？给竞对送用户，我看他们是不想干了吧。</p>
+<p>无奈，只好下载openocd去烧录，我对openocd不熟，而且他也很复杂，烧录的程序貌似有问题，而且又烧录几次后，板子不亮了，没有反应了，提示<em>openocd halt Handler HardFault</em>。我以为板子被烧坏了。<a id="more"></a></p>
+<h4 id="Windows环境烧录"><a class="header-anchor" href="#Windows环境烧录"> </a>Windows环境烧录</h4>
+<p>板子不亮了，还想再试试救救。平时都在Mac下烧录，我转到Windows上，看看Keil能否救活STM32H743。于是安装了Keil，结果还是不行。选择“Erase full chip”也不行。始终报错<em>Error: Flash Download failed - “Cortex-M7”</em>，</p>
+<p>google一下，发现还是有不少人遇到同样问题，而且有人解决了<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，他的方式是下载最新的pack包。于是赶紧下载最新<em>Keil.STM32H7xx_DFP.2.5.0.pack</em>包。竟然神奇的烧录成功，板子恢复正常了。</p>
+<h4 id="Mac环境烧录"><a class="header-anchor" href="#Mac环境烧录"> </a>Mac环境烧录</h4>
+<p>虽然板子可以用了，但是需要去Win下开发，感到十分恶心。还是想再看看怎么能让st-link跑起来。就开始研究st-link的代码，发现几篇关于SWD协议，st-link研究的文章<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>给我很多启发，于是决定自己动手改st-link。</p>
+<p>通过查看st-link代码发现，他是先通过获取芯片的chip-id，然后在进行flash upload。但是第一步chip-id就没有获取成功。仔细看<strong>RM0433参考手册</strong>，发现其实保存H743 chip-id的DBGMCU的地址是0x5C001000。</p>
+<p>其次，需要注意的地方是Flash 的寄存器地址全部都和F7/F4系列不一样。Flash寄存器基地址在RM0433中没有描述，然而在HAL库的代码中能找到寄存器基地址。找到基地址了，按照参考手册的寄存器偏移和各个位的功能，就可以开始操作Flash了。</p>
+<p>而且最后没有使用st-link那种先把flash uploader写到sram中，然后再烧录，而是直接写flash，只要做好32Byte对齐就好。</p>
+<p>修改这几个地方后，一切又恢复如初，我可以继续在Mac下用Vscode+st-link+cubeMX开发了，比Win下开发顺畅多了。</p>
+<h4 id="后记"><a class="header-anchor" href="#后记"> </a>后记</h4>
+<p>本来想提交PR，或者把这些发现告诉st-link，结果发现他们既不让外人提comment，也不让外人提交PR。只是冷冰冰的提示一句“An owner of this repository has limited the ability to open a pull request to users that have contributed to this repository in the past.” 现在st-link完全是个封闭的小圈子再搞，无语。所以我把代码放到<a href="https://github.com/befree2008/stlink" target="_blank" rel="noopener">我的github</a> 了，有需要的小伙伴可以自行下载使用。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/SS15/article/details/104786416" target="_blank" rel="noopener">上手Nucleo H743ZI 开发板下载失败问题解决方法</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://www.brobwind.com/archives/1133" target="_blank" rel="noopener">STM32: ST-LINK/V2与STLINK/V2-1 DFU协议分析</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/chengdong1314/article/details/79875456" target="_blank" rel="noopener">ARM调试原理【调试接口框图】【SWD时序】【SWD主机】</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://blog.csdn.net/u010066882/article/details/56030473" target="_blank" rel="noopener">SWD协议研究</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/stm32/" rel="tag"># stm32</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/11/20200511_%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="prev" title="STM32Timer和PWM驱动舵机">
+      <i class="fa fa-chevron-left"></i> STM32Timer和PWM驱动舵机
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows环境烧录"><span class="nav-number">2.</span> <span class="nav-text">Windows环境烧录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mac环境烧录"><span class="nav-number">3.</span> <span class="nav-text">Mac环境烧录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

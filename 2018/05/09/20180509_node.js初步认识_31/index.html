@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Node.js是干啥的 之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js初步认识">
+<meta property="og:url" content="http://www.wliang.me/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="Node.js是干啥的 之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。">
+<meta property="article:published_time" content="2018-05-09T13:58:51.509Z">
+<meta property="article:modified_time" content="2018-05-09T14:04:08.287Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="node.js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.wliang.me/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>node.js初步认识 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          node.js初步认识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-05-09 21:58:51 / Modified: 22:04:08" itemprop="dateCreated datePublished" datetime="2018-05-09T21:58:51+08:00">2018-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/" class="post-meta-item leancloud_visitors" data-flag-title="node.js初步认识" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="Node-js是干啥的"><a class="header-anchor" href="#Node-js是干啥的"> </a>Node.js是干啥的</h4>
+<p>之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。<a id="more"></a></p>
+<h4 id="特点"><a class="header-anchor" href="#特点"> </a>特点</h4>
+<p>Node是利用google的V8 Javascript引擎，可以高性能的解析Javascript，Node在V8基础上封装了很多后端应用才会用到的Module。这样就发生了一个很神奇的现象，就是一种浏览器脚本，常见于前端页面开发的语言，竟然可以开发后台Server开发。而且Node的设计理念是单线程，全异步，在某些场合会比较高效，单机的QPS、吞吐量也会相对高一些。</p>
+<p>而且因为是使用JS语言，这样可以使得前后端使用同一种语言，语言切换成本变低了很多。加上JS这么语言有很多灵活的语法，可以让开发更加快速。</p>
+<p>同时Node里面还有一种包管理机制，我的理解就是各种类库。这些类库可以很方便的通过工具npm，从网络上下载对应版本。这些类库有几万个，涵盖了各种功能，很像乐高积木一样，堆堆搭搭就形成了一个后台服务，提供您Restful API或者 返回普通HTML页面。</p>
+<p>基于Node也有比较成熟的Web开发框架——Express.js , 虽然我还没深入研究，估计这个就是类似Lavaral, Flask, Django，这类的MVC框架，只要写好URL路由，做下ORM，然后在各个Controller里面写业务逻辑，就能返回View了。</p>
+<h4 id="JS的特性"><a class="header-anchor" href="#JS的特性"> </a>JS的特性</h4>
+<p>看了一些代码，很多看不懂，让我自己写，也是让我头疼的不行。主要原因是对Node不熟悉，更重要的是对JS的语法和开发形式不熟悉。我估计以后得有人写“Javascript编程思想”这类的书了。js里面有些新特性，我后面还得慢慢体会和测试，比如匿名函数、闭包、函数式编程、链式调用、回调函数。回头把这几个概念搞清楚。</p>
+<h4 id="对比感想"><a class="header-anchor" href="#对比感想"> </a>对比感想</h4>
+<p>有时真的很感慨。就在10年前，这些搞PHP的都被看做是做前台的。本来就是么，PHP最终的输出就是一个个也HTML页面，尽管页面上有很多数据，但之前他们是不能直接连接DB的，他们获取数据的方式必须通过后台Server啊。</p>
+<p>而十年过去了，弹指一挥间。这些前端开发语言，脚本语言成了主流，他们具有了和C++一样的，甚至更好的特性，开发工具也越来越好，人也越来越聪明，知识也学的越来越快。反倒是像我这样的，经验反而成了负累。</p>
+<p>虽然思路是一样的，多进程/多线程，异步IO，cache，DB，面向对象，封装，继承，多态，然而现在没有什么多态，只有callback Function。以前做后台开发还要自己设计消息结构，消息头，消息体，现在好了，底下HTTP，上面用JSON基本是万能的了。各种精巧的接口和注意事项，已经全然无用了。不过这样顺应了时势发展，本来以前的所谓C++Server其实很多一旦把一些类似Redis，RabbitMQ，进程间通信，这些通用逻辑一旦剥离出去，其实就剩下基本的业务逻辑判断了，无非就是if, else, for , write , update这类的简单操作了。</p>
+<h4 id="后续的学习想法"><a class="header-anchor" href="#后续的学习想法"> </a>后续的学习想法</h4>
+<p>本来是要记录技术的，结果又发了一大堆牢骚。以后不发牢骚了，忘记过去吧，大部分经验都是枷锁，丢下枷锁，才能真的获得自由。</p>
+<p>我看现在IT信息技术，有这么几类</p>
+<h5 id="应用开发"><a class="header-anchor" href="#应用开发"> </a>应用开发</h5>
+<p><strong>后端</strong></p>
+<p>现在看其实在应用开发中，主要就是后台数据服务，其实就是业务逻辑，业务逻辑可能复杂，不过主要也就是是对各种数据增，查，改，删，CRUD，一般是PHP, Python, JS也有少部分。数据量大了，访问量大了，业务环节多了，可能总体的解决方案就会用上各种知识和智慧了。</p>
+<p><strong>前端</strong></p>
+<p>Web前端主要是HTML ，CSS，JS和各种类库，框架，还是为了开发的快捷性。iOS前端和android前端，稍微会复杂一点，因为除了要处理界面展示问题，还要处理一些其他的逻辑，他们更是完整的MVC模式。web前端更多是V，而web后端是M和C的逻辑多一些。</p>
+<p>应用类开发更加侧重工程性，工程就是当访问量很大时，用哪些现有技术可以更加高效、快捷、高性价比的满足业务场景的需要。所以工程性好，就是代码本身设计结构合理，系统间各层级，各模块功能划分合理，耦合度低；而且充分利用好各种行业通用的工具，无论是开发工具，还是代码类库。同时要有好的开发方式，让很多人同时顺畅的合作。这才是应用开发中更多需要考虑的内容，至于用了哪些创新算法，其实根本不care，一般来说行业内一定有比较优秀的解决方案，最多是做剪裁和优化。当然能够把所有现有的技术全部掌握精通，那也是非常了不起的，毕竟范围太广，而且不停的在更新。</p>
+<h5 id="算法"><a class="header-anchor" href="#算法"> </a>算法</h5>
+<p>这里可能涉及一些分类，预测，推荐等各种算法，但如果是为产品服务的话，其实更多也是利用现有的模型，然后在基于自己场景做调参。</p>
+<h5 id="系统软件-框架"><a class="header-anchor" href="#系统软件-框架"> </a>系统软件/框架</h5>
+<p>这类给应用程序员开发的软件，其实也未必是有多么技术含量，只不过就是人家已经形成规模了，而且很多是免费，都是可能一个大型系统中的某个组件，顺便就开源了，然后有更多人参与进来，然后就成了行业规范或惯例。比如OS，DB，Cache，编译器、解释器，一些开发框架、类库都可能是这样的。这些东西学习一下挺好的，就是涨涨见识，未必能够真的能超越。</p>
+<h5 id="底层硬件"><a class="header-anchor" href="#底层硬件"> </a>底层硬件</h5>
+<p>从CPU，磁盘，网络，到树莓派，ardinuo等等，这些硬件知识应该去了解，但是很难学得深，一个是有点跨专业，一个是缺少实践的机会。</p>
+<p>这么多内容一个大问题就是学完就忘，我想全学也没啥意义，应该是从业务角度出发。去解决问题，而不是一味的在这里遍历技术。在解决问题的过程中，再去思考技术上的创新。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/node-js/" rel="tag"># node.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/" rel="prev" title="Hexo+ Next主题 增加Valine评论">
+      <i class="fa fa-chevron-left"></i> Hexo+ Next主题 增加Valine评论
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/" rel="next" title="Javascript 对象创建">
+      Javascript 对象创建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js是干啥的"><span class="nav-number">1.</span> <span class="nav-text">Node.js是干啥的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS的特性"><span class="nav-number">3.</span> <span class="nav-text">JS的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对比感想"><span class="nav-number">4.</span> <span class="nav-text">对比感想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续的学习想法"><span class="nav-number">5.</span> <span class="nav-text">后续的学习想法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用开发"><span class="nav-number">5.1.</span> <span class="nav-text">应用开发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法"><span class="nav-number">5.2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统软件-框架"><span class="nav-number">5.3.</span> <span class="nav-text">系统软件&#x2F;框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#底层硬件"><span class="nav-number">5.4.</span> <span class="nav-text">底层硬件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

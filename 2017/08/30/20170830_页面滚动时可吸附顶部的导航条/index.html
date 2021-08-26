@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可吸附到顶部的导航条的实现">
+<meta property="og:url" content="http://www.wliang.me/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。">
+<meta property="article:published_time" content="2017-08-30T11:52:26.000Z">
+<meta property="article:modified_time" content="2017-08-30T11:52:26.000Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="css, position, IIFE">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.wliang.me/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>可吸附到顶部的导航条的实现 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可吸附到顶部的导航条的实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-08-30 19:52:26" itemprop="dateCreated datePublished" datetime="2017-08-30T19:52:26+08:00">2017-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/" class="post-meta-item leancloud_visitors" data-flag-title="可吸附到顶部的导航条的实现" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。<a id="more"></a></p>
+<h3 id="Position样式"><a class="header-anchor" href="#Position样式"> </a>Position样式</h3>
+<p>整个网页在展现时，浏览器使用的是盒模型。</p>
+<p>默认的布局模式叫文档流，我的理解就是，HTML里面的每个元素像在河上流动的物体一样，在页面上，从上到下一个个流出来。通过更改position的属性，可以实现一些特殊效果。</p>
+<p>position选值包括static, relative, absolute, fixed, sticky</p>
+<ul>
+<li>static  是默认的方式，按照盒模型的基本方式进行展示。对于基本的布局，position其实也用不上，用好float就可以了。可能flex的方式更加符合现在的布局特点。</li>
+<li>relative 是在普通的static基础上，对元素的位置进行微调，通过设置top, right, bottom, left这四个值，可以让元素在原本应在的位置上，做偏移。原位置上会留下空白，后续的元素并不会受影响。</li>
+<li>absolute 是把元素从文档流中取出，然后相对于最近的非static的父元素，进行偏移。这个元素的子元素，都会跟着他一起定位到新地方去。后续的兄弟元素在布局时，全当没看见过他，继续正常的盒模型。</li>
+<li>fixed 也不为元素留空间，根据viewport进行偏移，相当于是无论网页怎么滚动变化，这个元素相对于浏览器窗口的位置是不变的(Top, left相对左上不变， Bottom, right，相对右下不变)</li>
+</ul>
+<p>对于要动态置顶的元素块，就是让positioin从static到fixed之间切换，必要时，还需要一个placeholder，避免此元素从文档流中取出后，破坏后面元素的布局。和布局相关的样式还包括display、float、flex这几个都是布局相关的。</p>
+<h3 id="Scroll事件"><a class="header-anchor" href="#Scroll事件"> </a>Scroll事件</h3>
+<p>当页面发生滚动事件时，就会调用绑定的事件处理函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onscroll = funcRef;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>funcRef 是个函数类型的对象引用或者匿名函数.</li>
+</ul>
+<p>可以在页面DOM加载完成时，绑定onscroll函数，比如这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当页面加载完毕时</span></span><br><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"window.onload"</span>);</span><br><span class="line">    <span class="comment">//获取要吸附的元素</span></span><br><span class="line">    <span class="keyword">var</span> oDiv1=<span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</span><br><span class="line">    <span class="comment">//获取被吸附时，原位置占位的元素，以免影响其他元素布局（占位元素样式一致，背景透明，初始不可见）</span></span><br><span class="line">    <span class="keyword">var</span> oDiv2=<span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>);</span><br><span class="line">    <span class="comment">//设置一个变量存储元素到顶部的距离</span></span><br><span class="line">    <span class="keyword">var</span> divT=getPos(oDiv1).top;<span class="comment">//调用json里的数据对应top的值</span></span><br><span class="line">    <span class="comment">//当滚动条变化时，执行函数</span></span><br><span class="line">    <span class="built_in">window</span>.onscroll=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//定义一个变量，获取并存储滚动条纵向移动的距离</span></span><br><span class="line">        <span class="keyword">var</span> scrollTop=<span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;</span><br><span class="line">        <span class="comment">//判断吸顶条效果产生时需要的条件是否成立（当滚动距离大于或者等于元素离顶部距离的时候，吸附效果呈现）</span></span><br><span class="line">        <span class="keyword">if</span>(scrollTop &gt;= divT)&#123;</span><br><span class="line">            <span class="comment">//设置css样式产生吸附效果</span></span><br><span class="line">            oDiv1.style.position=<span class="string">'fixed'</span>;</span><br><span class="line">            oDiv1.style.left=<span class="number">0</span>;</span><br><span class="line">            oDiv1.style.top=<span class="number">0</span>;</span><br><span class="line">            <span class="comment">//并且让占位元素显示</span></span><br><span class="line">            oDiv2.style.display=<span class="string">'block'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当条件不成立时，物体返回原位（还原之前的的样式）</span></span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//取消定位</span></span><br><span class="line">            oDiv1.style.position=<span class="string">''</span>;</span><br><span class="line">            <span class="comment">//并且让占位元素隐藏</span></span><br><span class="line">            oDiv2.style.display=<span class="string">'none'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="立即执行函数表达式（IIFE）"><a class="header-anchor" href="#立即执行函数表达式（IIFE）"> </a>立即执行函数表达式（IIFE）</h3>
+<p>总是不能明白IIFE的作用，实际上就是一个立即执行的代码段，因为所有的代码是在一个函数里面，所以这里面定义的变量不会污染全局环境。而且如果这段代码在HTML的最底部，他会有window.onload类似的效果，常用的语法形式就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	。 。 。</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>PS：一点感想，能把一个知识点清晰地有条理有层次的表达出来是件不容易的事情，需要经过一定的锻炼。这是第三篇了，我看看我写个100篇会怎么样？以前我也是因为忙，也是因为懒，很多问题没有深入，止步于看上去可以run了，既不去管背后的原理，也不去追求更好的解决方案，使得自己进步的不“实在”。看上去好像能够解决很多的问题，但实际上对于知识结构的升级，没有系统性。不仅仅是技术，对于其他知识也是如此，这应该是一种思维习惯的锻炼。之前能够拿出可以run的解决方案，但是只要一评审，总会有很多地方被人问到哑口无言，就是因为只看了表面的，而没有自己的理解。后面，时间也比较充裕，争取改进一下。</p>
+<h5 id="DEMO"><a class="header-anchor" href="#DEMO"> </a><a href="http://www.wliang.me/exp/xiding.html">DEMO</a></h5>
+<h5 id="参考文档"><a class="header-anchor" href="#参考文档"> </a>参考文档</h5>
+<p>关于相关CSS</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/position</a></p>
+<p><a href="http://www.awaimai.com/447.html" target="_blank" rel="noopener">http://www.awaimai.com/447.html</a></p>
+<p><a href="http://www.jianshu.com/p/59e8924c0fd4" target="_blank" rel="noopener">http://www.jianshu.com/p/59e8924c0fd4</a></p>
+<p>关于window.onload事件</p>
+<p><a href="http://www.cnblogs.com/lovesong/p/5641834.html" target="_blank" rel="noopener">http://www.cnblogs.com/lovesong/p/5641834.html</a></p>
+<p><a href="https://stackoverflow.com/questions/588040/window-onload-vs-document-onload" target="_blank" rel="noopener">https://stackoverflow.com/questions/588040/window-onload-vs-document-onload</a></p>
+<p>关于立即执行函数表达式（IIFE）</p>
+<p><a href="https://segmentfault.com/a/1190000003985390" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003985390</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css-position-IIFE/" rel="tag"># css, position, IIFE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/08/29/20170829_%E8%BF%91%E6%9C%9F%E5%8F%8D%E6%80%9D/" rel="prev" title="近期反思">
+      <i class="fa fa-chevron-left"></i> 近期反思
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/09/04/20170904_css3%E7%9A%84transition%E5%8A%A8%E7%94%BB/" rel="next" title="CSS3的Transition动画">
+      CSS3的Transition动画 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Position样式"><span class="nav-number">1.</span> <span class="nav-text">Position样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scroll事件"><span class="nav-number">2.</span> <span class="nav-text">Scroll事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#立即执行函数表达式（IIFE）"><span class="nav-number">3.</span> <span class="nav-text">立即执行函数表达式（IIFE）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DEMO"><span class="nav-number">3.0.1.</span> <span class="nav-text">DEMO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文档"><span class="nav-number">3.0.2.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

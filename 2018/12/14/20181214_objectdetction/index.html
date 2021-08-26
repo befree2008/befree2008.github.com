@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="目标检测 CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。  因为滑动窗口截图的方式过于简单粗暴，人们又提出了Selective Search算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（regions of interest ROI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测学习笔记(一)_RCNN系列">
+<meta property="og:url" content="http://www.wliang.me/2018/12/14/20181214_objectdetction/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="目标检测 CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。  因为滑动窗口截图的方式过于简单粗暴，人们又提出了Selective Search算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（regions of interest ROI">
+<meta property="og:image" content="http://static.aixpaper.com/wl/sw.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/rcnn.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/fastrcnn.png">
+<meta property="og:image" content="http://static.aixpaper.com/wl/roi_pooling.gif">
+<meta property="og:image" content="http://static.aixpaper.com/wl/fasterrcnn.jpeg">
+<meta property="og:image" content="http://static.aixpaper.com/wl/rpn.jpeg">
+<meta property="article:published_time" content="2018-12-14T00:35:33.496Z">
+<meta property="article:modified_time" content="2018-12-14T03:22:55.039Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="cnn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.aixpaper.com/wl/sw.png">
+
+<link rel="canonical" href="http://www.wliang.me/2018/12/14/20181214_objectdetction/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>目标检测学习笔记(一)_RCNN系列 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/14/20181214_objectdetction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          目标检测学习笔记(一)_RCNN系列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-12-14 08:35:33 / Modified: 11:22:55" itemprop="dateCreated datePublished" datetime="2018-12-14T08:35:33+08:00">2018-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/14/20181214_objectdetction/" class="post-meta-item leancloud_visitors" data-flag-title="目标检测学习笔记(一)_RCNN系列" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/14/20181214_objectdetction/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/20181214_objectdetction/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="目标检测"><a class="header-anchor" href="#目标检测"> </a>目标检测</h2>
+<p>CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。</p>
+<p><img src="http://static.aixpaper.com/wl/sw.png" alt=""></p>
+<p>因为滑动窗口截图的方式过于简单粗暴，人们又提出了<a href="http://aixpaper.com/view/selective_search_for_object_recognition" target="_blank" rel="noopener"><strong>Selective Search</strong></a>算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（<strong>regions of interest</strong> ROI），这样可以节省很多计算量。</p>
+<h3 id="RCNN"><a class="header-anchor" href="#RCNN"> </a>RCNN</h3>
+<p>有了SS算法，加上CNN，大牛Ross Girshick在2014年提出<a href="http://aixpaper.com/view/rich_feature_hierarchies_for_accurate_object_detection_and_semantic_segmentation" target="_blank" rel="noopener">RCNN目标检测算法</a>。思路也挺直观，就是SS算法选区域，然后把小图片缩放成相同尺寸进入CNN，得到特征向量，然后分别进行类别判断和bbox的调整。</p>
+<p><img src="http://static.aixpaper.com/wl/rcnn.png" alt="rcnn"></p>
+<h3 id="Fast-RCNN"><a class="header-anchor" href="#Fast-RCNN"> </a>Fast-RCNN</h3>
+<p>RCNN在ROI选择上使用了SS算法，但需要进行多次的CNN计算，整体的检测速度还是很慢。所以还是Ross Girshick在2015年又整出来<a href="http://aixpaper.com/view/fast_rcnn" target="_blank" rel="noopener">Fast-RCNN目标检测算法</a>。所谓Fast就是减少CNN计算次数。先把图片送入CNN得到Feature Map，然后根据ROI的坐标，直接在Feature Map上截取特征值，然后在进行后续的分类和边框回归。</p>
+<p><img src="http://static.aixpaper.com/wl/fastrcnn.png" alt="fast rcnn"></p>
+<h4 id="RoI-Pooling"><a class="header-anchor" href="#RoI-Pooling"> </a>RoI Pooling</h4>
+<p>Fast Rcnn新增了RoIPooling层。由于最后的分类和边框回归是全连接层，需要输入向量的大小是确定且统一的。RoI的框框是大小不一的，原始RCNN是截取原图，把小图进行缩放，可以得到相同大小的特征向量。但是使用RoI从FeatureMap上截取出来的特征向量，是没法缩放的。于是rgb就提出了RoI Pooling。</p>
+<p>Pooling这个词翻译成池化。Max Pooling, Average Pooling，或者是RoI Pooling都翻译成池化，“池化”这是什么鬼，这绝对是狗屎翻译。Pooling这个词是有<strong>共用，合并</strong>的意思的。“池化”这样的翻译，会让人很难理解。</p>
+<p>继续说RoI Pooling，RoIPooling的主要思想就是把大小不一的特征向量，变成统一的大小，他在原向量上，划分成固定的M*N份，然后每份做Max Pooling，得到最终统一的一个特征向量。下面这个动图，还是解释的很清楚的。</p>
+<p><img src="http://static.aixpaper.com/wl/roi_pooling.gif" alt="roi pooling"></p>
+<h3 id="Faster-RCNN"><a class="header-anchor" href="#Faster-RCNN"> </a>Faster-RCNN</h3>
+<p>Fast-RCNN算法提取的检测区域，还是使用SS算法，这个算法因为没法利用GPU，所以这个框架还是比较慢。于是这位大牛Ross Girshick在2015年又提出了<a href="http://aixpaper.com/view/faster_rcnn_towards_realtime_object_detection_with_region_proposal_networks" target="_blank" rel="noopener">Faster-RCNN目标检测算法</a>。</p>
+<p><img src="http://static.aixpaper.com/wl/fasterrcnn.jpeg" alt="faster rcnn"></p>
+<h4 id="Region-proposal-network"><a class="header-anchor" href="#Region-proposal-network"> </a>Region proposal network</h4>
+<p>Faster-RCNN的主要改进是把Selective Search算法替换成一个NN模块，取名叫<strong>Region proposal network</strong>。我理解RPN就是GPU版本的滑动窗口算法。还记得最早目标检测的方法么，用各种尺寸的框框遍历整张图片，然后把截取出来的小图进行分类判断。RPN其实也差不多，只是这次用默认的大小的边框，截取图片的FeatureMap，然后判断在这个框框中是否有物体，他们管这个预先设定的边框叫anchor。</p>
+<p><img src="http://static.aixpaper.com/wl/rpn.jpeg" alt="rpn"></p>
+<p>对FeatureMap上的每个点都进行一次小型CNN计算，可能是ZF或VGG16之类的网络，然后得出2k个数值，k表示有几个默认框(anchor)，每个anchor得到两个值，对这两个值做softmax就能知道在这个位置上，对应的边框里是否有待检测的目标了。如果有目标，则用Roi的坐标值去截取FeatureMap，做最后的分类和回归。</p>
+<p>至此，一个相对完整的目标检测网络框架就基本成型了。当然如果看代码，还是会有很多细节。比如在训练过程中的Target Building，Inference时的NMS(非极大值抑制)，还有就是GPU上BBox的IoU计算，都是技巧性非常强的代码，值得仔细学习一下。但不管怎样，整体的框架就是这样了。总算是比之前更清楚一点了：）</p>
+<p>有意思的地方是，Faster Rcnn论文的作者中有大神KaimingHe，而且那时他们都是在微软工作。同年年底KaimingHe发了ResNet的论文。随后在2016，2017也是这两位再发的ResNeXt，FPN，以及Mask RCNN就都是在Fackbook工作了。在2016年FAIR推出了PyTorch，2018年初又推出Detectron。在物体识别和目标检测上，估计Fackbook可以碾压任何对手了。不知道此刻，微软的心理阴影面积有多大。虽然不能近距离接触大神，看看他们的变化也挺有戏剧性的。</p>
+<p>参考文档：</p>
+<p>1，<a href="https://medium.com/@jonathan_hui/what-do-we-learn-from-region-based-object-detectors-faster-r-cnn-r-fcn-fpn-7e354377a7c9" target="_blank" rel="noopener">What do we learn from region based object detectors</a></p>
+<p>2，<a href="http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/" target="_blank" rel="noopener">Object Detection and Classification using R-CNNs</a></p>
+<p>3，<a href="https://deepsense.ai/region-of-interest-pooling-explained/" target="_blank" rel="noopener">https://deepsense.ai/region-of-interest-pooling-explained/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cnn/" rel="tag"># cnn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/" rel="prev" title="智能论文功能列表">
+      <i class="fa fa-chevron-left"></i> 智能论文功能列表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" rel="next" title="maskrcnn-benchmark源码分析(1)_网络构建.md">
+      maskrcnn-benchmark源码分析(1)_网络构建.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标检测"><span class="nav-number">1.</span> <span class="nav-text">目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RCNN"><span class="nav-number">1.1.</span> <span class="nav-text">RCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-RCNN"><span class="nav-number">1.2.</span> <span class="nav-text">Fast-RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RoI-Pooling"><span class="nav-number">1.2.1.</span> <span class="nav-text">RoI Pooling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Faster-RCNN"><span class="nav-number">1.3.</span> <span class="nav-text">Faster-RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Region-proposal-network"><span class="nav-number">1.3.1.</span> <span class="nav-text">Region proposal network</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

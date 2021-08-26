@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="RPN整体逻辑 RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明） maskrcnn-benchmar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maskrcnn-benchmark源码分析(2)_RPN计算.md">
+<meta property="og:url" content="http://www.wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="RPN整体逻辑 RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明） maskrcnn-benchmar">
+<meta property="article:published_time" content="2018-12-19T02:53:41.712Z">
+<meta property="article:modified_time" content="2018-12-19T07:27:13.807Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="rcnn,mask">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>maskrcnn-benchmark源码分析(2)_RPN计算.md | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          maskrcnn-benchmark源码分析(2)_RPN计算.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-12-19 10:53:41 / Modified: 15:27:13" itemprop="dateCreated datePublished" datetime="2018-12-19T10:53:41+08:00">2018-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" class="post-meta-item leancloud_visitors" data-flag-title="maskrcnn-benchmark源码分析(2)_RPN计算.md" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="RPN整体逻辑"><a class="header-anchor" href="#RPN整体逻辑"> </a>RPN整体逻辑</h3>
+<p>RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明）</p>
+<p>maskrcnn-benchmark代码中，用RPNModule模块，封装整个RPN的计算过程。RPNModule的几个重要对象为</p>
+<ul>
+<li><strong>head   (<em>RPNHead</em>)：</strong>  rpn的cnn网络，对feature map每个点计算对应的bbox和cls_logits</li>
+<li><strong>anchor_generator（<em>AnchorGenerator</em>）：</strong>  根据原图大小和feature map的大小，算出所有anchor在原图上的坐标。</li>
+<li><strong>box_selector_train（<em>RPNPostProcessor</em>）：</strong> 根据head计算的分值，选取最高2000个box，送入后续的roi_head的网络中。这部分功能对RPN网络本身的训练没有帮助。如果只是训练RPN网络，这步可以省略。</li>
+<li><strong>loss_evaluator（<em>RPNLossComputation</em>）：</strong> 用target的box，在anchor中按一定比例选择正负样本，然后根据前面head计算的结果，计算RPN网络的Loss <a id="more"></a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RPNModule</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, images, features, targets=None)</span>:</span></span><br><span class="line">       <span class="comment"># features是resnet+fpn生成的，</span></span><br><span class="line">       <span class="comment"># head的就是用3*3和1*1的conv把features每个点的256d的特征向量，转换成num_anchors个锚点的判定结果，包括cls和bbox坐标</span></span><br><span class="line">       objectness, rpn_box_regression = self.head(features)</span><br><span class="line">       <span class="comment"># 根据图像计算出每个框框的坐标, 每张图5个层级，每个层级每个点都有3个框 </span></span><br><span class="line">       anchors = self.anchor_generator(images, features)</span><br><span class="line">       <span class="keyword">if</span> self.training:</span><br><span class="line">           <span class="comment"># 计算RPN网络的loss</span></span><br><span class="line">           <span class="keyword">return</span> self._forward_train(anchors, objectness, rpn_box_regression, targets)</span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           <span class="keyword">return</span> self._forward_test(anchors, objectness, rpn_box_regression)</span><br><span class="line">       </span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">_forward_train</span><span class="params">(self, anchors, objectness, rpn_box_regression, targets)</span>:</span></span><br><span class="line">       <span class="keyword">if</span> self.cfg.MODEL.RPN_ONLY:</span><br><span class="line">           boxes = anchors</span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">               <span class="comment"># 根据objectness分值，选出得分最高的FPN_POST_NMS_TOP_N_TRAIN(2000)个bbox</span></span><br><span class="line">               boxes = self.box_selector_train(</span><br><span class="line">                   anchors, objectness, rpn_box_regression, targets</span><br><span class="line">               )</span><br><span class="line">       <span class="comment"># 计算分类和bbox的loss</span></span><br><span class="line">       loss_objectness, loss_rpn_box_reg = self.loss_evaluator(</span><br><span class="line">           anchors, objectness, rpn_box_regression, targets</span><br><span class="line">       )</span><br><span class="line">       losses = &#123;</span><br><span class="line">           <span class="string">"loss_objectness"</span>: loss_objectness,</span><br><span class="line">           <span class="string">"loss_rpn_box_reg"</span>: loss_rpn_box_reg,</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> boxes, losses</span><br></pre></td></tr></table></figure>
+<h3 id="RPN具体计算过程"><a class="header-anchor" href="#RPN具体计算过程"> </a>RPN具体计算过程</h3>
+<h4 id="1，RPNHead-forward"><a class="header-anchor" href="#1，RPNHead-forward"> </a>1，RPNHead.forward</h4>
+<p>rpn_head通过一个简单的cnn网络计算objectness，rpn_box_regression。这是一个普通的CNN，比较简单</p>
+<h4 id="2，-AnchorGenerator-forward"><a class="header-anchor" href="#2，-AnchorGenerator-forward"> </a>2， AnchorGenerator.forward</h4>
+<p>计算边框坐标，这个是固定的，只要知道图片宽高，featureMap的宽高就可以做了，会得到20w+个anchor的坐标</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnchorGenerator</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, image_list, feature_maps)</span>:</span></span><br><span class="line">        <span class="comment"># grid_sizes得到每个feature_map的宽和高</span></span><br><span class="line">        grid_sizes = [feature_map.shape[<span class="number">-2</span>:] <span class="keyword">for</span> feature_map <span class="keyword">in</span> feature_maps] </span><br><span class="line">        <span class="comment"># 计算出所有的边框在原图上的坐标</span></span><br><span class="line">        <span class="comment"># grid_anchors函数流程：</span></span><br><span class="line">        <span class="comment"># 	for  按层级循环</span></span><br><span class="line">        <span class="comment">#		根据feature map的高宽grid_height, grid_width生成定位坐标</span></span><br><span class="line">        <span class="comment">#		利用torch.meshgrid， torch.stack 生成所有点的bbox坐标矩阵</span></span><br><span class="line">        <span class="comment">#		再把初始化计算的出anchor坐标加上上面的坐标矩阵</span></span><br><span class="line">        <span class="comment">#   返回 所有层的anchors(也就是默认的bbox坐标)</span></span><br><span class="line">        anchors_over_all_feature_maps = self.grid_anchors(grid_sizes) </span><br><span class="line">        anchors = []</span><br><span class="line">        <span class="keyword">for</span> i, (image_height, image_width) <span class="keyword">in</span> enumerate(image_list.image_sizes):</span><br><span class="line">            anchors_in_image = []</span><br><span class="line">            <span class="keyword">for</span> anchors_per_feature_map <span class="keyword">in</span> anchors_over_all_feature_maps:</span><br><span class="line">                <span class="comment">#BoxList封装每层的bbox坐标</span></span><br><span class="line">                boxlist = BoxList(</span><br><span class="line">                    anchors_per_feature_map, (image_width, image_height), mode=<span class="string">"xyxy"</span></span><br><span class="line">                )</span><br><span class="line">                self.add_visibility_to(boxlist)</span><br><span class="line">                anchors_in_image.append(boxlist)</span><br><span class="line">            anchors.append(anchors_in_image)</span><br><span class="line">        <span class="keyword">return</span> anchors</span><br></pre></td></tr></table></figure>
+<h4 id="3，RPNPostProcessor-forward"><a class="header-anchor" href="#3，RPNPostProcessor-forward"> </a>3，RPNPostProcessor.forward</h4>
+<p>RPNPostProcessor.forward是从前面计算的anchor中，找到rpn_head得分最高的box，在训练时，是为了给后面roi_head准备的，对于RPN自身用处不大</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RPNPostProcessor</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, anchors, objectness, box_regression, targets=None)</span>:</span></span><br><span class="line">        sampled_boxes = []</span><br><span class="line">        num_levels = len(objectness)</span><br><span class="line">        anchors = list(zip(*anchors))</span><br><span class="line">        <span class="comment"># 按featues的层级选择得分最高的bbox , 这个features是FPN计算的5层不同尺度的特征向量</span></span><br><span class="line">        <span class="keyword">for</span> a, o, b <span class="keyword">in</span> zip(anchors, objectness, box_regression):</span><br><span class="line">            <span class="comment"># forward_for_single_feature_map函数流程</span></span><br><span class="line">            <span class="comment"># 1，从objectness中挑选得分最高的2000个</span></span><br><span class="line">            <span class="comment"># 2，把得分最高的2000个anchor，根据box_regression，计算回归后的坐标</span></span><br><span class="line">            <span class="comment"># 3，通过nms，在2000个bbox上去重，得到此层级采样出来的boxes</span></span><br><span class="line">            sampled_boxes.append(self.forward_for_single_feature_map(a, o, b))</span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 把按层采样出来的box，改为按原图片(batch)分组</span></span><br><span class="line">        boxlists = list(zip(*sampled_boxes))</span><br><span class="line">        <span class="comment"># 把每个图片的box合并成一个BoxList</span></span><br><span class="line">        boxlists = [cat_boxlist(boxlist) <span class="keyword">for</span> boxlist <span class="keyword">in</span> boxlists]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> num_levels &gt; <span class="number">1</span>:</span><br><span class="line">            <span class="comment"># 选出最后的FPN_POST_NMS_TOP_N_TRAIN 2000个box</span></span><br><span class="line">            boxlists = self.select_over_all_levels(boxlists)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果是训练阶段，把ground truth 加入proposal，为了更好的训练roi_head</span></span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> targets <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            boxlists = self.add_gt_proposals(boxlists, targets)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> boxlists</span><br></pre></td></tr></table></figure>
+<h4 id="4，RPNLossComputation"><a class="header-anchor" href="#4，RPNLossComputation"> </a>4，RPNLossComputation</h4>
+<p>rpn的loss计算是对rpn_head的结果计算loss，这样通过训练，可以找到更好的proposal。这里计算loss的问题是，他不像分类那样target label都是很直接的。每张图片上也就几个框框作为target，而rpn_head能够计算出20多万个anchor，每个anchor都会产生出cls分值和bbox的回归系数。想到好的方法，优化这样的nn还是挺厉害的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RPNLossComputation</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, anchors, objectness, box_regression, targets)</span>:</span></span><br><span class="line">        <span class="comment"># 把每张图片所有尺度上的anchor合并。每张图的所有anchor合并成一个BoxList，这时候anchor和target的结构就一致了</span></span><br><span class="line">        anchors = [cat_boxlist(anchors_per_image) <span class="keyword">for</span> anchors_per_image <span class="keyword">in</span> anchors] </span><br><span class="line">        <span class="comment"># 根据target和anchor的IoU，计算每个anchor的标签，取值有1, 0, -1，1是物体，0是背景，-1是iou忽略或者超出边框</span></span><br><span class="line">        <span class="comment"># IoU&gt;0.7 为正样本，&lt;0.3 为负样本</span></span><br><span class="line">        labels, regression_targets = self.prepare_targets(anchors, targets)</span><br><span class="line">        <span class="comment"># 根据label情况，随机采样出正样本，负样本，各占一半，共256个</span></span><br><span class="line">        sampled_pos_inds, sampled_neg_inds = self.fg_bg_sampler(labels)</span><br><span class="line">        sampled_pos_inds = torch.nonzero(torch.cat(sampled_pos_inds, dim=<span class="number">0</span>)).squeeze(<span class="number">1</span>)</span><br><span class="line">        sampled_neg_inds = torch.nonzero(torch.cat(sampled_neg_inds, dim=<span class="number">0</span>)).squeeze(<span class="number">1</span>)</span><br><span class="line">		<span class="comment"># 最终计算loss的采样idx</span></span><br><span class="line">        sampled_inds = torch.cat([sampled_pos_inds, sampled_neg_inds], dim=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        objectness_flattened = []</span><br><span class="line">        box_regression_flattened = []</span><br><span class="line">        <span class="comment"># 把分类得分和回归系数全部展平，方便后面loss计算</span></span><br><span class="line">        <span class="keyword">for</span> objectness_per_level, box_regression_per_level <span class="keyword">in</span> zip(</span><br><span class="line">            objectness, box_regression</span><br><span class="line">        ):</span><br><span class="line">            N, A, H, W = objectness_per_level.shape</span><br><span class="line">            objectness_per_level = objectness_per_level.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).reshape(</span><br><span class="line">                N, <span class="number">-1</span></span><br><span class="line">            )</span><br><span class="line">            box_regression_per_level = box_regression_per_level.view(N, <span class="number">-1</span>, <span class="number">4</span>, H, W)</span><br><span class="line">            box_regression_per_level = box_regression_per_level.permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">            box_regression_per_level = box_regression_per_level.reshape(N, <span class="number">-1</span>, <span class="number">4</span>)</span><br><span class="line">            objectness_flattened.append(objectness_per_level)</span><br><span class="line">            box_regression_flattened.append(box_regression_per_level)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 合并分类得分和回归系数</span></span><br><span class="line">        objectness = cat(objectness_flattened, dim=<span class="number">1</span>).reshape(<span class="number">-1</span>)</span><br><span class="line">        box_regression = cat(box_regression_flattened, dim=<span class="number">1</span>).reshape(<span class="number">-1</span>, <span class="number">4</span>)</span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 把target也展平</span></span><br><span class="line">        labels = torch.cat(labels, dim=<span class="number">0</span>)</span><br><span class="line">        regression_targets = torch.cat(regression_targets, dim=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        box_loss = smooth_l1_loss(</span><br><span class="line">            box_regression[sampled_pos_inds],</span><br><span class="line">            regression_targets[sampled_pos_inds],</span><br><span class="line">            beta=<span class="number">1.0</span> / <span class="number">9</span>,</span><br><span class="line">            size_average=<span class="literal">False</span>,</span><br><span class="line">        ) / (sampled_inds.numel())</span><br><span class="line"></span><br><span class="line">        objectness_loss = F.binary_cross_entropy_with_logits(</span><br><span class="line">            objectness[sampled_inds], labels[sampled_inds]</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> objectness_loss, box_loss</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rcnn-mask/" rel="tag"># rcnn,mask</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" rel="prev" title="maskrcnn-benchmark源码分析(1)_网络构建.md">
+      <i class="fa fa-chevron-left"></i> maskrcnn-benchmark源码分析(1)_网络构建.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/20/20181220_Broadcasting/" rel="next" title="矩阵 Broadcasting">
+      矩阵 Broadcasting <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPN整体逻辑"><span class="nav-number">1.</span> <span class="nav-text">RPN整体逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPN具体计算过程"><span class="nav-number">2.</span> <span class="nav-text">RPN具体计算过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1，RPNHead-forward"><span class="nav-number">2.1.</span> <span class="nav-text">1，RPNHead.forward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2，-AnchorGenerator-forward"><span class="nav-number">2.2.</span> <span class="nav-text">2， AnchorGenerator.forward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3，RPNPostProcessor-forward"><span class="nav-number">2.3.</span> <span class="nav-text">3，RPNPostProcessor.forward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4，RPNLossComputation"><span class="nav-number">2.4.</span> <span class="nav-text">4，RPNLossComputation</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ImageNet 2012 1000个类名称和编号。ILSVRC2012_img_train.tar 这个文件解压出来都是一些nxxx这样的目录，也不知道他对应是哪个类，通过找caffe_ilsvrc12.tar.gz能把这些类对应出来 0    n01440764    鱼,    tench, Tinca tinca 1    n01443537    鱼,    goldfish, Cara">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageNet 2012 1000分类名称和编号">
+<meta property="og:url" content="http://www.wliang.me/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/index.html">
+<meta property="og:site_name" content="天一阁">
+<meta property="og:description" content="ImageNet 2012 1000个类名称和编号。ILSVRC2012_img_train.tar 这个文件解压出来都是一些nxxx这样的目录，也不知道他对应是哪个类，通过找caffe_ilsvrc12.tar.gz能把这些类对应出来 0    n01440764    鱼,    tench, Tinca tinca 1    n01443537    鱼,    goldfish, Cara">
+<meta property="article:published_time" content="2018-10-05T03:26:57.002Z">
+<meta property="article:modified_time" content="2018-10-05T03:27:31.661Z">
+<meta property="article:author" content="Befree">
+<meta property="article:tag" content="imagenet">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.wliang.me/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>ImageNet 2012 1000分类名称和编号 | 天一阁</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0c0882e4116830e21c209e7b3edb5c7a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天一阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ImageNet 2012 1000分类名称和编号
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-10-05 11:26:57 / Modified: 11:27:31" itemprop="dateCreated datePublished" datetime="2018-10-05T11:26:57+08:00">2018-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/" class="post-meta-item leancloud_visitors" data-flag-title="ImageNet 2012 1000分类名称和编号" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/10/05/20181005_ImageNet1000%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%92%8C%E7%BC%96%E5%8F%B7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ImageNet 2012 1000个类名称和编号。ILSVRC2012_img_train.tar 这个文件解压出来都是一些nxxx这样的目录，也不知道他对应是哪个类，通过找caffe_ilsvrc12.tar.gz能把这些类对应出来</p>
+<p>0    n01440764    鱼,    tench, Tinca tinca</p>
+<p>1    n01443537    鱼,    goldfish, Carassius auratus</p>
+<p>2    n01484850    鱼,    great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias</p>
+<a id="more"></a>
+<p>3    n01491361    鱼,    tiger shark, Galeocerdo cuvieri</p>
+<p>4    n01494475    鱼,    hammerhead, hammerhead shark</p>
+<p>5    n01496331    鱼,    electric ray, crampfish, numbfish, torpedo</p>
+<p>6    n01498041    鱼,    stingray</p>
+<p>7    n01514668    鸡,    cock</p>
+<p>8    n01514859    鸡,    hen</p>
+<p>9    n01518878    鸵鸟,    ostrich, Struthio camelus</p>
+<p>10    n01530575    鸟,    brambling, Fringilla montifringilla</p>
+<p>11    n01531178    鸟,    goldfinch, Carduelis carduelis</p>
+<p>12    n01532829    鸟,    house finch, linnet, Carpodacus mexicanus</p>
+<p>13    n01534433    鸟,    junco, snowbird</p>
+<p>14    n01537544    鸟,    indigo bunting, indigo finch, indigo bird, Passerina cyanea</p>
+<p>15    n01558993    鸟,    robin, American robin, Turdus migratorius</p>
+<p>16    n01560419    鸟,    bulbul</p>
+<p>17    n01580077    鸟,    jay</p>
+<p>18    n01582220    鸟,    magpie</p>
+<p>19    n01592084    鸟,    chickadee</p>
+<p>20    n01601694    鸟,    water ouzel, dipper</p>
+<p>21    n01608432    鸟,    kite</p>
+<p>22    n01614925    鹰,    bald eagle, American eagle, Haliaeetus leucocephalus</p>
+<p>23    n01616318    鹰,    vulture</p>
+<p>24    n01622779    猫头鹰,    great grey owl, great gray owl, Strix nebulosa</p>
+<p>25    n01629819    壁虎,    European fire salamander, Salamandra salamandra</p>
+<p>26    n01630670    壁虎,    common newt, Triturus vulgaris</p>
+<p>27    n01631663    壁虎,    eft</p>
+<p>28    n01632458    壁虎,    spotted salamander, Ambystoma maculatum</p>
+<p>29    n01632777    壁虎,    axolotl, mud puppy, Ambystoma mexicanum</p>
+<p>30    n01641577    蛤蟆,    bullfrog, Rana catesbeiana</p>
+<p>31    n01644373    青蛙,    tree frog, tree-frog</p>
+<p>32    n01644900    青蛙,    tailed frog, bell toad, ribbed toad, tailed toad, Ascaphus trui</p>
+<p>33    n01664065    龟,    loggerhead, loggerhead turtle, Caretta caretta</p>
+<p>34    n01665541    龟,    leatherback turtle, leatherback, leathery turtle, Dermochelys coriacea</p>
+<p>35    n01667114    龟,    mud turtle</p>
+<p>36    n01667778    龟,    terrapin</p>
+<p>37    n01669191    龟,    box turtle, box tortoise</p>
+<p>38    n01675722    蜥蜴,    banded gecko</p>
+<p>39    n01677366    蜥蜴,    common iguana, iguana, Iguana iguana</p>
+<p>40    n01682714    蜥蜴,    American chameleon, anole, Anolis carolinensis</p>
+<p>41    n01685808    蜥蜴,    whiptail, whiptail lizard</p>
+<p>42    n01687978    蜥蜴,    agama</p>
+<p>43    n01688243    蜥蜴,    frilled lizard, Chlamydosaurus kingi</p>
+<p>44    n01689811    蜥蜴,    alligator lizard</p>
+<p>45    n01692333    蜥蜴,    Gila monster, Heloderma suspectum</p>
+<p>46    n01693334    蜥蜴,    green lizard, Lacerta viridis</p>
+<p>47    n01694178    蜥蜴,    African chameleon, Chamaeleo chamaeleon</p>
+<p>48    n01695060    蜥蜴,    Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis</p>
+<p>49    n01697457    鳄鱼,    African crocodile, Nile crocodile, Crocodylus niloticus</p>
+<p>50    n01698640    鳄鱼,    American alligator, Alligator mississipiensis</p>
+<p>51    n01704323    恐龙,    triceratops</p>
+<p>52    n01728572    蛇,    thunder snake, worm snake, Carphophis amoenus</p>
+<p>53    n01728920    蛇,    ringneck snake, ring-necked snake, ring snake</p>
+<p>54    n01729322    蛇,    hognose snake, puff adder, sand viper</p>
+<p>55    n01729977    蛇,    green snake, grass snake</p>
+<p>56    n01734418    蛇,    king snake, kingsnake</p>
+<p>57    n01735189    蛇,    garter snake, grass snake</p>
+<p>58    n01737021    蛇,    water snake</p>
+<p>59    n01739381    蛇,    vine snake</p>
+<p>60    n01740131    蛇,    night snake, Hypsiglena torquata</p>
+<p>61    n01742172    蛇,    boa constrictor, Constrictor constrictor</p>
+<p>62    n01744401    蛇,    rock python, rock snake, Python sebae</p>
+<p>63    n01748264    蛇,    Indian cobra, Naja naja</p>
+<p>64    n01749939    蛇,    green mamba</p>
+<p>65    n01751748    蛇,    sea snake</p>
+<p>66    n01753488    蛇,    horned viper, cerastes, sand viper, horned asp, Cerastes cornutus</p>
+<p>67    n01755581    蛇,    diamondback, diamondback rattlesnake, Crotalus adamanteus</p>
+<p>68    n01756291    蛇,    sidewinder, horned rattlesnake, Crotalus cerastes</p>
+<p>69    n01768244    化石,    trilobite</p>
+<p>70    n01770081    蜘蛛,    harvestman, daddy longlegs, Phalangium opilio</p>
+<p>71    n01770393    蝎子,    scorpion</p>
+<p>72    n01773157    蜘蛛,    black and gold garden spider, Argiope aurantia</p>
+<p>73    n01773549    蜘蛛,    barn spider, Araneus cavaticus</p>
+<p>74    n01773797    蜘蛛,    garden spider, Aranea diademata</p>
+<p>75    n01774384    蜘蛛,    black widow, Latrodectus mactans</p>
+<p>76    n01774750    蜘蛛,    tarantula</p>
+<p>77    n01775062    蜘蛛,    wolf spider, hunting spider</p>
+<p>78    n01776313    蜘蛛,    tick</p>
+<p>79    n01784675    蜈蚣,    centipede</p>
+<p>80    n01795545    鸟,    black grouse</p>
+<p>81    n01796340    鸟,    ptarmigan</p>
+<p>82    n01797886    鸟,    ruffed grouse, partridge, Bonasa umbellus</p>
+<p>83    n01798484    鸟,    prairie chicken, prairie grouse, prairie fowl</p>
+<p>84    n01806143    孔雀,    peacock</p>
+<p>85    n01806567    鸟,    quail</p>
+<p>86    n01807496    鸟,    partridge</p>
+<p>87    n01817953    鸟,    African grey, African gray, Psittacus erithacus</p>
+<p>88    n01818515    鸟,    macaw</p>
+<p>89    n01819313    鸟,    sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita</p>
+<p>90    n01820546    鸟,    lorikeet</p>
+<p>91    n01824575    鸟,    coucal</p>
+<p>92    n01828970    鸟,    bee eater</p>
+<p>93    n01829413    鸟,    hornbill</p>
+<p>94    n01833805    鸟,    hummingbird</p>
+<p>95    n01843065    鸟,    jacamar</p>
+<p>96    n01843383    鸟,    toucan</p>
+<p>97    n01847000    鸭子,    drake</p>
+<p>98    n01855032    鹅,    red-breasted merganser, Mergus serrator</p>
+<p>99    n01855672    鹅,    goose</p>
+<p>100    n01860187    鹅,    black swan, Cygnus atratus</p>
+<p>101    n01871265    大象,    tusker</p>
+<p>102    n01872401    刺猬,    echidna, spiny anteater, anteater</p>
+<p>103    n01873310    鸭嘴兽,    platypus, duckbill, duckbilled platypus, duck-billed platypus, Ornithorhynchus anatinus</p>
+<p>104    n01877812    袋鼠,    wallaby, brush kangaroo</p>
+<p>105    n01882714    考拉,    koala, koala bear, kangaroo bear, native bear, Phascolarctos cinereus</p>
+<p>106    n01883070    土拨鼠,    wombat</p>
+<p>107    n01910747    水母,    jellyfish</p>
+<p>108    n01914609    珊瑚,    sea anemone, anemone</p>
+<p>109    n01917289    珊瑚,    brain coral</p>
+<p>110    n01924916    海洋生物,    flatworm, platyhelminth</p>
+<p>111    n01930112    海蛇,    nematode, nematode worm, roundworm</p>
+<p>112    n01943899    海螺,    conch</p>
+<p>113    n01944390    蜗牛,    snail</p>
+<p>114    n01945685    蜗牛,    slug</p>
+<p>115    n01950731    海洋生物,    sea slug, nudibranch</p>
+<p>116    n01955084    海洋生物,    chiton, coat-of-mail shell, sea cradle, polyplacophore</p>
+<p>117    n01968897    海螺,    chambered nautilus, pearly nautilus, nautilus</p>
+<p>118    n01978287    螃蟹,    Dungeness crab, Cancer magister</p>
+<p>119    n01978455    螃蟹,    rock crab, Cancer irroratus</p>
+<p>120    n01980166    螃蟹,    fiddler crab</p>
+<p>121    n01981276    螃蟹,    king crab, Alaska crab, Alaskan king crab, Alaska king crab, Paralithodes camtschatica</p>
+<p>122    n01983481    龙虾,    American lobster, Northern lobster, Maine lobster, Homarus americanus</p>
+<p>123    n01984695    龙虾,    spiny lobster, langouste, rock lobster, crawfish, crayfish, sea crawfish</p>
+<p>124    n01985128    龙虾,    crayfish, crawfish, crawdad, crawdaddy</p>
+<p>125    n01986214    寄居蟹,    hermit crab</p>
+<p>126    n01990800    海洋生物,    isopod</p>
+<p>127    n02002556    鸟,    white stork, Ciconia ciconia</p>
+<p>128    n02002724    鸟,    black stork, Ciconia nigra</p>
+<p>129    n02006656    鸟,    spoonbill</p>
+<p>130    n02007558    鸟,    flamingo</p>
+<p>131    n02009229    鸟,    little blue heron, Egretta caerulea</p>
+<p>132    n02009912    鸟,    American egret, great white heron, Egretta albus</p>
+<p>133    n02011460    鸟,    bittern</p>
+<p>134    n02012849    鸟,    crane</p>
+<p>135    n02013706    鸟,    limpkin, Aramus pictus</p>
+<p>136    n02017213    鸟,    European gallinule, Porphyrio porphyrio</p>
+<p>137    n02018207    鸟,    American coot, marsh hen, mud hen, water hen, Fulica americana</p>
+<p>138    n02018795    鸟,    bustard</p>
+<p>139    n02025239    鸟,    ruddy turnstone, Arenaria interpres</p>
+<p>140    n02027492    鸟,    red-backed sandpiper, dunlin, Erolia alpina</p>
+<p>141    n02028035    鸟,    redshank, Tringa totanus</p>
+<p>142    n02033041    鸟,    dowitcher</p>
+<p>143    n02037110    鸟,    oystercatcher, oyster catcher</p>
+<p>144    n02051845    鸟,    pelican</p>
+<p>145    n02056570    企鹅,    king penguin, Aptenodytes patagonica</p>
+<p>146    n02058221    鸟,    albatross, mollymawk</p>
+<p>147    n02066245    鲸鱼,    grey whale, gray whale, devilfish, Eschrichtius gibbosus, Eschrichtius robustus</p>
+<p>148    n02071294    鲸鱼,    killer whale, killer, orca, grampus, sea wolf, Orcinus orca</p>
+<p>149    n02074367    海象,    dugong, Dugong dugon</p>
+<p>150    n02077923    海狮,    sea lion</p>
+<p>151    n02085620    狗,    Chihuahua</p>
+<p>152    n02085782    狗,    Japanese spaniel</p>
+<p>153    n02085936    狗,    Maltese dog, Maltese terrier, Maltese</p>
+<p>154    n02086079    狗,    Pekinese, Pekingese, Peke</p>
+<p>155    n02086240    狗,    Shih-Tzu</p>
+<p>156    n02086646    狗,    Blenheim spaniel</p>
+<p>157    n02086910    狗,    papillon</p>
+<p>158    n02087046    狗,    toy terrier</p>
+<p>159    n02087394    狗,    Rhodesian ridgeback</p>
+<p>160    n02088094    狗,    Afghan hound, Afghan</p>
+<p>161    n02088238    狗,    basset, basset hound</p>
+<p>162    n02088364    狗,    beagle</p>
+<p>163    n02088466    狗,    bloodhound, sleuthhound</p>
+<p>164    n02088632    狗,    bluetick</p>
+<p>165    n02089078    狗,    black-and-tan coonhound</p>
+<p>166    n02089867    狗,    Walker hound, Walker foxhound</p>
+<p>167    n02089973    狗,    English foxhound</p>
+<p>168    n02090379    狗,    redbone</p>
+<p>169    n02090622    狗,    borzoi, Russian wolfhound</p>
+<p>170    n02090721    狗,    Irish wolfhound</p>
+<p>171    n02091032    狗,    Italian greyhound</p>
+<p>172    n02091134    狗,    whippet</p>
+<p>173    n02091244    狗,    Ibizan hound, Ibizan Podenco</p>
+<p>174    n02091467    狗,    Norwegian elkhound, elkhound</p>
+<p>175    n02091635    狗,    otterhound, otter hound</p>
+<p>176    n02091831    狗,    Saluki, gazelle hound</p>
+<p>177    n02092002    狗,    Scottish deerhound, deerhound</p>
+<p>178    n02092339    狗,    Weimaraner</p>
+<p>179    n02093256    狗,    Staffordshire bullterrier, Staffordshire bull terrier</p>
+<p>180    n02093428    狗,    American Staffordshire terrier, Staffordshire terrier, American pit bull terrier, pit bull terrier</p>
+<p>181    n02093647    狗,    Bedlington terrier</p>
+<p>182    n02093754    狗,    Border terrier</p>
+<p>183    n02093859    狗,    Kerry blue terrier</p>
+<p>184    n02093991    狗,    Irish terrier</p>
+<p>185    n02094114    狗,    Norfolk terrier</p>
+<p>186    n02094258    狗,    Norwich terrier</p>
+<p>187    n02094433    狗,    Yorkshire terrier</p>
+<p>188    n02095314    狗,    wire-haired fox terrier</p>
+<p>189    n02095570    狗,    Lakeland terrier</p>
+<p>190    n02095889    狗,    Sealyham terrier, Sealyham</p>
+<p>191    n02096051    狗,    Airedale, Airedale terrier</p>
+<p>192    n02096177    狗,    cairn, cairn terrier</p>
+<p>193    n02096294    狗,    Australian terrier</p>
+<p>194    n02096437    狗,    Dandie Dinmont, Dandie Dinmont terrier</p>
+<p>195    n02096585    狗,    Boston bull, Boston terrier</p>
+<p>196    n02097047    狗,    miniature schnauzer</p>
+<p>197    n02097130    狗,    giant schnauzer</p>
+<p>198    n02097209    狗,    standard schnauzer</p>
+<p>199    n02097298    狗,    Scotch terrier, Scottish terrier, Scottie</p>
+<p>200    n02097474    狗,    Tibetan terrier, chrysanthemum dog</p>
+<p>201    n02097658    狗,    silky terrier, Sydney silky</p>
+<p>202    n02098105    狗,    soft-coated wheaten terrier</p>
+<p>203    n02098286    狗,    West Highland white terrier</p>
+<p>204    n02098413    狗,    Lhasa, Lhasa apso</p>
+<p>205    n02099267    狗,    flat-coated retriever</p>
+<p>206    n02099429    狗,    curly-coated retriever</p>
+<p>207    n02099601    狗,    golden retriever</p>
+<p>208    n02099712    狗,    Labrador retriever</p>
+<p>209    n02099849    狗,    Chesapeake Bay retriever</p>
+<p>210    n02100236    狗,    German short-haired pointer</p>
+<p>211    n02100583    狗,    vizsla, Hungarian pointer</p>
+<p>212    n02100735    狗,    English setter</p>
+<p>213    n02100877    狗,    Irish setter, red setter</p>
+<p>214    n02101006    狗,    Gordon setter</p>
+<p>215    n02101388    狗,    Brittany spaniel</p>
+<p>216    n02101556    狗,    clumber, clumber spaniel</p>
+<p>217    n02102040    狗,    English springer, English springer spaniel</p>
+<p>218    n02102177    狗,    Welsh springer spaniel</p>
+<p>219    n02102318    狗,    cocker spaniel, English cocker spaniel, cocker</p>
+<p>220    n02102480    狗,    Sussex spaniel</p>
+<p>221    n02102973    狗,    Irish water spaniel</p>
+<p>222    n02104029    狗,    kuvasz</p>
+<p>223    n02104365    狗,    schipperke</p>
+<p>224    n02105056    狗,    groenendael</p>
+<p>225    n02105162    狗,    malinois</p>
+<p>226    n02105251    狗,    briard</p>
+<p>227    n02105412    狗,    kelpie</p>
+<p>228    n02105505    狗,    komondor</p>
+<p>229    n02105641    狗,    Old English sheepdog, bobtail</p>
+<p>230    n02105855    狗,    Shetland sheepdog, Shetland sheep dog, Shetland</p>
+<p>231    n02106030    狗,    collie</p>
+<p>232    n02106166    狗,    Border collie</p>
+<p>233    n02106382    狗,    Bouvier des Flandres, Bouviers des Flandres</p>
+<p>234    n02106550    狗,    Rottweiler</p>
+<p>235    n02106662    狗,    German shepherd, German shepherd dog, German police dog, alsatian</p>
+<p>236    n02107142    狗,    Doberman, Doberman pinscher</p>
+<p>237    n02107312    狗,    miniature pinscher</p>
+<p>238    n02107574    狗,    Greater Swiss Mountain dog</p>
+<p>239    n02107683    狗,    Bernese mountain dog</p>
+<p>240    n02107908    狗,    Appenzeller</p>
+<p>241    n02108000    狗,    EntleBucher</p>
+<p>242    n02108089    狗,    boxer</p>
+<p>243    n02108422    狗,    bull mastiff</p>
+<p>244    n02108551    狗,    Tibetan mastiff</p>
+<p>245    n02108915    狗,    French bulldog</p>
+<p>246    n02109047    狗,    Great Dane</p>
+<p>247    n02109525    狗,    Saint Bernard, St Bernard</p>
+<p>248    n02109961    狗,    Eskimo dog, husky</p>
+<p>249    n02110063    狗,    malamute, malemute, Alaskan malamute</p>
+<p>250    n02110185    狗,    Siberian husky</p>
+<p>251    n02110341    狗,    dalmatian, coach dog, carriage dog</p>
+<p>252    n02110627    狗,    affenpinscher, monkey pinscher, monkey dog</p>
+<p>253    n02110806    狗,    basenji</p>
+<p>254    n02110958    狗,    pug, pug-dog</p>
+<p>255    n02111129    狗,    Leonberg</p>
+<p>256    n02111277    狗,    Newfoundland, Newfoundland dog</p>
+<p>257    n02111500    狗,    Great Pyrenees</p>
+<p>258    n02111889    狗,    Samoyed, Samoyede</p>
+<p>259    n02112018    狗,    Pomeranian</p>
+<p>260    n02112137    狗,    chow, chow chow</p>
+<p>261    n02112350    狗,    keeshond</p>
+<p>262    n02112706    狗,    Brabancon griffon</p>
+<p>263    n02113023    狗,    Pembroke, Pembroke Welsh corgi</p>
+<p>264    n02113186    狗,    Cardigan, Cardigan Welsh corgi</p>
+<p>265    n02113624    狗,    toy poodle</p>
+<p>266    n02113712    狗,    miniature poodle</p>
+<p>267    n02113799    狗,    standard poodle</p>
+<p>268    n02113978    狗,    Mexican hairless</p>
+<p>269    n02114367    狼,    timber wolf, grey wolf, gray wolf, Canis lupus</p>
+<p>270    n02114548    狼,    white wolf, Arctic wolf, Canis lupus tundrarum</p>
+<p>271    n02114712    狼,    red wolf, maned wolf, Canis rufus, Canis niger</p>
+<p>272    n02114855    狼,    coyote, prairie wolf, brush wolf, Canis latrans</p>
+<p>273    n02115641    狼,    dingo, warrigal, warragal, Canis dingo</p>
+<p>274    n02115913    狼,    dhole, Cuon alpinus</p>
+<p>275    n02116738    狼,    African hunting dog, hyena dog, Cape hunting dog, Lycaon pictus</p>
+<p>276    n02117135    狼,    hyena, hyaena</p>
+<p>277    n02119022    狐狸,    red fox, Vulpes vulpes</p>
+<p>278    n02119789    狐狸,    kit fox, Vulpes macrotis</p>
+<p>279    n02120079    狐狸,    Arctic fox, white fox, Alopex lagopus</p>
+<p>280    n02120505    狐狸,    grey fox, gray fox, Urocyon cinereoargenteus</p>
+<p>281    n02123045    猫,    tabby, tabby cat</p>
+<p>282    n02123159    猫,    tiger cat</p>
+<p>283    n02123394    猫,    Persian cat</p>
+<p>284    n02123597    猫,    Siamese cat, Siamese</p>
+<p>285    n02124075    猫,    Egyptian cat</p>
+<p>286    n02125311    猫,    cougar, puma, catamount, mountain lion, painter, panther, Felis concolor</p>
+<p>287    n02127052    猫,    lynx, catamount</p>
+<p>288    n02128385    豹,    leopard, Panthera pardus</p>
+<p>289    n02128757    豹,    snow leopard, ounce, Panthera uncia</p>
+<p>290    n02128925    豹,    jaguar, panther, Panthera onca, Felis onca</p>
+<p>291    n02129165    狮子,    lion, king of beasts, Panthera leo</p>
+<p>292    n02129604    老虎,    tiger, Panthera tigris</p>
+<p>293    n02130308    豹,    cheetah, chetah, Acinonyx jubatus</p>
+<p>294    n02132136    熊,    brown bear, bruin, Ursus arctos</p>
+<p>295    n02133161    熊,    American black bear, black bear, Ursus americanus, Euarctos americanus</p>
+<p>296    n02134084    熊,    ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus</p>
+<p>297    n02134418    熊,    sloth bear, Melursus ursinus, Ursus ursinus</p>
+<p>298    n02137549    猫鼬,    mongoose</p>
+<p>299    n02138441    猫鼬,    meerkat, mierkat</p>
+<p>300    n02165105    昆虫,    tiger beetle</p>
+<p>301    n02165456    昆虫,    ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle</p>
+<p>302    n02167151    昆虫,    ground beetle, carabid beetle</p>
+<p>303    n02168699    昆虫,    long-horned beetle, longicorn, longicorn beetle</p>
+<p>304    n02169497    昆虫,    leaf beetle, chrysomelid</p>
+<p>305    n02172182    昆虫,    dung beetle</p>
+<p>306    n02174001    昆虫,    rhinoceros beetle</p>
+<p>307    n02177972    昆虫,    weevil</p>
+<p>308    n02190166    昆虫,    fly</p>
+<p>309    n02206856    昆虫,    bee</p>
+<p>310    n02219486    昆虫,    ant, emmet, pismire</p>
+<p>311    n02226429    昆虫,    grasshopper, hopper</p>
+<p>312    n02229544    昆虫,    cricket</p>
+<p>313    n02231487    昆虫,    walking stick, walkingstick, stick insect</p>
+<p>314    n02233338    昆虫,    cockroach, roach</p>
+<p>315    n02236044    昆虫,    mantis, mantid</p>
+<p>316    n02256656    昆虫,    cicada, cicala</p>
+<p>317    n02259212    昆虫,    leafhopper</p>
+<p>318    n02264363    昆虫,    lacewing, lacewing fly</p>
+<p>319    n02268443    蜻蜓,    dragonfly, darning needle, devil’s darning needle, sewing needle, snake feeder, snake doctor, mosquito hawk, skeeter hawk</p>
+<p>320    n02268853    蜻蜓,    damselfly</p>
+<p>321    n02276258    蝴蝶,    admiral</p>
+<p>322    n02277742    蝴蝶,    ringlet, ringlet butterfly</p>
+<p>323    n02279972    蝴蝶,    monarch, monarch butterfly, milkweed butterfly, Danaus plexippus</p>
+<p>324    n02280649    蝴蝶,    cabbage butterfly</p>
+<p>325    n02281406    蝴蝶,    sulphur butterfly, sulfur butterfly</p>
+<p>326    n02281787    蝴蝶,    lycaenid, lycaenid butterfly</p>
+<p>327    n02317335    海星,    starfish, sea star</p>
+<p>328    n02319095    海胆,    sea urchin</p>
+<p>329    n02321529    海洋生物,    sea cucumber, holothurian</p>
+<p>330    n02325366    兔子,    wood rabbit, cottontail, cottontail rabbit</p>
+<p>331    n02326432    兔子,    hare</p>
+<p>332    n02328150    兔子,    Angora, Angora rabbit</p>
+<p>333    n02342885    鼠,    hamster</p>
+<p>334    n02346627    鼠,    porcupine, hedgehog</p>
+<p>335    n02356798    松鼠,    fox squirrel, eastern fox squirrel, Sciurus niger</p>
+<p>336    n02361337    鼠,    marmot</p>
+<p>337    n02363005    鼠,    beaver</p>
+<p>338    n02364673    鼠,    guinea pig, Cavia cobaya</p>
+<p>339    n02389026    马,    sorrel</p>
+<p>340    n02391049    斑马,    zebra</p>
+<p>341    n02395406    猪,    hog, pig, grunter, squealer, Sus scrofa</p>
+<p>342    n02396427    猪,    wild boar, boar, Sus scrofa</p>
+<p>343    n02397096    猪,    warthog</p>
+<p>344    n02398521    河马,    hippopotamus, hippo, river horse, Hippopotamus amphibius</p>
+<p>345    n02403003    牛,    ox</p>
+<p>346    n02408429    牛,    water buffalo, water ox, Asiatic buffalo, Bubalus bubalis</p>
+<p>347    n02410509    牛,    bison</p>
+<p>348    n02412080    羊,    ram, tup</p>
+<p>349    n02415577    羊,    bighorn, bighorn sheep, cimarron, Rocky Mountain bighorn, Rocky Mountain sheep, Ovis canadensis</p>
+<p>350    n02417914    羊,    ibex, Capra ibex</p>
+<p>351    n02422106    羊,    hartebeest</p>
+<p>352    n02422699    羊,    impala, Aepyceros melampus</p>
+<p>353    n02423022    羊,    gazelle</p>
+<p>354    n02437312    骆驼,    Arabian camel, dromedary, Camelus dromedarius</p>
+<p>355    n02437616    羊驼,    llama</p>
+<p>356    n02441942    狸,    weasel</p>
+<p>357    n02442845    狸,    mink</p>
+<p>358    n02443114    狸,    polecat, fitch, foulmart, foumart, Mustela putorius</p>
+<p>359    n02443484    狸,    black-footed ferret, ferret, Mustela nigripes</p>
+<p>360    n02444819    狸,    otter</p>
+<p>361    n02445715    狸,    skunk, polecat, wood pussy</p>
+<p>362    n02447366    狸,    badger</p>
+<p>363    n02454379    穿山甲,    armadillo</p>
+<p>364    n02457408    树懒,    three-toed sloth, ai, Bradypus tridactylus</p>
+<p>365    n02480495    狒狒,    orangutan, orang, orangutang, Pongo pygmaeus</p>
+<p>366    n02480855    猩猩,    gorilla, Gorilla gorilla</p>
+<p>367    n02481823    猴子,    chimpanzee, chimp, Pan troglodytes</p>
+<p>368    n02483362    猴子,    gibbon, Hylobates lar</p>
+<p>369    n02483708    猴子,    siamang, Hylobates syndactylus, Symphalangus syndactylus</p>
+<p>370    n02484975    猴子,    guenon, guenon monkey</p>
+<p>371    n02486261    猴子,    patas, hussar monkey, Erythrocebus patas</p>
+<p>372    n02486410    猴子,    baboon</p>
+<p>373    n02487347    猴子,    macaque</p>
+<p>374    n02488291    猴子,    langur</p>
+<p>375    n02488702    猴子,    colobus, colobus monkey</p>
+<p>376    n02489166    猴子,    proboscis monkey, Nasalis larvatus</p>
+<p>377    n02490219    猴子,    marmoset</p>
+<p>378    n02492035    猴子,    capuchin, ringtail, Cebus capucinus</p>
+<p>379    n02492660    猴子,    howler monkey, howler</p>
+<p>380    n02493509    猴子,    titi, titi monkey</p>
+<p>381    n02493793    猴子,    spider monkey, Ateles geoffroyi</p>
+<p>382    n02494079    猴子,    squirrel monkey, Saimiri sciureus</p>
+<p>383    n02497673    猴子,    Madagascar cat, ring-tailed lemur, Lemur catta</p>
+<p>384    n02500267    猴子,    indri, indris, Indri indri, Indri brevicaudatus</p>
+<p>385    n02504013    大象,    Indian elephant, Elephas maximus</p>
+<p>386    n02504458    大象,    African elephant, Loxodonta africana</p>
+<p>387    n02509815    浣熊,    lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens</p>
+<p>388    n02510455    熊猫,    giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca</p>
+<p>389    n02514041    鱼,    barracouta, snoek</p>
+<p>390    n02526121    鱼,    eel</p>
+<p>391    n02536864    鱼,    coho, cohoe, coho salmon, blue jack, silver salmon, Oncorhynchus kisutch</p>
+<p>392    n02606052    鱼,    rock beauty, Holocanthus tricolor</p>
+<p>393    n02607072    鱼,    anemone fish</p>
+<p>394    n02640242    鱼,    sturgeon</p>
+<p>395    n02641379    鱼,    gar, garfish, garpike, billfish, Lepisosteus osseus</p>
+<p>396    n02643566    鱼,    lionfish</p>
+<p>397    n02655020    鱼,    puffer, pufferfish, blowfish, globefish</p>
+<p>398    n02666196    算盘,    abacus</p>
+<p>399    n02667093    穆斯林,    abaya</p>
+<p>400    n02669723    学士服,    academic gown, academic robe, judge’s robe</p>
+<p>401    n02672831    手风琴,    accordion, piano accordion, squeeze box</p>
+<p>402    n02676566    吉他,    acoustic guitar</p>
+<p>403    n02687172    航空母舰,    aircraft carrier, carrier, flattop, attack aircraft carrier</p>
+<p>404    n02690373    飞机,    airliner</p>
+<p>405    n02692877    飞艇,    airship, dirigible</p>
+<p>406    n02699494    教堂,    altar</p>
+<p>407    n02701002    救护车 check,    ambulance</p>
+<p>408    n02704792    水陆两用车 check,    amphibian, amphibious vehicle</p>
+<p>409    n02708093    钟,    analog clock</p>
+<p>410    n02727426    箱子,    apiary, bee house</p>
+<p>411    n02730930    围裙,    apron</p>
+<p>412    n02747177    垃圾箱,    ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin</p>
+<p>413    n02749479    枪,    assault rifle, assault gun</p>
+<p>414    n02769748    背包,    backpack, back pack, knapsack, packsack, rucksack, haversack</p>
+<p>415    n02776631    面包柜,    bakery, bakeshop, bakehouse</p>
+<p>416    n02777292    体操,    balance beam, beam</p>
+<p>417    n02782093    热气球,    balloon</p>
+<p>418    n02783161    钢笔,    ballpoint, ballpoint pen, ballpen, Biro</p>
+<p>419    n02786058    邦迪,    Band Aid</p>
+<p>420    n02787622    乐器,    banjo</p>
+<p>421    n02788148    楼梯,    bannister, banister, balustrade, balusters, handrail</p>
+<p>422    n02790996    杠铃,    barbell</p>
+<p>423    n02791124    座椅,    barber chair</p>
+<p>424    n02791270    理发,    barbershop</p>
+<p>425    n02793495    木屋,    barn</p>
+<p>426    n02794156    表,    barometer</p>
+<p>427    n02795169    酒桶,    barrel, cask</p>
+<p>428    n02797295    手推车,    barrow, garden cart, lawn cart, wheelbarrow</p>
+<p>429    n02799071    棒球,    baseball</p>
+<p>430    n02802426    篮球,    basketball</p>
+<p>431    n02804414    婴儿,    bassinet</p>
+<p>432    n02804610    乐器,    bassoon</p>
+<p>433    n02807133    游泳,    bathing cap, swimming cap</p>
+<p>434    n02808304    婴儿毛巾,    bath towel</p>
+<p>435    n02808440    浴缸,    bathtub, bathing tub, bath, tub</p>
+<p>436    n02814533    轿车 check,    beach wagon, station wagon, wagon, estate car, beach waggon, station waggon, waggon</p>
+<p>437    n02814860    灯塔,    beacon, lighthouse, beacon light, pharos</p>
+<p>438    n02815834    烧杯,    beaker</p>
+<p>439    n02817516    守卫,    bearskin, busby, shako</p>
+<p>440    n02823428    啤酒,    beer bottle</p>
+<p>441    n02823750    啤酒,    beer glass</p>
+<p>442    n02825657    建筑,    bell cote, bell cot</p>
+<p>443    n02834397    围兜,    bib</p>
+<p>444    n02835271    双人自行车,    bicycle-built-for-two, tandem bicycle, tandem</p>
+<p>445    n02837789    比基尼,    bikini, two-piece</p>
+<p>446    n02840245    笔记本,    binder, ring-binder</p>
+<p>447    n02841315    望远镜,    binoculars, field glasses, opera glasses</p>
+<p>448    n02843684    信箱,    birdhouse</p>
+<p>449    n02859443    小屋,    boathouse</p>
+<p>450    n02860847    雪橇,    bobsled, bobsleigh, bob</p>
+<p>451    n02865351    项链,    bolo tie, bolo, bola tie, bola</p>
+<p>452    n02869837    帽子,    bonnet, poke bonnet</p>
+<p>453    n02870880    书柜,    bookcase</p>
+<p>454    n02871525    书店,    bookshop, bookstore, bookstall</p>
+<p>455    n02877765    瓶盖,    bottlecap</p>
+<p>456    n02879718    弓箭,    bow</p>
+<p>457    n02883205    领结,    bow tie, bow-tie, bowtie</p>
+<p>458    n02892201    墓碑,    brass, memorial tablet, plaque</p>
+<p>459    n02892767    胸罩,    brassiere, bra, bandeau</p>
+<p>460    n02894605    海岸,    breakwater, groin, groyne, mole, bulwark, seawall, jetty</p>
+<p>461    n02895154    盔甲,    breastplate, aegis, egis</p>
+<p>462    n02906734    扫帚,    broom</p>
+<p>463    n02909870    水桶,    bucket, pail</p>
+<p>464    n02910353    皮带,    buckle</p>
+<p>465    n02916936    防弹背心,    bulletproof vest</p>
+<p>466    n02917067    火车,    bullet train, bullet</p>
+<p>467    n02927161    肉铺,    butcher shop, meat market</p>
+<p>468    n02930766    出租车 check,    cab, hack, taxi, taxicab</p>
+<p>469    n02939185    锅,    caldron, cauldron</p>
+<p>470    n02948072    蜡烛,    candle, taper, wax light</p>
+<p>471    n02950826    炮,    cannon</p>
+<p>472    n02951358    艇,    canoe</p>
+<p>473    n02951585    订书机,    can opener, tin opener</p>
+<p>474    n02963159    毛衣,    cardigan</p>
+<p>475    n02965783    反光镜,    car mirror</p>
+<p>476    n02966193    旋转木马,    carousel, carrousel, merry-go-round, roundabout, whirligig</p>
+<p>477    n02966687    工具箱,    carpenter’s kit, tool kit</p>
+<p>478    n02971356    盒子,    carton</p>
+<p>479    n02974003    轮胎,    car wheel</p>
+<p>480    n02977058    取款机,    cash machine, cash dispenser, automated teller machine, automatic teller machine, automated teller, automatic teller, ATM</p>
+<p>481    n02978881    磁带,    cassette</p>
+<p>482    n02979186    磁带,    cassette player</p>
+<p>483    n02980441    城堡,    castle</p>
+<p>484    n02981792    帆船,    catamaran</p>
+<p>485    n02988304    cd播放器,    CD player</p>
+<p>486    n02992211    大提琴,    cello, violoncello</p>
+<p>487    n02992529    手机,    cellular telephone, cellular phone, cellphone, cell, mobile phone</p>
+<p>488    n02999410    铁链,    chain</p>
+<p>489    n03000134    铁丝网,    chainlink fence</p>
+<p>490    n03000247    铁丝网,    chain mail, ring mail, mail, chain armor, chain armour, ring armor, ring armour</p>
+<p>491    n03000684    电锯,    chain saw, chainsaw</p>
+<p>492    n03014705    木箱,    chest</p>
+<p>493    n03016953    木柜,    chiffonier, commode</p>
+<p>494    n03017168    锣鼓,    chime, bell, gong</p>
+<p>495    n03018349    柜子,    china cabinet, china closet</p>
+<p>496    n03026506    袜子,    Christmas stocking</p>
+<p>497    n03028079    教堂,    church, church building</p>
+<p>498    n03032252    剧院,    cinema, movie theater, movie theatre, movie house, picture palace</p>
+<p>499    n03041632    刀,    cleaver, meat cleaver, chopper</p>
+<p>500    n03042490    堡垒,    cliff dwelling</p>
+<p>501    n03045698    斗篷,    cloak</p>
+<p>502    n03047690    鞋子,    clog, geta, patten, sabot</p>
+<p>503    n03062245    瓶子,    cocktail shaker</p>
+<p>504    n03063599    杯子,    coffee mug</p>
+<p>505    n03063689    壶,    coffeepot</p>
+<p>506    n03065424    螺旋,    coil, spiral, volute, whorl, helix</p>
+<p>507    n03075370    锁,    combination lock</p>
+<p>508    n03085013    键盘,    computer keyboard, keypad</p>
+<p>509    n03089624    糖果,    confectionery, confectionary, candy store</p>
+<p>510    n03095699    船,    container ship, containership, container vessel</p>
+<p>511    n03100240    轿车 check,    convertible</p>
+<p>512    n03109150    开瓶器,    corkscrew, bottle screw</p>
+<p>513    n03110669    号（乐器）,    cornet, horn, trumpet, trump</p>
+<p>514    n03124043    靴子,    cowboy boot</p>
+<p>515    n03124170    帽子,    cowboy hat, ten-gallon hat</p>
+<p>516    n03125729    婴儿床,    cradle</p>
+<p>517    n03126707    起重机,    crane</p>
+<p>518    n03127747    头盔,    crash helmet</p>
+<p>519    n03127925    木箱,    crate</p>
+<p>520    n03131574    婴儿床,    crib, cot</p>
+<p>521    n03133878    电饭锅,    Crock Pot</p>
+<p>522    n03134739    推球,    croquet ball</p>
+<p>523    n03141823    拐杖,    crutch</p>
+<p>524    n03146219    盔甲,    cuirass</p>
+<p>525    n03160309    水库,    dam, dike, dyke</p>
+<p>526    n03179701    办公桌,    desk</p>
+<p>527    n03180011    电脑,    desktop computer</p>
+<p>528    n03187595    电话机,    dial telephone, dial phone</p>
+<p>529    n03188531    尿布,    diaper, nappy, napkin</p>
+<p>530    n03196217    闹钟,    digital clock</p>
+<p>531    n03197337    手表,    digital watch</p>
+<p>532    n03201208    餐桌,    dining table, board</p>
+<p>533    n03207743    垫子,    dishrag, dishcloth</p>
+<p>534    n03207941    洗碗柜,    dishwasher, dish washer, dishwashing machine</p>
+<p>535    n03208938    车轮,    disk brake, disc brake</p>
+<p>536    n03216828    港口,    dock, dockage, docking facility</p>
+<p>537    n03218198    雪橇,    dogsled, dog sled, dog sleigh</p>
+<p>538    n03220513    穹顶,    dome</p>
+<p>539    n03223299    地毯,    doormat, welcome mat</p>
+<p>540    n03240683    油田,    drilling platform, offshore rig</p>
+<p>541    n03249569    鼓,    drum, membranophone, tympan</p>
+<p>542    n03250847    鼓棒,    drumstick</p>
+<p>543    n03255030    哑铃,    dumbbell</p>
+<p>544    n03259280    锅,    Dutch oven</p>
+<p>545    n03271574    风扇,    electric fan, blower</p>
+<p>546    n03272010    电吉他,    electric guitar</p>
+<p>547    n03272562    火车 check,    electric locomotive</p>
+<p>548    n03290653    电视机,    entertainment center</p>
+<p>549    n03291819    信,    envelope</p>
+<p>550    n03297495    咖啡机,    espresso maker</p>
+<p>551    n03314780    化妆品,    face powder</p>
+<p>552    n03325584    绒毛,    feather boa, boa</p>
+<p>553    n03337140    柜子,    file, file cabinet, filing cabinet</p>
+<p>554    n03344393    喷泉,    fireboat</p>
+<p>555    n03345487    消防车 check,    fire engine, fire truck</p>
+<p>556    n03347037    壁炉,    fire screen, fireguard</p>
+<p>557    n03355925    旗杆,    flagpole, flagstaff</p>
+<p>558    n03372029    笛子,    flute, transverse flute</p>
+<p>559    n03376595    座椅,    folding chair</p>
+<p>560    n03379051    橄榄球,    football helmet</p>
+<p>561    n03384352    叉车,    forklift</p>
+<p>562    n03388043    喷泉,    fountain</p>
+<p>563    n03388183    钢笔,    fountain pen</p>
+<p>564    n03388549    床,    four-poster</p>
+<p>565    n03393912    火车,    freight car</p>
+<p>566    n03394916    圆号,    French horn, horn</p>
+<p>567    n03400231    平底锅,    frying pan, frypan, skillet</p>
+<p>568    n03404251    裘皮,    fur coat</p>
+<p>569    n03417042    卡车 check,    garbage truck, dustcart</p>
+<p>570    n03424325    面具,    gasmask, respirator, gas helmet</p>
+<p>571    n03425413    加油,    gas pump, gasoline pump, petrol pump, island dispenser</p>
+<p>572    n03443371    酒杯,    goblet</p>
+<p>573    n03444034    卡丁车,    go-kart</p>
+<p>574    n03445777    高尔夫,    golf ball</p>
+<p>575    n03445924    高尔夫车,    golfcart, golf cart</p>
+<p>576    n03447447    小船,    gondola</p>
+<p>577    n03447721    锣鼓,    gong, tam-tam</p>
+<p>578    n03450230    婚纱,    gown</p>
+<p>579    n03452741    钢琴,    grand piano, grand</p>
+<p>580    n03457902    大棚,    greenhouse, nursery, glasshouse</p>
+<p>581    n03459775    轿车 车标 check,    grille, radiator grille</p>
+<p>582    n03461385    菜场,    grocery store, grocery, food market, market</p>
+<p>583    n03467068    断头台,    guillotine</p>
+<p>584    n03476684    发饰,    hair slide</p>
+<p>585    n03476991    发蜡,    hair spray</p>
+<p>586    n03478589    坦克,    half track</p>
+<p>587    n03481172    榔头,    hammer</p>
+<p>588    n03482405    竹筒,    hamper</p>
+<p>589    n03483316    吹风机,    hand blower, blow dryer, blow drier, hair dryer, hair drier</p>
+<p>590    n03485407    pos机,    hand-held computer, hand-held microcomputer</p>
+<p>591    n03485794    手帕,    handkerchief, hankie, hanky, hankey</p>
+<p>592    n03492542    硬盘,    hard disc, hard disk, fixed disk</p>
+<p>593    n03494278    口风琴,    harmonica, mouth organ, harp, mouth harp</p>
+<p>594    n03495258    竖琴,    harp</p>
+<p>595    n03496892    起重机,    harvester, reaper</p>
+<p>596    n03498962    斧头,    hatchet</p>
+<p>597    n03527444    手枪,    holster</p>
+<p>598    n03529860    电视机,    home theater, home theatre</p>
+<p>599    n03530642    蜂巢,    honeycomb</p>
+<p>600    n03532672    钩子,    hook, claw</p>
+<p>601    n03534580    裙子,    hoopskirt, crinoline</p>
+<p>602    n03535780    体操,    horizontal bar, high bar</p>
+<p>603    n03538406    马车,    horse cart, horse-cart</p>
+<p>604    n03544143    沙漏,    hourglass</p>
+<p>605    n03584254    音乐播放器,    iPod</p>
+<p>606    n03584829    电熨斗,    iron, smoothing iron</p>
+<p>607    n03590841    南瓜灯,    jack-o’-lantern</p>
+<p>608    n03594734    牛仔裤,    jean, blue jean, denim</p>
+<p>609    n03594945    吉普车 check,    jeep, landrover</p>
+<p>610    n03595614    T恤,    jersey, T-shirt, tee shirt</p>
+<p>611    n03598930    拼图,    jigsaw puzzle</p>
+<p>612    n03599486    黄包车,    jinrikisha, ricksha, rickshaw</p>
+<p>613    n03602883    操纵杆,    joystick</p>
+<p>614    n03617480    和服,    kimono</p>
+<p>615    n03623198    护具,    knee pad</p>
+<p>616    n03627232    绳结,    knot</p>
+<p>617    n03630383    医生,    lab coat, laboratory coat</p>
+<p>618    n03633091    勺子,    ladle</p>
+<p>619    n03637318    灯,    lampshade, lamp shade</p>
+<p>620    n03642806    笔记本电脑,    laptop, laptop computer</p>
+<p>621    n03649909    割草机,    lawn mower, mower</p>
+<p>622    n03657121    镜头盖,    lens cap, lens cover</p>
+<p>623    n03658185    小刀,    letter opener, paper knife, paperknife</p>
+<p>624    n03661043    图书馆,    library</p>
+<p>625    n03662601    救生船,    lifeboat</p>
+<p>626    n03666591    打火机,    lighter, light, igniter, ignitor</p>
+<p>627    n03670208    加长车 check,    limousine, limo</p>
+<p>628    n03673027    轮船,    liner, ocean liner</p>
+<p>629    n03676483    口红,    lipstick, lip rouge</p>
+<p>630    n03680355    鞋子,    Loafer</p>
+<p>631    n03690938    护肤品,    lotion</p>
+<p>632    n03691459    音响,    loudspeaker, speaker, speaker unit, loudspeaker system, speaker system</p>
+<p>633    n03692522    放大镜,    loupe, jeweler’s loupe</p>
+<p>634    n03697007    原木,    lumbermill, sawmill</p>
+<p>635    n03706229    指南针,    magnetic compass</p>
+<p>636    n03709823    包,    mailbag, postbag</p>
+<p>637    n03710193    邮箱,    mailbox, letter box</p>
+<p>638    n03710637    泳衣,    maillot</p>
+<p>639    n03710721    泳衣,    maillot, tank suit</p>
+<p>640    n03717622    窨井盖,    manhole cover</p>
+<p>641    n03720891    手摇铃,    maraca</p>
+<p>642    n03721384    木琴,    marimba, xylophone</p>
+<p>643    n03724870    面具,    mask</p>
+<p>644    n03729826    火柴,    matchstick</p>
+<p>645    n03733131    绳子,    maypole</p>
+<p>646    n03733281    迷宫,    maze, labyrinth</p>
+<p>647    n03733805    烧杯,    measuring cup</p>
+<p>648    n03742115    冰箱,    medicine chest, medicine cabinet</p>
+<p>649    n03743016    石柱,    megalith, megalithic structure</p>
+<p>650    n03759954    话筒,    microphone, mike</p>
+<p>651    n03761084    微波炉,    microwave, microwave oven</p>
+<p>652    n03763968    军人,    military uniform</p>
+<p>653    n03764736    水壶,    milk can</p>
+<p>654    n03769881    小客车 check,    minibus</p>
+<p>655    n03770439    短裙,    miniskirt, mini</p>
+<p>656    n03770679    面包车 check,    minivan</p>
+<p>657    n03773504    导弹,    missile</p>
+<p>658    n03775071    手套,    mitten</p>
+<p>659    n03775546    碗,    mixing bowl</p>
+<p>660    n03776460    房车,    mobile home, manufactured home</p>
+<p>661    n03777568    老爷车,    Model T</p>
+<p>662    n03777754    路由器,    modem</p>
+<p>663    n03781244    建筑,    monastery</p>
+<p>664    n03782006    显示器,    monitor</p>
+<p>665    n03785016    摩托车 check,    moped</p>
+<p>666    n03786901    砚,    mortar</p>
+<p>667    n03787032    学士帽,    mortarboard</p>
+<p>668    n03788195    建筑,    mosque</p>
+<p>669    n03788365    蚊帐,    mosquito net</p>
+<p>670    n03791053    助动车 check,    motor scooter, scooter</p>
+<p>671    n03792782    自行车 check,    mountain bike, all-terrain bike, off-roader</p>
+<p>672    n03792972    帐篷,    mountain tent</p>
+<p>673    n03793489    键盘鼠标,    mouse, computer mouse</p>
+<p>674    n03794056    捕鼠夹,    mousetrap</p>
+<p>675    n03796401    货车 卡车 check,    moving van</p>
+<p>676    n03803284    狗嘴套,    muzzle</p>
+<p>677    n03804744    钉子,    nail</p>
+<p>678    n03814639    颈托,    neck brace</p>
+<p>679    n03814906    项链,    necklace</p>
+<p>680    n03825788    奶瓶,    nipple</p>
+<p>681    n03832673    笔记本电脑,    notebook, notebook computer</p>
+<p>682    n03837869    建筑,    obelisk</p>
+<p>683    n03838899    黑管,    oboe, hautboy, hautbois</p>
+<p>684    n03840681    埙,    ocarina, sweet potato</p>
+<p>685    n03841143    仪表盘,    odometer, hodometer, mileometer, milometer</p>
+<p>686    n03843555    机油滤清器,    oil filter</p>
+<p>687    n03854065    管风琴,    organ, pipe organ</p>
+<p>688    n03857828    示波器,    oscilloscope, scope, cathode-ray oscilloscope, CRO</p>
+<p>689    n03866082    礼服,    overskirt</p>
+<p>690    n03868242    牛车,    oxcart</p>
+<p>691    n03868863    呼吸器,    oxygen mask</p>
+<p>692    n03871628    零食,    packet</p>
+<p>693    n03873416    划桨,    paddle, boat paddle</p>
+<p>694    n03874293    水轮,    paddlewheel, paddle wheel</p>
+<p>695    n03874599    锁,    padlock</p>
+<p>696    n03876231    刷子,    paintbrush</p>
+<p>697    n03877472    睡衣,    pajama, pyjama, pj’s, jammies</p>
+<p>698    n03877845    建筑,    palace</p>
+<p>699    n03884397    乐器,    panpipe, pandean pipe, syrinx</p>
+<p>700    n03887697    纸巾,    paper towel</p>
+<p>701    n03888257    降落伞,    parachute, chute</p>
+<p>702    n03888605    体操,    parallel bars, bars</p>
+<p>703    n03891251    长椅,    park bench</p>
+<p>704    n03891332    停车缴费器,    parking meter</p>
+<p>705    n03895866    火车 check,    passenger car, coach, carriage</p>
+<p>706    n03899768    院子,    patio, terrace</p>
+<p>707    n03902125    公用电话,    pay-phone, pay-station</p>
+<p>708    n03903868    柱子,    pedestal, plinth, footstall</p>
+<p>709    n03908618    文具袋,    pencil box, pencil case</p>
+<p>710    n03908714    卷笔刀,    pencil sharpener</p>
+<p>711    n03916031    香水,    perfume, essence</p>
+<p>712    n03920288    培养皿,    Petri dish</p>
+<p>713    n03924679    打印机,    photocopier</p>
+<p>714    n03929660    吉他拨片,    pick, plectrum, plectron</p>
+<p>715    n03929855    头盔,    pickelhaube</p>
+<p>716    n03930313    栅栏,    picket fence, paling</p>
+<p>717    n03930630    轿车 check,    pickup, pickup truck</p>
+<p>718    n03933933    桥,    pier</p>
+<p>719    n03935335    储蓄罐,    piggy bank, penny bank</p>
+<p>720    n03937543    药丸,    pill bottle</p>
+<p>721    n03938244    枕头,    pillow</p>
+<p>722    n03942813    乒乓球,    ping-pong ball</p>
+<p>723    n03944341    风车,    pinwheel</p>
+<p>724    n03947888    帆船,    pirate, pirate ship</p>
+<p>725    n03950228    茶壶,    pitcher, ewer</p>
+<p>726    n03954731    刨子,    plane, carpenter’s plane, woodworking plane</p>
+<p>727    n03956157    建筑,    planetarium</p>
+<p>728    n03958227    塑料袋,    plastic bag</p>
+<p>729    n03961711    碗架,    plate rack</p>
+<p>730    n03967562    推土机,    plow, plough</p>
+<p>731    n03970156    搋子,    plunger, plumber’s helper</p>
+<p>732    n03976467    相机,    Polaroid camera, Polaroid Land camera</p>
+<p>733    n03976657    杆子,    pole</p>
+<p>734    n03977966    警车 check,    police van, police wagon, paddy wagon, patrol wagon, wagon, black Maria</p>
+<p>735    n03980874    披风,    poncho</p>
+<p>736    n03982430    桌球,    pool table, billiard table, snooker table</p>
+<p>737    n03983396    瓶子,    pop bottle, soda bottle</p>
+<p>738    n03991062    盆栽,    pot, flowerpot</p>
+<p>739    n03992509    陶艺,    potter’s wheel</p>
+<p>740    n03995372    钻机,    power drill</p>
+<p>741    n03998194    毯子,    prayer rug, prayer mat</p>
+<p>742    n04004767    打印机,    printer</p>
+<p>743    n04005630    监狱,    prison, prison house</p>
+<p>744    n04008634    导弹,    projectile, missile</p>
+<p>745    n04009552    投影仪,    projector</p>
+<p>746    n04019541    冰球,    puck, hockey puck</p>
+<p>747    n04023962    拳击,    punching bag, punch bag, punching ball, punchball</p>
+<p>748    n04026417    手提袋,    purse</p>
+<p>749    n04033901    羽毛笔,    quill, quill pen</p>
+<p>750    n04033995    床 被子,    quilt, comforter, comfort, puff</p>
+<p>751    n04037443    赛车,    racer, race car, racing car</p>
+<p>752    n04039381    网球,    racket, racquet</p>
+<p>753    n04040759    加热器,    radiator</p>
+<p>754    n04041544    收音机,    radio, wireless</p>
+<p>755    n04044716    卫星接收器,    radio telescope, radio reflector</p>
+<p>756    n04049303    酒桶,    rain barrel</p>
+<p>757    n04065272    房车,    recreational vehicle, RV, R.V.</p>
+<p>758    n04067472    鱼竿,    reel</p>
+<p>759    n04069434    相机,    reflex camera</p>
+<p>760    n04070727    冰箱,    refrigerator, icebox</p>
+<p>761    n04074963    遥控器,    remote control, remote</p>
+<p>762    n04081281    餐厅,    restaurant, eating house, eating place, eatery</p>
+<p>763    n04086273    手枪,    revolver, six-gun, six-shooter</p>
+<p>764    n04090263    狙击枪,    rifle</p>
+<p>765    n04099969    摇椅,    rocking chair, rocker</p>
+<p>766    n04111531    烤箱,    rotisserie</p>
+<p>767    n04116512    橡皮,    rubber eraser, rubber, pencil eraser</p>
+<p>768    n04118538    橄榄球,    rugby ball</p>
+<p>769    n04118776    尺,    rule, ruler</p>
+<p>770    n04120489    运动鞋,    running shoe</p>
+<p>771    n04125021    保险箱,    safe</p>
+<p>772    n04127249    回形针,    safety pin</p>
+<p>773    n04131690    调料瓶,    saltshaker, salt shaker</p>
+<p>774    n04133789    拖鞋,    sandal</p>
+<p>775    n04136333    长裙,    sarong</p>
+<p>776    n04141076    萨克斯,    sax, saxophone</p>
+<p>777    n04141327    剑,    scabbard</p>
+<p>778    n04141975    秤,    scale, weighing machine</p>
+<p>779    n04146614    校车,    school bus</p>
+<p>780    n04147183    帆船,    schooner</p>
+<p>781    n04149813    计分板,    scoreboard</p>
+<p>782    n04152593    显示器,    screen, CRT screen</p>
+<p>783    n04153751    螺丝,    screw</p>
+<p>784    n04154565    螺丝刀,    screwdriver</p>
+<p>785    n04162706    安全带,    seat belt, seatbelt</p>
+<p>786    n04179913    缝纫机,    sewing machine</p>
+<p>787    n04192698    盾牌,    shield, buckler</p>
+<p>788    n04200800    鞋店,    shoe shop, shoe-shop, shoe store</p>
+<p>789    n04201297    榻榻米,    shoji</p>
+<p>790    n04204238    购物篮,    shopping basket</p>
+<p>791    n04204347    购物车,    shopping cart</p>
+<p>792    n04208210    铲子,    shovel</p>
+<p>793    n04209133    浴帽,    shower cap</p>
+<p>794    n04209239    浴帘,    shower curtain</p>
+<p>795    n04228054    滑雪,    ski</p>
+<p>796    n04229816    面罩,    ski mask</p>
+<p>797    n04235860    睡袋,    sleeping bag</p>
+<p>798    n04238763    游标卡尺,    slide rule, slipstick</p>
+<p>799    n04239074    移门,    sliding door</p>
+<p>800    n04243546    老虎机,    slot, one-armed bandit</p>
+<p>801    n04251144    游泳眼镜,    snorkel</p>
+<p>802    n04252077    滑雪车,    snowmobile</p>
+<p>803    n04252225    铲雪车,    snowplow, snowplough</p>
+<p>804    n04254120    洗手液,    soap dispenser</p>
+<p>805    n04254680    足球,    soccer ball</p>
+<p>806    n04254777    袜子,    sock</p>
+<p>807    n04258138    太阳能板,    solar dish, solar collector, solar furnace</p>
+<p>808    n04259630    帽子,    sombrero</p>
+<p>809    n04263257    碗,    soup bowl</p>
+<p>810    n04264628    键盘,    space bar</p>
+<p>811    n04265275    电热器,    space heater</p>
+<p>812    n04266014    航天飞船,    space shuttle</p>
+<p>813    n04270147    锅铲,    spatula</p>
+<p>814    n04273569    快艇,    speedboat</p>
+<p>815    n04275548    蜘蛛网,    spider web, spider’s web</p>
+<p>816    n04277352    毛线,    spindle</p>
+<p>817    n04285008    运动型轿车 check,    sports car, sport car</p>
+<p>818    n04286575    探照灯,    spotlight, spot</p>
+<p>819    n04296562    乐队,    stage</p>
+<p>820    n04310018    蒸汽机车,    steam locomotive</p>
+<p>821    n04311004    桥,    steel arch bridge</p>
+<p>822    n04311174    鼓,    steel drum</p>
+<p>823    n04317175    听诊器,    stethoscope</p>
+<p>824    n04325704    担架,    stole</p>
+<p>825    n04326547    石堆,    stone wall</p>
+<p>826    n04328186    秒表,    stopwatch, stop watch</p>
+<p>827    n04330267    火炉,    stove</p>
+<p>828    n04332243    滤网,    strainer</p>
+<p>829    n04335435    公交车 check,    streetcar, tram, tramcar, trolley, trolley car</p>
+<p>830    n04336792    担架,    stretcher</p>
+<p>831    n04344873    沙发,    studio couch, day bed</p>
+<p>832    n04346328    皇宫,    stupa, tope</p>
+<p>833    n04347754    轮船,    submarine, pigboat, sub, U-boat</p>
+<p>834    n04350905    西装,    suit, suit of clothes</p>
+<p>835    n04355338    日晷,    sundial</p>
+<p>836    n04355933    墨镜,    sunglass</p>
+<p>837    n04356056    墨镜,    sunglasses, dark glasses, shades</p>
+<p>838    n04357314    防晒霜,    sunscreen, sunblock, sun blocker</p>
+<p>839    n04366367    桥,    suspension bridge</p>
+<p>840    n04367480    拖把,    swab, swob, mop</p>
+<p>841    n04370456    连帽衫,    sweatshirt</p>
+<p>842    n04371430    沙滩裤,    swimming trunks, bathing trunks</p>
+<p>843    n04371774    秋千,    swing</p>
+<p>844    n04372370    开关,    switch, electric switch, electrical switch</p>
+<p>845    n04376876    针筒,    syringe</p>
+<p>846    n04380533    台灯,    table lamp</p>
+<p>847    n04389033    坦克,    tank, army tank, armored combat vehicle, armoured combat vehicle</p>
+<p>848    n04392985    磁带播放器,    tape player</p>
+<p>849    n04398044    茶壶,    teapot</p>
+<p>850    n04399382    毛绒玩具,    teddy, teddy bear</p>
+<p>851    n04404412    电视机,    television, television system</p>
+<p>852    n04409515    网球,    tennis ball</p>
+<p>853    n04417672    草屋,    thatch, thatched roof</p>
+<p>854    n04418357    幕布,    theater curtain, theatre curtain</p>
+<p>855    n04423845    指套,    thimble</p>
+<p>856    n04428191    装甲车,    thresher, thrasher, threshing machine</p>
+<p>857    n04429376    皇位,    throne</p>
+<p>858    n04435653    瓦片,    tile roof</p>
+<p>859    n04442312    面包机,    toaster</p>
+<p>860    n04443257    烟酒店,    tobacco shop, tobacconist shop, tobacconist</p>
+<p>861    n04447861    马桶,    toilet seat</p>
+<p>862    n04456115    火炬,    torch</p>
+<p>863    n04458633    图腾,    totem pole</p>
+<p>864    n04461696    大卡车 check,    tow truck, tow car, wrecker</p>
+<p>865    n04462240    玩具店,    toyshop</p>
+<p>866    n04465501    拖拉机,    tractor</p>
+<p>867    n04467665    大货车 check,    trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi</p>
+<p>868    n04476259    碟子 盘子,    tray</p>
+<p>869    n04479046    风衣,    trench coat</p>
+<p>870    n04482393    儿童自行车,    tricycle, trike, velocipede</p>
+<p>871    n04483307    船,    trimaran</p>
+<p>872    n04485082    三脚架,    tripod</p>
+<p>873    n04486054    拱门,    triumphal arch</p>
+<p>874    n04487081    巴士 check,    trolleybus, trolley coach, trackless trolley</p>
+<p>875    n04487394    长号,    trombone</p>
+<p>876    n04493381    浴缸,    tub, vat</p>
+<p>877    n04501370    闸机,    turnstile</p>
+<p>878    n04505470    打字机,    typewriter keyboard</p>
+<p>879    n04507155    伞,    umbrella</p>
+<p>880    n04509417    独轮车,    unicycle, monocycle</p>
+<p>881    n04515003    钢琴,    upright, upright piano</p>
+<p>882    n04517823    吸尘器,    vacuum, vacuum cleaner</p>
+<p>883    n04522168    花瓶,    vase</p>
+<p>884    n04523525    拱廊,    vault</p>
+<p>885    n04525038    珊瑚绒,    velvet</p>
+<p>886    n04525305    自动贩卖机,    vending machine</p>
+<p>887    n04532106    教皇袍,    vestment</p>
+<p>888    n04532670    桥,    viaduct</p>
+<p>889    n04536866    小提琴,    violin, fiddle</p>
+<p>890    n04540053    排球,    volleyball</p>
+<p>891    n04542943    煎饼锅,    waffle iron</p>
+<p>892    n04548280    挂钟,    wall clock</p>
+<p>893    n04548362    钱夹,    wallet, billfold, notecase, pocketbook</p>
+<p>894    n04550184    柜子,    wardrobe, closet, press</p>
+<p>895    n04552348    飞机,    warplane, military plane</p>
+<p>896    n04553703    台盆,    washbasin, handbasin, washbowl, lavabo, wash-hand basin</p>
+<p>897    n04554684    洗衣机,    washer, automatic washer, washing machine</p>
+<p>898    n04557648    水瓶,    water bottle</p>
+<p>899    n04560804    水壶,    water jug</p>
+<p>900    n04562935    煤气包,    water tower</p>
+<p>901    n04579145    水壶,    whiskey jug</p>
+<p>902    n04579432    哨子,    whistle</p>
+<p>903    n04584207    头发,    wig</p>
+<p>904    n04589890    窗户,    window screen</p>
+<p>905    n04590129    百叶窗,    window shade</p>
+<p>906    n04591157    领带,    Windsor tie</p>
+<p>907    n04591713    葡萄酒,    wine bottle</p>
+<p>908    n04592741    飞机,    wing</p>
+<p>909    n04596742    炒锅,    wok</p>
+<p>910    n04597913    勺子,    wooden spoon</p>
+<p>911    n04599235    围巾,    wool, woolen, woollen</p>
+<p>912    n04604644    栅栏,    worm fence, snake fence, snake-rail fence, Virginia fence</p>
+<p>913    n04606251    沉船,    wreck</p>
+<p>914    n04612504    帆船,    yawl</p>
+<p>915    n04613696    蒙古包,    yurt</p>
+<p>916    n06359193    网页,    web site, website, internet site, site</p>
+<p>917    n06596364    海报,    comic book</p>
+<p>918    n06785654    填字游戏,    crossword puzzle, crossword</p>
+<p>919    n06794110    交通标志,    street sign</p>
+<p>920    n06874185    交通灯,    traffic light, traffic signal, stoplight</p>
+<p>921    n07248320    书,    book jacket, dust cover, dust jacket, dust wrapper</p>
+<p>922    n07565083    菜单,    menu</p>
+<p>923    n07579787    菜,    plate</p>
+<p>924    n07583066    菜,    guacamole</p>
+<p>925    n07584110    菜,    consomme</p>
+<p>926    n07590611    菜,    hot pot, hotpot</p>
+<p>927    n07613480    蛋糕,    trifle</p>
+<p>928    n07614500    冰激凌,    ice cream, icecream</p>
+<p>929    n07615774    棒冰,    ice lolly, lolly, lollipop, popsicle</p>
+<p>930    n07684084    面包,    French loaf</p>
+<p>931    n07693725    甜甜圈,    bagel, beigel</p>
+<p>932    n07695742    面包,    pretzel</p>
+<p>933    n07697313    汉堡,    cheeseburger</p>
+<p>934    n07697537    热狗,    hotdog, hot dog, red hot</p>
+<p>935    n07711569    焗饭,    mashed potato</p>
+<p>936    n07714571    蔬菜,    head cabbage</p>
+<p>937    n07714990    西蓝花,    broccoli</p>
+<p>938    n07715103    花椰菜,    cauliflower</p>
+<p>939    n07716358    蔬菜,    zucchini, courgette</p>
+<p>940    n07716906    金瓜,    spaghetti squash</p>
+<p>941    n07717410    南瓜,    acorn squash</p>
+<p>942    n07717556    南瓜,    butternut squash</p>
+<p>943    n07718472    黄瓜,    cucumber, cuke</p>
+<p>944    n07718747    蔬菜,    artichoke, globe artichoke</p>
+<p>945    n07720875    青椒 黄椒 红椒,    bell pepper</p>
+<p>946    n07730033    花,    cardoon</p>
+<p>947    n07734744    蘑菇,    mushroom</p>
+<p>948    n07742313    苹果,    Granny Smith</p>
+<p>949    n07745940    草莓,    strawberry</p>
+<p>950    n07747607    橙子,    orange</p>
+<p>951    n07749582    柠檬,    lemon</p>
+<p>952    n07753113    水果,    fig</p>
+<p>953    n07753275    菠萝,    pineapple, ananas</p>
+<p>954    n07753592    香蕉,    banana</p>
+<p>955    n07754684    榴莲,    jackfruit, jak, jack</p>
+<p>956    n07760859    水果,    custard apple</p>
+<p>957    n07768694    石榴,    pomegranate</p>
+<p>958    n07802026    草垛,    hay</p>
+<p>959    n07831146    意大利面,    carbonara</p>
+<p>960    n07836838    甜品,    chocolate sauce, chocolate syrup</p>
+<p>961    n07860988    面团,    dough</p>
+<p>962    n07871810    肉酱,    meat loaf, meatloaf</p>
+<p>963    n07873807    披萨,    pizza, pizza pie</p>
+<p>964    n07875152    派,    potpie</p>
+<p>965    n07880968    肉卷,    burrito</p>
+<p>966    n07892512    红酒,    red wine</p>
+<p>967    n07920052    咖啡,    espresso</p>
+<p>968    n07930864    茶,    cup</p>
+<p>969    n07932039    饮料杯,    eggnog</p>
+<p>970    n09193705    雪山,    alp</p>
+<p>971    n09229709    泡泡,    bubble</p>
+<p>972    n09246464    悬崖,    cliff, drop, drop-off</p>
+<p>973    n09256479    珊瑚,    coral reef</p>
+<p>974    n09288635    温泉,    geyser</p>
+<p>975    n09332890    风景,    lakeside, lakeshore</p>
+<p>976    n09399592    小岛,    promontory, headland, head, foreland</p>
+<p>977    n09421951    沙滩,    sandbar, sand bar</p>
+<p>978    n09428293    海滩,    seashore, coast, seacoast, sea-coast</p>
+<p>979    n09468604    瀑布 溪流,    valley, vale</p>
+<p>980    n09472597    火山,    volcano</p>
+<p>981    n09835506    棒球,    ballplayer, baseball player</p>
+<p>982    n10148035    婚礼,    groom, bridegroom</p>
+<p>983    n10565667    潜水,    scuba diver</p>
+<p>984    n11879895    油菜花,    rapeseed</p>
+<p>985    n11939491    菊花,    daisy</p>
+<p>986    n12057211    植物,    yellow lady’s slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum</p>
+<p>987    n12144580    玉米,    corn</p>
+<p>988    n12267677    松果,    acorn</p>
+<p>989    n12620546    植物,    hip, rose hip, rosehip</p>
+<p>990    n12768682    栗子,    buckeye, horse chestnut, conker</p>
+<p>991    n12985857    菌菇,    coral fungus</p>
+<p>992    n12998815    菌菇,    agaric</p>
+<p>993    n13037406    菌菇,    gyromitra</p>
+<p>994    n13040303    菌菇,    stinkhorn, carrion fungus</p>
+<p>995    n13044778    菌菇,    earthstar</p>
+<p>996    n13052670    菌菇,    hen-of-the-woods, hen of the woods, Polyporus frondosus, Grifola frondosa</p>
+<p>997    n13054560    菌菇,    bolete</p>
+<p>998    n13133613    玉米,    ear, spike, capitulum</p>
+<p>999    n15075141    卷筒纸,    toilet tissue, toilet paper, bathroom tissue</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/imagenet/" rel="tag"># imagenet</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/14/20180914_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95(ResNet)/" rel="prev" title="CNN图像分类学习记录(六)——ResNet, ResNeXt">
+      <i class="fa fa-chevron-left"></i> CNN图像分类学习记录(六)——ResNet, ResNeXt
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/" rel="next" title="智能论文功能列表">
+      智能论文功能列表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Befree</p>
+  <div class="site-description" itemprop="description">以互联网精神为信仰</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Befree</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz","app_key":"KJcivh13NLSQp5elMAAX1SNj","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'w0vdf3oAV8sTKCv7PrG0pBnT-gzGzoHsz',
+      appKey     : 'KJcivh13NLSQp5elMAAX1SNj',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
