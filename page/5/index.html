@@ -165,6 +165,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="post-title-link" itemprop="url">逻辑回归_DL体会总结_1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-05 10:19:59" itemprop="dateCreated datePublished" datetime="2018-02-05T10:19:59+08:00">2018-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-03-13 13:09:56" itemprop="dateModified" datetime="2018-03-13T13:09:56+08:00">2018-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="post-meta-item leancloud_visitors" data-flag-title="逻辑回归_DL体会总结_1" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Logistic-Regression-as-a-Neural-Network"><a class="header-anchor" href="#Logistic-Regression-as-a-Neural-Network"> </a>Logistic Regression as a Neural Network</h4>
+<ol>
+<li>二元分类：比如判断一张图片是猫</li>
+<li><strong>逻辑回归</strong>：一个输入向量和一个参数向量做点积，得到的结果再用sigmoid函数求出一个值，得到的就是二元分类的概率</li>
+</ol>
+<p>$$
+\hat{y}=\sigma(w^{T}X+ b), \quad   where\    \sigma(z)=\frac{1}{1+e^{-z}}
+$$</p>
+<ol start="3">
+<li><strong>Lost Function</strong>:</li>
+</ol>
+<p>$$
+Loss= - (y\log{\hat{y}} + (1-y)\log{(1-\hat{y})})
+$$
+<strong>Cost Function</strong>:<br>
+$$
+J(w,b) = \frac{1}{m} \sum_{i=0}^m{L(\hat{y}, y)}
+$$</p>
+<ol start="4">
+<li>
+<p>梯度下降：根据LostFunc，给出dw,dx,db 的计算式，得到值。每个变量，沿梯度方向变化一点，整个loss就会变化，不停的反复迭代，就会找到最佳的参数。</p>
+<p>我一直有个错误的认识，就是dw, db和Loss值有关，dw，db需要使用Loss值进行计算，其实不是，dw只和LostFunc的表达式有关，只和其他参数当前值有关，有没有Loss值都不重要，只是每次迭代之后，需要看看Loss是不是在减少了，而不需要通过Loss计算梯度。</p>
+<p>​</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1072,121 +1191,6 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/16/0200%E5%A4%A9%E4%BB%A3%E7%A0%81%E8%AE%A1%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/16/0200%E5%A4%A9%E4%BB%A3%E7%A0%81%E8%AE%A1%E5%88%92/" class="post-title-link" itemprop="url">200天代码计划</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-10-16 14:38:49" itemprop="dateCreated datePublished" datetime="2017-10-16T14:38:49+08:00">2017-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-02 17:10:52" itemprop="dateModified" datetime="2017-11-02T17:10:52+08:00">2017-11-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/10/16/0200%E5%A4%A9%E4%BB%A3%E7%A0%81%E8%AE%A1%E5%88%92/" class="post-meta-item leancloud_visitors" data-flag-title="200天代码计划" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/10/16/0200%E5%A4%A9%E4%BB%A3%E7%A0%81%E8%AE%A1%E5%88%92/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/16/0200%E5%A4%A9%E4%BB%A3%E7%A0%81%E8%AE%A1%E5%88%92/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>效仿这位大神<a href="https://jenniferdewalt.com/index.html" target="_blank" rel="noopener">180天180个页面</a>，我也做一个试试，不过人家是学美术的，做的页面都很有艺术感，我感觉我做不到那么好，但是我也可以做到那么多。</p>
-<ol>
-<li>2017.11.1 - 2017.11.2 strength的trainlog页面，db逻辑生疏了</li>
-<li>2017.10.31 strength的login, reg的页面的后台逻辑，已经可以登录了</li>
-<li>2017.10.30 strength的login, reg的页面</li>
-<li>2017.10.29     &lt;空窗&gt;</li>
-<li>2017.10.28 <a href="http://liliangju.ruimeigg.cn/" target="_blank" rel="noopener">力量举计算器(带后台逻辑)</a></li>
-<li>2017.10.27 <a href="http://ruimeigg.cn/wlexp/strength/calc_s.html" target="_blank" rel="noopener">力量举计算器</a></li>
-<li>2017.10.26 <a href="http://liliangju.ruimeigg.cn/standard.html" target="_blank" rel="noopener">各单项力量数据</a></li>
-<li>2017.10.25 <a href="http://www.ruimeigg.cn/wlexp/strength/standard.html" target="_blank" rel="noopener">力量举标准页面</a></li>
-<li>2017.10.24 <a href="http://www.ruimeigg.cn/wlexp/singlePage/css_gradient.html" target="_blank" rel="noopener">CSS使用渐变的效果</a></li>
-<li>2017.10.23 <a href="http://www.ruimeigg.cn//wlexp/portfolio/" target="_blank" rel="noopener">Portfolio</a></li>
-<li>2017.10.22 Glozzom之<a href="http://ruimeigg.cn/wlexp/glozzom/about.html" target="_blank" rel="noopener">About</a>和<a href="http://ruimeigg.cn/wlexp/glozzom/services.html" target="_blank" rel="noopener">Service</a></li>
-<li>2017.10.21 <a href="http://ruimeigg.cn/wlexp/glozzom/" target="_blank" rel="noopener">Glozzom很漂亮的首页</a></li>
-<li>2017.10.20 Blog Admin之 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/profile.html" target="_blank" rel="noopener">Profile</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/settings.html" target="_blank" rel="noopener">Settings</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/login.html" target="_blank" rel="noopener">Login</a></li>
-<li>2017.10.19 Blog Admin之 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/posts.html" target="_blank" rel="noopener">Post</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/categories.html" target="_blank" rel="noopener">Category</a> <a href="http://www.ruimeigg.cn/wlexp/blogadmin/users.html" target="_blank" rel="noopener">User</a></li>
-<li>2017.10.18 <a href="http://www.ruimeigg.cn/wlexp/blogadmin/" target="_blank" rel="noopener">Blog Admin</a></li>
-<li>2017.10.17 <a href="http://www.ruimeigg.cn/wlexp/mizuxe/index.html" target="_blank" rel="noopener">bootstrap4 Project</a></li>
-<li>2017.10.16  <a href="http://www.wliang.me/exp/002/index.html">webpack小实验</a></li>
-<li>2017.10.15 <a href="http://www.ruimeigg.cn" target="_blank" rel="noopener">我的ProductHunt</a></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1256,7 +1260,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1269,7 +1273,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
