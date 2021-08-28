@@ -165,6 +165,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">工厂方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-28 10:05:52 / Modified: 17:14:03" itemprop="dateCreated datePublished" datetime="2021-08-28T10:05:52+08:00">2021-08-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="工厂方法" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>工厂方法Factory Method这个我曾经尝试用过，就是定义一个虚基类，然后定义几个纯虚接口，然后通过if/else来把对应的子类new 出来，然后就开始工作。感觉用处不大，主要是是很多时候其实需求不会增加这么多，我也觉得奇怪，为啥别人的代码都能自我扩展，而我写的东西总是就不能长大呢。这次参考<a href="https://realpython.com/factory-method-python/#an-object-serialization-example" target="_blank" rel="noopener">The Factory Method Pattern and Its Implementation in Python</a>重新学一下这个模式。</p>
+<p>工厂方法是创建型设计模式，用来创建通用接口的具体实现。</p>
+<p>避免大幅的if/elif/else这样的面条代码。（这里我又不同意见，首先你这个接口得能够抽象的出来，其次为了实现这种模式，额外代码也有成本）</p>
+<p>总体想法：当一个调用方依赖一个接口去执行一个任务，根据不同参数，有不同的任务实现。自己开发中其实很少用到，但是很多框架代码是用到的，为了能看懂代码，所以必须学会这个模式。</p>
+<p>使用Factory Method的场景，替换复杂逻辑代码（大量if/elif/else这样的逻辑），从外部数据创建创建对象，支持某个feature的不同实现，整合相似特性在相同的接口下，整合外部相关服务。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/08/25/20210826_%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +296,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-26 14:32:24" itemprop="dateModified" datetime="2021-08-26T14:32:24+08:00">2021-08-26</time>
+                <time title="Modified: 2021-08-26 14:36:18" itemprop="dateModified" datetime="2021-08-26T14:36:18+08:00">2021-08-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,14 +340,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="商业分析"><a class="header-anchor" href="#商业分析"> </a>商业分析</h4>
+          <h3 id="商业分析"><a class="header-anchor" href="#商业分析"> </a>商业分析</h3>
 <ol>
 <li><a href="https://new.qq.com/omn/20210203/20210203A0DSQN00.html" target="_blank" rel="noopener">如何识别创业机会</a></li>
 </ol>
-<h4 id="产品设计"><a class="header-anchor" href="#产品设计"> </a>产品设计</h4>
+<h3 id="产品设计"><a class="header-anchor" href="#产品设计"> </a>产品设计</h3>
 <h5 id="产品分析"><a class="header-anchor" href="#产品分析"> </a>产品分析</h5>
 <h5 id="UI设计"><a class="header-anchor" href="#UI设计"> </a>UI设计</h5>
-<h4 id="软件"><a class="header-anchor" href="#软件"> </a>软件</h4>
+<h3 id="软件知识"><a class="header-anchor" href="#软件知识"> </a>软件知识</h3>
 <h5 id="AI算法"><a class="header-anchor" href="#AI算法"> </a>AI算法</h5>
 <h5 id="软件工程-架构"><a class="header-anchor" href="#软件工程-架构"> </a>软件工程&amp;架构</h5>
 <h5 id="开发语言-开发框架-工具-库："><a class="header-anchor" href="#开发语言-开发框架-工具-库："> </a>开发语言&amp;开发框架&amp;工具&amp;库：</h5>
@@ -263,24 +363,12 @@
 </ul>
 <h5 id="中间件"><a class="header-anchor" href="#中间件"> </a>中间件</h5>
 <ul>
-<li>
-<p>Web服务：Nginx</p>
-</li>
-<li>
-<p>缓存系统：Redis、memcache</p>
-</li>
-<li>
-<p>数据库系统：Mysql、MongoDB、PostregSQL</p>
-</li>
-<li>
-<p>容器：docker，k8s</p>
-</li>
-<li>
-<p>搜索：</p>
-</li>
-<li>
-<p>消息队列：</p>
-</li>
+<li>Web服务：Nginx</li>
+<li>缓存系统：Redis、memcache</li>
+<li>数据库系统：Mysql、MongoDB、PostregSQL</li>
+<li>容器：docker，k8s</li>
+<li>搜索：</li>
+<li>消息队列：</li>
 </ul>
 <h5 id="系统软件："><a class="header-anchor" href="#系统软件："> </a>系统软件：</h5>
 <ul>
@@ -301,9 +389,9 @@
 <p>网络协议</p>
 </li>
 </ul>
-<h4 id="硬件"><a class="header-anchor" href="#硬件"> </a>硬件</h4>
+<h3 id="硬件"><a class="header-anchor" href="#硬件"> </a>硬件</h3>
 <p>CPU，内存，磁盘，网络</p>
-<h4 id="基础知识"><a class="header-anchor" href="#基础知识"> </a>基础知识</h4>
+<h3 id="基础知识"><a class="header-anchor" href="#基础知识"> </a>基础知识</h3>
 <p>数字电路，模拟电路，电路原理</p>
 <p>半导体，物理，数学</p>
 
@@ -1287,239 +1375,6 @@ git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-core.git
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/26/20191126_fs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/26/20191126_fs/" class="post-title-link" itemprop="url">操作系统文件系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-26 08:47:14" itemprop="dateCreated datePublished" datetime="2019-11-26T08:47:14+08:00">2019-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-28 15:40:12" itemprop="dateModified" datetime="2019-11-28T15:40:12+08:00">2019-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/11/26/20191126_fs/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统文件系统" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/11/26/20191126_fs/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/20191126_fs/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>虚拟这两个字太讨厌了。虚拟文件系统一点都不虚拟，做了很多实在的工作。</p>
-<h5 id="文件系统"><a class="header-anchor" href="#文件系统"> </a>文件系统</h5>
-<ul>
-<li>
-<p>对于要长期保存的数据，独立保存起来，这块数据叫做一个文件。文件和目录形成文件系统。</p>
-</li>
-<li>
-<p>裸机情况下，硬盘只能根据地址定位一段数据的读写，没法用。需要os进行统一分配和管理</p>
-</li>
-<li>
-<p>文件描述符，“描述符”，类似还有全局描述符，页目录描述符，其实就是一个struct，里面有各种属性信息。文件被打开后，os会在内核记录被打开文件的属性，还包括状态和信息</p>
-<ul>
-<li>文件指针，最近一次读写位置，每个进程维护自己</li>
-<li>打开次数</li>
-<li>文件磁盘位置，缓存</li>
-</ul>
-</li>
-<li>
-<p>os：文件就是数据块；用户：文件是数据结构</p>
-</li>
-<li>
-<p>文件读写必须以块为单位，内存是以字节为单位：</p>
-<ul>
-<li>读：读出一块，返回对应部分；写：读出一块，修改，写回一块</li>
-</ul>
-</li>
-<li>
-<p>目录实现</p>
-<ul>
-<li>列表、hash表</li>
-<li>根目录在磁盘中位置固定</li>
-<li>PWD,当前工作路径</li>
-</ul>
-</li>
-</ul>
-<h5 id="文件系统分层"><a class="header-anchor" href="#文件系统分层"> </a>文件系统分层</h5>
-<p>类unix文件系统，把标准输入，输出，磁盘文件，网络socket都看成文件。这样就会给程序员，有统一的读写接口。最基础的接口无非就是open, read, write, close。整体分层如下：</p>
-<ul>
-<li>libc的接口(如：open，read)</li>
-<li>syscall接口（sys_read,  sys_write)</li>
-<li>vfs接口 （vfs_open, vfs_read)
-<ul>
-<li>为什么有这层？主要是为了同一个不同io的接口。统一都使用inode表示一个文件。inode是个索引节点，通过inode，可以找到文件具体在磁盘上的位置。</li>
-</ul>
-</li>
-<li>具体文件系统接口
-<ul>
-<li>每个文件系统都有自己的数据结构，主要是如何把数据放到磁盘上</li>
-<li>一般来说，都是前面有个superblock，记录整体信息</li>
-<li>然后是根目录的inode。对于目录的inode就是记录了每一项的inode位置。</li>
-<li>通过目录inode，就可以找到文件的inode。</li>
-<li>文件的inode记录每块数据的存储位置。</li>
-</ul>
-</li>
-<li>设备接口（driver）
-<ul>
-<li>具体向io发起指令的部分，跟外设相关</li>
-</ul>
-</li>
-</ul>
-<h5 id="文件系统功能"><a class="header-anchor" href="#文件系统功能"> </a>文件系统功能</h5>
-<p>分配磁盘空间</p>
-<p>管理文件块</p>
-<p>空闲空间管理</p>
-<p>分配算法</p>
-<h5 id="文件操作"><a class="header-anchor" href="#文件操作"> </a>文件操作</h5>
-<ul>
-<li>
-<p>打开：</p>
-<ul>
-<li>内核会记录所有打开的文件</li>
-</ul>
-</li>
-<li>
-<p>读文件</p>
-<ul>
-<li>获取字节所在数据块</li>
-</ul>
-</li>
-<li>
-<p>写文件</p>
-<ul>
-<li>先读一块，修改，然后写会</li>
-</ul>
-</li>
-</ul>
-<h5 id="基本数据结构"><a class="header-anchor" href="#基本数据结构"> </a>基本数据结构</h5>
-<p>文件系统基本数据结构，这些全部是在硬盘上的</p>
-<ul>
-<li>
-<p>文件卷控制块（superblock）</p>
-<ul>
-<li>对应文件系统，空余块</li>
-<li>在磁盘上位置是固定的，他指向目录项</li>
-<li><strong>文件系统mount的时候，就是读取这部分数据</strong></li>
-</ul>
-</li>
-<li>
-<p>文件控制块</p>
-<ul>
-<li>每个文件一个</li>
-<li>数据块位置</li>
-</ul>
-</li>
-<li>
-<p>目录项</p>
-<ul>
-<li>指向文件数据块，父目录，子目录</li>
-</ul>
-</li>
-</ul>
-<p>文件描述符</p>
-<ul>
-<li>对应打开的文件</li>
-<li>文件状态信息</li>
-<li>系统有系统级全局的打开文件表，每个进程有自己的打开文件表</li>
-<li>打开文件，目录项和文件都需要被打开</li>
-</ul>
-<h5 id="加载内存时间"><a class="header-anchor" href="#加载内存时间"> </a>加载内存时间</h5>
-<ul>
-<li>卷控制块：文件系统挂载时，载入内存</li>
-<li>文件控制块：当文件被访问的时候</li>
-<li>目录节点：在遍历文件路径</li>
-</ul>
-<h5 id="文件分配"><a class="header-anchor" href="#文件分配"> </a>文件分配</h5>
-<ul>
-<li>三种分配方式：连续、链式、索引</li>
-<li>索引分配：在文件头里指向索引块，索引块保存指向每个数据块指针</li>
-<li>对于大文件，用链式索引块，或多级索引块</li>
-<li>UFS多级索引分配，文件头包含13个指针</li>
-</ul>
-<h5 id="文件打开操作"><a class="header-anchor" href="#文件打开操作"> </a>文件打开操作</h5>
-<ul>
-<li>先找到对应设备</li>
-<li>从对应设备的mount的fs，进行lookup</li>
-<li>找到文件inode，读磁盘加载</li>
-<li>保存对应文件inode，到file列表</li>
-<li>返回fd给应用进程</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1589,7 +1444,7 @@ git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-core.git
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

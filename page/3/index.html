@@ -165,6 +165,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" class="post-title-link" itemprop="url">maskrcnn-benchmark源码分析(1)_网络构建.md</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-17 18:22:45" itemprop="dateCreated datePublished" datetime="2018-12-17T18:22:45+08:00">2018-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-12-18 09:17:37" itemprop="dateModified" datetime="2018-12-18T09:17:37+08:00">2018-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="maskrcnn-benchmark源码分析(1)_网络构建.md" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>maskrcnn-benchmark 源码分析</p>
+<p>代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。</p>
+<p>GeneralizedRCNN里面由三部分组成：backbone，RPN，Roi_head。网络的构建大量使用工厂方法，基本上可以根据配置来创建不同的检测网络，能够支持多种组合。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/14/20181214_objectdetction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1096,129 +1200,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" class="post-title-link" itemprop="url">近期要读的CNN图像分类论文列表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-09-06 12:55:50 / Modified: 16:39:16" itemprop="dateCreated datePublished" datetime="2018-09-06T12:55:50+08:00">2018-09-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" class="post-meta-item leancloud_visitors" data-flag-title="近期要读的CNN图像分类论文列表" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1998----LeNet----Gradient-based learning applied to document recognition</p>
-<p>2012 ILSVRC AlexNet----Imagenet classification with deep convolutional neural networks</p>
-<p>2013----ILSVRC ZFNet----Visualizing and Understanding Convolutional Networks</p>
-<p>2014----AlexNet V2----One weird trick for parallelizing convolutional neural networks</p>
-<p>2014----ILSVRC VGGnet----Very deep convolutional networks for large-scale image recognition ----(ICLR 2015)</p>
-<p>2014----NiN----Network in Network</p>
-<p>2014----ILSVRC GoogLeNet(Inception V1)----Going deeper with convolutions_ILSVRC2014 ----(CVPR 2015)</p>
-<p>2015----ILSVRC ResNet----Deep Residual Learning for Image Recognition——(CVPR 2016)</p>
-<p>2015----inception v3----Rethinking the Inception Architecture for Computer Vision</p>
-<p>2015----ReNet_A Recurrent Neural Network Based</p>
-<p>2016---- Neural Architecture Search with Reinforcement Learning</p>
-<p>2016----Binarized Neural Networks_Training Neural Networks with Weights and Activations Constrained to+ 1 or−1</p>
-<p>2016----Identity Mappings in Deep Residual Networks  —— (ECCV 2016)</p>
-<p>2016----Inception V4----Inception-ResNet and the Impact of Residual Connections on Learning</p>
-<p>2016----Interleaved Group Convolutions for Deep Neural Networks</p>
-<p>2016----Residual Networks are Exponential Ensembles of Relatively Shallow Networks</p>
-<p>2016----SqueezeNet- AlexNet-level accuracy with 50x fewer parameters and 0.5MB model size</p>
-<p>2016----Wide Residual Networks</p>
-<p>2017---- FractalNet_Ultra-Deep Neural Networks without Residuals</p>
-<p>2017---- Xception_Deep Learning with Depthwise Separable Convolutions</p>
-<p>2017----An Analysis of Deep Neural Network Models for Practical Applications</p>
-<p>2017----CVPR2017 best paper----DenseNet ----Densely Connected Convolutional Networks</p>
-<p>2017---- (ResNext) Aggregated residual transformations for deep neural networks (CVPR 2017)</p>
-<p>2017----ILSVRC2017 winner SENet----Squeeze-and-Excitation Networks</p>
-<p>2017----Interleaved Group Convolutions for Deep Neural Networks</p>
-<p>2017----Learning Transferable Architectures for Scalable Image Recognition</p>
-<p>2017----Residual Attention Network for Image Classification</p>
-<p>2017----Neural Architecture Search with Reinforcement Learning (ICLR,2017)</p>
-<p>2017----Learning Transferable Architectures for Scalable Image Recognition</p>
-<p>2017----Progressive Neural Architecture Search</p>
-<p>2018----Efficient Neural Architecture Search via Parameter Sharing</p>
-<p>2017----CVPR----ShuffleNet_An Extremely Efficient Convolutional Neural Network for Mobile</p>
-<p>2017---- MobileNetV1_Efficient Convolutional Neural Networks for Mobile Vision Applications</p>
-<p>2018----MobileNetV2----Inverted Residuals and Linear Bottlenecks: Mobile Networks for Classification, Detection and Segmentation</p>
-<p>2018----MnasNet: Platform-Aware Neural Architecture Search for Mobile</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1288,7 +1269,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
