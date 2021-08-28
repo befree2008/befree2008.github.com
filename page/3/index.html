@@ -165,6 +165,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/19/20181219_maskrcnn-benchmark2_RPN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" class="post-title-link" itemprop="url">maskrcnn-benchmark源码分析(2)_RPN计算.md</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-12-19 10:53:41 / Modified: 15:27:13" itemprop="dateCreated datePublished" datetime="2018-12-19T10:53:41+08:00">2018-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" class="post-meta-item leancloud_visitors" data-flag-title="maskrcnn-benchmark源码分析(2)_RPN计算.md" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="RPN整体逻辑"><a class="header-anchor" href="#RPN整体逻辑"> </a>RPN整体逻辑</h3>
+<p>RPN网络是在faster-rcnn中提出来的，主要是为了替代Selective Search算法。在mask-rcnn中，RPN根据Backbone CNN计算得到的图像feature map，来负责找到2000个可能含有物体的bbox坐标（为了方便，主要以e2e_mask_rcnR_50_FPN_1x.yaml的训练过程为主进行记录和说明）</p>
+<p>maskrcnn-benchmark代码中，用RPNModule模块，封装整个RPN的计算过程。RPNModule的几个重要对象为</p>
+<ul>
+<li><strong>head   (<em>RPNHead</em>)：</strong>  rpn的cnn网络，对feature map每个点计算对应的bbox和cls_logits</li>
+<li><strong>anchor_generator（<em>AnchorGenerator</em>）：</strong>  根据原图大小和feature map的大小，算出所有anchor在原图上的坐标。</li>
+<li><strong>box_selector_train（<em>RPNPostProcessor</em>）：</strong> 根据head计算的分值，选取最高2000个box，送入后续的roi_head的网络中。这部分功能对RPN网络本身的训练没有帮助。如果只是训练RPN网络，这步可以省略。</li>
+<li><strong>loss_evaluator（<em>RPNLossComputation</em>）：</strong> 用target的box，在anchor中按一定比例选择正负样本，然后根据前面head计算的结果，计算RPN网络的Loss
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1095,111 +1198,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/10/20180910_CNN_LeNet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/10/20180910_CNN_LeNet/" class="post-title-link" itemprop="url">CNN图像分类学习记录(一)——LeNet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-09-10 12:54:16 / Modified: 12:55:28" itemprop="dateCreated datePublished" datetime="2018-09-10T12:54:16+08:00">2018-09-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/09/10/20180910_CNN_LeNet/" class="post-meta-item leancloud_visitors" data-flag-title="CNN图像分类学习记录(一)——LeNet" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/09/10/20180910_CNN_LeNet/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/20180910_CNN_LeNet/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>《Gradient-based learning applied to document recognition》</p>
-<p>之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。</p>
-<p>卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出基本视觉元素，比如边缘，角点，终点。这些特征再被后续的层去提取更高维度的特征。一个卷积神经元输出一个feature map，完整的卷积层由多个卷积核组成。</p>
-<p>池化层的作用是减少feature的精确位置，只关注特征之间的相对位置。</p>
-<p>LeNet-5结构</p>
-<p>1，C1，6个5*5的filter</p>
-<p>2，S2，avg_pooling, 12个参数</p>
-<p>3，C3，16个5*5的filter，但是不是完全卷积</p>
-<p>4，S4，2<em>2的avg pooling  , 16</em>2=32个参数</p>
-<p>5，C5，120个5*5卷积filter，这一层又是完全卷积了，只有C3特殊</p>
-<p>6，F6，是全连接层，有84的神经元，这一个层后用了tanh，作为激活函数</p>
-<p>7，Output，F7层也不是普通的全连接层，而是用了所谓RBF函数，实际是把F6层输出84维向量，和10个分类的向量求欧式距离</p>
-<p>8，Loss Func也不是现在常用的交叉熵，而是一个我看不懂的公式</p>
-<p>原始LeNet和现在通用模式，还是有很多差别。比如C3层就不是对S2层的完全卷积操作，而是不同的卷积核对应不同的层，作者说是为了减少计算量，更重要是为了打破对称。而在卷积处理后，是现在avg_pool，并且还是乘上一个参数，再加一个bias，才得到采样以后的数值，这个数值还要进行sigmoid。早先的论文很多都是数学公式，不想现在更注重简化，方便工程实现。</p>
-<p>可以看出LeNet的时候，还没有dropout, max_pool, relu等优化，但已经把CNN的大框架定下来了。</p>
-<p>这篇文章还讲了很多图像分割，后处理等技术，实在看不懂，留到后续再学习吧，现在先把LeNet的结构搞懂就不错。</p>
-<p>也就是说，在1998年人们就开始利用CNN自动选择特征，发展到2010s以后，就开始用GPU寻找feature vector，而且有了大量的标注数据。此后，人工寻找好的NN结构，用不同的超参做实验，俗称炼丹师，到2017年后，开始机器寻找好的网络结构(NAS, PNAS, ENAS)</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1269,7 +1267,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

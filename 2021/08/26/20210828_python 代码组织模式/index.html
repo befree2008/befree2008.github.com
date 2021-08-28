@@ -20,16 +20,19 @@
     var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="以互联网精神为信仰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="天一阁">
-<meta property="og:url" content="http://www.wliang.me/tags/bootstrap-ui/index.html">
+  <meta name="description" content="python 代码通过模块化的方式组织，modules和package就是基本单元，也是为了代码简单，可重用，可维护">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python代码组织">
+<meta property="og:url" content="http://www.wliang.me/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="以互联网精神为信仰">
+<meta property="og:description" content="python 代码通过模块化的方式组织，modules和package就是基本单元，也是为了代码简单，可重用，可维护">
+<meta property="article:published_time" content="2021-08-26T09:34:06.307Z">
+<meta property="article:modified_time" content="2021-08-28T09:52:46.526Z">
 <meta property="article:author" content="Befree">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.wliang.me/tags/bootstrap-ui/">
+<link rel="canonical" href="http://www.wliang.me/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -37,12 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>Tag: bootstrap ui | 天一阁</title>
+  <title>python代码组织 | 天一阁</title>
   
 
 
@@ -159,57 +162,141 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python代码组织
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-26 17:34:06" itemprop="dateCreated datePublished" datetime="2021-08-26T17:34:06+08:00">2021-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-28 17:52:46" itemprop="dateModified" datetime="2021-08-28T17:52:46+08:00">2021-08-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="python代码组织" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">bootstrap ui
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/26/20210828_python%20%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2017</span>
+        <p>python 代码通过模块化的方式组织，modules和package就是基本单元，也是为了代码简单，可重用，可维护<a id="more"></a></p>
+<h3 id="Modules"><a class="header-anchor" href="#Modules"> </a>Modules</h3>
+<p>python代码组织是靠modules 和packages。</p>
+<p>C语言是.h文件内声明的函数、变量、类。使用的时候，就是include “xxx.h”，然后函数直接调用，类就声明变量。容易有命名冲突的问题。python import 引入一个文件，简化了指定文件名，自带命名空间。</p>
+<p>一个系统，需要写多个模块，需要分布在多个文件中。一个.py文件对应一个python modules。</p>
+<p>import m1。这是引入一个模块，m1.fun()，这样就可以直接调用。很类似c++里面的一个对象，这里叫模块，而且又像namespace，这里又简化了符号。</p>
+<p>namespace对保持代码可读性和可维护性，非常有用。</p>
+<p>python自带的标准库，也同样这种方式导入。</p>
+<p>除了一些命名限制，没有其他特殊要求，Python文件就可以看作一个模块。</p>
+<h3 id="Packages"><a class="header-anchor" href="#Packages"> </a>Packages</h3>
+<p>包就是模块的扩展版，就是一个目录，并且目录下有__init__.py文件。利用目录层级的关系，来形成代码的组织，能省则省。</p>
+<p>当模块多了，就用package的模式组织代码。</p>
+<p>引用包的时候，可以import xxx，也可以from xxx import  yyy。</p>
+<p>__init__.py文件是包的初始化模块，当import这个包时，会自动执行里面的代码。</p>
+<p>如果要实现from xxx import * ,需要在__init__.py文件里对__all__赋值，</p>
+<p><a href="https://realpython.com/python-import/#example-singletons-as-modules" target="_blank" rel="noopener">https://realpython.com/python-import/#example-singletons-as-modules</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-09-30T21:34:26+08:00"
-              content="2017-09-30">
-          09-30
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2017/09/30/20170930_Bootstrap%E8%BF%98%E6%98%AF%E5%BE%88%E5%A5%BD%E7%94%A8%E5%95%8A_13/" itemprop="url">
-            <span itemprop="name">Bootstrap还是很好用啊</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/25/20210826_%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" rel="prev" title="知识结构梳理">
+      <i class="fa fa-chevron-left"></i> 知识结构梳理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/28/20210828_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" rel="next" title="工厂方法">
+      工厂方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -256,6 +343,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Modules"><span class="nav-number">1.</span> <span class="nav-text">Modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Packages"><span class="nav-number">2.</span> <span class="nav-text">Packages</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
