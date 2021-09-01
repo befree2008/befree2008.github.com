@@ -165,6 +165,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" class="post-title-link" itemprop="url">Javascript的对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-09-13 10:39:03 / Modified: 16:37:38" itemprop="dateCreated datePublished" datetime="2017-09-13T10:39:03+08:00">2017-09-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" class="post-meta-item leancloud_visitors" data-flag-title="Javascript的对象" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Javascript的对象"><a class="header-anchor" href="#Javascript的对象"> </a>Javascript的对象</h3>
+<p>在JS中也有对象，但是就是感觉怪异。他的对象看上去就是一个map</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bmiCalc = &#123;</span><br><span class="line">  height : <span class="number">1.80</span>,</span><br><span class="line">  weight : <span class="number">68</span>,</span><br><span class="line">  bmi : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.weight/(<span class="keyword">this</span>.height*<span class="keyword">this</span>.height));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想想可能也对，一个对象最重要的不就是属性么？相同类的不同实例对象，不就是属性不同么。我感觉js的对象一定是后加上的特性，估计在最初设计这门语言时，其实并没有对象的这个概念，而是后来加上的。现在js的属性不仅仅可以是内置数据类型，比如整形，字符串，也还能是对象，甚至是函数。因为javascript里面有个匿名函数的概念，匿名函数就是一个函数，但是没有名字，我想可能就是一个指针，然后赋值给一个变量，然后通过变量加括号，来调用函数。也许想的不对，主要是关于开发一门语言所用的编译原理还是不能掌握，后面慢慢学。</p>
+<p>接着说对象，如果一个js对象的某个属性是函数，那这个属性就成了方法，比如做个BMI测算。内部方法如果要使用属性（以前不都是叫成员变量么，妈的，世界为啥变化这么快）需要使用this，js里面的this还比较麻烦，他的this和java,C++这样的语言不一样，这篇文章<a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/" target="_blank" rel="noopener">深入浅出 JavaScript 中的 this</a>讲的还不错。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1015,100 +1115,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/07/20/%E5%9C%A8Ubuntu-16.04%E4%B8%8A%E5%AE%89%E8%A3%85VPN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/20/%E5%9C%A8Ubuntu-16.04%E4%B8%8A%E5%AE%89%E8%A3%85VPN/" class="post-title-link" itemprop="url">在Ubuntu 16.04上安装VPN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-07-20 15:35:04 / Modified: 15:47:51" itemprop="dateCreated datePublished" datetime="2017-07-20T15:35:04+08:00">2017-07-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/07/20/%E5%9C%A8Ubuntu-16.04%E4%B8%8A%E5%AE%89%E8%A3%85VPN/" class="post-meta-item leancloud_visitors" data-flag-title="在Ubuntu 16.04上安装VPN" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/07/20/%E5%9C%A8Ubuntu-16.04%E4%B8%8A%E5%AE%89%E8%A3%85VPN/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/07/20/%E5%9C%A8Ubuntu-16.04%E4%B8%8A%E5%AE%89%E8%A3%85VPN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>看到<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="noopener">Linode</a>上，出来5美元一个月的VPS，觉得目前自己用的10美元一个的太贵了，想换换便宜机器。10美元和5美元的区别仅在于每个月流量是2000G还是1000G。1000G的流量对我来说足够用了。</p>
-<p>新建一个机器最大的麻烦就是搭VPN。最早用PPTP，后来iOS不支持了，要换成L2TP。可是现在系统换成Ubuntu16.04以后，Openswan也不能用了。只能换成其他的ipsec。折腾来，折腾去，也没成功。后来发现<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="noopener">Linode</a>有个新功能是stackscript，可以在初始化机器的时候，顺便安装一些软件，其中就有自动安装VPN的脚本</p>
-<p><img src="/images/stackscript.png" alt=""></p>
-<p>这个脚本也是一个中国人开发，并且在github上开源的，具体介绍点击这里[<a href="https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn" target="_blank" rel="noopener">https://www.linode.com/stackscripts/view/37239-hwdsl2-setup-ipsec-vpn</a>]。</p>
-<p>用了好几年Linode了，感觉特别不错，尤其选择在东京的机房，速度也觉得杠杠的，比那些在美国的机器好用多了。而且国外机房的好处就是做个网站不用备案，有想法立刻可以在那边实现。</p>
-<p>如果哪位朋友想尝试Linode，请点击我的<a href="https://www.linode.com/?r=1c29e3ede9491b8363b2fc58ad5354e1ebd27ac1" target="_blank" rel="noopener">推荐链接</a>：）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1178,7 +1184,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
