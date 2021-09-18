@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="maskrcnn-benchmark 源码分析 代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。 GeneralizedRCNN里面由三部分组成">
+  <meta name="description" content="js的构建，真是让人烦死了。概念层出不穷，实现方法变化多样，而且所有这些东西，都是因为js出生的时候给他的定位，和现在js的任务完全不一样，每项工具，每个知识点，都是为了给他自身打补丁而生的。当然也可以看做是js是个能自我演进的工具。 js现在也需要进行构建，我理解就是把多个js代码合并成一个大文件，然后浏览器加载，并在客户端解释。  1,Node，npm wiki上说Node最初发布于2009，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="maskrcnn-benchmark源码分析(1)_网络构建.md">
-<meta property="og:url" content="http://www.wliang.me/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/index.html">
+<meta property="og:title" content="JS的构建">
+<meta property="og:url" content="http://www.wliang.me/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="maskrcnn-benchmark 源码分析 代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。 GeneralizedRCNN里面由三部分组成">
-<meta property="article:published_time" content="2018-12-17T10:22:45.085Z">
-<meta property="article:modified_time" content="2018-12-18T01:17:37.562Z">
+<meta property="og:description" content="js的构建，真是让人烦死了。概念层出不穷，实现方法变化多样，而且所有这些东西，都是因为js出生的时候给他的定位，和现在js的任务完全不一样，每项工具，每个知识点，都是为了给他自身打补丁而生的。当然也可以看做是js是个能自我演进的工具。 js现在也需要进行构建，我理解就是把多个js代码合并成一个大文件，然后浏览器加载，并在客户端解释。  1,Node，npm wiki上说Node最初发布于2009，">
+<meta property="article:published_time" content="2021-09-18T06:35:34.598Z">
+<meta property="article:modified_time" content="2021-09-18T09:49:45.777Z">
 <meta property="article:author" content="Befree">
-<meta property="article:tag" content="rcnn,mask">
+<meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.wliang.me/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/">
+<link rel="canonical" href="http://www.wliang.me/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>maskrcnn-benchmark源码分析(1)_网络构建.md | 天一阁</title>
+  <title>JS的构建 | 天一阁</title>
   
 
 
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          maskrcnn-benchmark源码分析(1)_网络构建.md
+          JS的构建
         </h1>
 
         <div class="post-meta">
@@ -191,16 +191,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2018-12-17 18:22:45" itemprop="dateCreated datePublished" datetime="2018-12-17T18:22:45+08:00">2018-12-17</time>
+              <time title="Created: 2021-09-18 14:35:34 / Modified: 17:49:45" itemprop="dateCreated datePublished" datetime="2021-09-18T14:35:34+08:00">2021-09-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-12-18 09:17:37" itemprop="dateModified" datetime="2018-12-18T09:17:37+08:00">2018-12-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -212,7 +206,7 @@
             </span>
 
           
-            <span id="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="maskrcnn-benchmark源码分析(1)_网络构建.md" title="Views">
+            <span id="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" class="post-meta-item leancloud_visitors" data-flag-title="JS的构建" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -227,8 +221,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/17/20181217_maskrcnn-benchmark%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90(1)_%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -243,66 +237,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>maskrcnn-benchmark 源码分析</p>
-<p>代码中抽象出来一个model类GeneralizedRCNN。输入images，target到model中，然后返回loss，loss的计算都放在forward函数中了。外层的train函数，只是做iter循环、loss backward、optimizer.step、记录日志等这类比较固化的通用代码。</p>
-<p>GeneralizedRCNN里面由三部分组成：backbone，RPN，Roi_head。网络的构建大量使用工厂方法，基本上可以根据配置来创建不同的检测网络，能够支持多种组合。<a id="more"></a></p>
-<ul>
-<li>model GeneralizedRCNN
-<ul>
-<li>backbone	nn.Sequential
-<ul>
-<li>body  ResNet
-<ul>
-<li>stem	StemWithFixedBatchNorm  		//resnet的基础层</li>
-<li>module    BottleneckWithFixedBatchNorm 	 //resnet的bottleneck模块</li>
-</ul>
-</li>
-<li>fpn
-<ul>
-<li>inner_block  1*1的conv层</li>
-<li>layer_block   3*3的conv层</li>
-</ul>
-</li>
-<li>backbone是RCNN的骨干网，就是图片的特征提取器，在resnet+fpn的网络下，提取出来的是各尺度（5个尺度）上的256-d的feature map，这个feature map作为下一阶段rpn的输入。</li>
-</ul>
-</li>
-<li>rpn		RPNModule
-<ul>
-<li>head 	RPNHead   //rpn的cnn网络，对featuremap每个点计算对应的bbox和cls_logits</li>
-<li>anchor_generator  AnchorGenerator  //根据rpn_head的计算结果，找到最可能的bbox的坐标</li>
-<li>box_selector_train	RPNPostProcessor</li>
-<li>loss_evaluator  		RPNLossComputation 	// 评估RPN网络的Loss</li>
-<li>rpn是一个cnn网络，输入是feature map，输出是bbox坐标。</li>
-</ul>
-</li>
-<li>roi_heads	CombinedROIHeads
-<ul>
-<li>box 	ROIBoxHead
-<ul>
-<li>feature_extractor		FPN2MLPFeatureExtractor
-<ul>
-<li>pooler</li>
-<li>fc6</li>
-<li>fc7</li>
-</ul>
-</li>
-<li>predictor 			FPNPredictor
-<ul>
-<li>cls_score	nn.Linear</li>
-<li>bbox_pred	nn.Linear</li>
-</ul>
-</li>
-<li>post_processor</li>
-<li>loss_evaluator</li>
-</ul>
-</li>
-<li>mask    ROIMaskHead</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>整体上，就是backbone算特征，rpn算框框， roi_heads算物体类别。外部看封装的很好，细节都藏在具体的各个类里面了。明天继续看代码，但愿自学能学到一点高手的编码风格。</p>
+        <p>js的构建，真是让人烦死了。概念层出不穷，实现方法变化多样，而且所有这些东西，都是因为js出生的时候给他的定位，和现在js的任务完全不一样，每项工具，每个知识点，都是为了给他自身打补丁而生的。当然也可以看做是js是个能自我演进的工具。</p>
+<p>js现在也需要进行构建，我理解就是把多个js代码合并成一个大文件，然后浏览器加载，并在客户端解释。</p>
+<h4 id="1-Node，npm"><a class="header-anchor" href="#1-Node，npm"> </a>1,Node，npm</h4>
+<p>wiki上说Node最初发布于2009，在V8 chrome内核上封装了消息机制，异步IO等功能，可以让js在服务端运行。V8最早是在2008年发布。那个时候也是iOS，Android刚刚开始流行的时候。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm install  &lt;name&gt;  // 安装一个包</span><br><span class="line">npm run &lt;command&gt;    // 运行package.json里面的一段shell命令</span><br></pre></td></tr></table></figure>
+<p><a href="https://nodejs.dev/learn" target="_blank" rel="noopener">Node.js文档</a></p>
+<p><a href="https://docs.npmjs.com/cli/v7" target="_blank" rel="noopener">npm CLI </a></p>
+<h4 id="2，ES6和模块化"><a class="header-anchor" href="#2，ES6和模块化"> </a>2，ES6和模块化</h4>
+<p>js的es6就是出了一大堆新语法，由浏览器支持js可以实现的新功能。本来是让工具更好用，但是明显增加了很多学习成本。</p>
+<p>模块化，js以文件为模块，形成依赖关系，依次加载。这对于C语言来说，这是非常简单的事情，怎么到了js变得这么复杂，事情本身不复杂，但是需要若干工具配合才能完成这件事情，每个工具有一大套配置方法，使用规则。</p>
+<figure class="highlight plain"><figcaption><span>&#123;  xxx &#125;  from  module``` 就是各个浏览器要支持的es6的语法，但是现在要转成es5，避免webapp在某些浏览器中不能运行。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 3，browserify</span><br><span class="line"></span><br><span class="line">可以按照node的require的语法，把依赖的每个package打包成一个js</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">browserify robot.js &gt; bundle.js    &#x2F;&#x2F; 命令行方式</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> browserify = <span class="built_in">require</span>(<span class="string">'browserify'</span>);      <span class="comment">//node api方式</span></span><br><span class="line"><span class="keyword">var</span> bundle = browserify(<span class="string">'./app.js'</span>).bundle()</span><br></pre></td></tr></table></figure>
+<p>browserify大部分被webpack代替</p>
+<p><a href="https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md" target="_blank" rel="noopener">gulp中使用browserify</a></p>
+<h4 id="4，gulp"><a class="header-anchor" href="#4，gulp"> </a>4，gulp</h4>
+<p>任务自动化的工具。通过在项目根目录的 gulpfile.js文件，执行任务</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码示例</span></span><br><span class="line">gulp.task(</span><br><span class="line">  <span class="string">'build-js'</span>,</span><br><span class="line">  gulp.parallel(<span class="string">'build-vendor-js'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.all(</span><br><span class="line">      appBundleConfigs.map(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> createBundle(config);</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="5，Babel"><a class="header-anchor" href="#5，Babel"> </a>5，Babel</h4>
+<p>Babel是js编译器，可以把所有新语法特性的js转换为es5的语法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/babel src --out-dir lib  #命令行方式</span><br></pre></td></tr></table></figure>
+<p>API方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">"@babel/core"</span>);</span><br><span class="line"></span><br><span class="line">babel.transformSync(<span class="string">"code"</span>, optionsObject);</span><br></pre></td></tr></table></figure>
+<p>配置文件.babelrc</p>
+<p><a href="https://www.babeljs.cn/docs/" target="_blank" rel="noopener">Babel文档</a></p>
 
     </div>
 
@@ -312,7 +270,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/rcnn-mask/" rel="tag"># rcnn,mask</a>
+              <a href="/tags/js/" rel="tag"># js</a>
           </div>
 
         
@@ -321,13 +279,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/12/14/20181214_objectdetction/" rel="prev" title="目标检测学习笔记(一)_RCNN系列">
-      <i class="fa fa-chevron-left"></i> 目标检测学习笔记(一)_RCNN系列
+    <a href="/2021/09/18/20210918_js%E5%BE%88%E4%B9%B1/" rel="prev" title="js让人乱在几个地方">
+      <i class="fa fa-chevron-left"></i> js让人乱在几个地方
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/12/19/20181219_maskrcnn-benchmark2_RPN/" rel="next" title="maskrcnn-benchmark源码分析(2)_RPN计算.md">
-      maskrcnn-benchmark源码分析(2)_RPN计算.md <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -387,6 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Node，npm"><span class="nav-number">1.</span> <span class="nav-text">1,Node，npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2，ES6和模块化"><span class="nav-number">2.</span> <span class="nav-text">2，ES6和模块化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4，gulp"><span class="nav-number">3.</span> <span class="nav-text">4，gulp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5，Babel"><span class="nav-number">4.</span> <span class="nav-text">5，Babel</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

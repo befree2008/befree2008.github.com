@@ -165,6 +165,191 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/" class="post-title-link" itemprop="url">Javascript 对象创建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-10 20:57:36" itemprop="dateCreated datePublished" datetime="2018-05-10T20:57:36+08:00">2018-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/" class="post-meta-item leancloud_visitors" data-flag-title="Javascript 对象创建" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/05/10/20180510_Javascript%20%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA_32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JS里面创建一个对象最简单的方式是通过&#123;&#125;来直接建立</span></span><br><span class="line"><span class="keyword">const</span> bookLiteral = &#123;</span><br><span class="line">  bookName : <span class="string">'Program'</span>,</span><br><span class="line">  bookPrice : <span class="string">'30'</span>,</span><br><span class="line">  calcPrice : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果需要建立同类型的对象，可以用工厂，或者构造器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//factory function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createBook</span>(<span class="params">bookName, bookPrice</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    bookName,</span><br><span class="line">    bookPrice,</span><br><span class="line">    calcPrice :<span class="function"><span class="keyword">function</span> (<span class="params">numOfBooks</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.bookPrice * numOfBooks;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bookFromFactory = createBook(<span class="string">"Factory Object"</span>, <span class="number">15</span>);</span><br><span class="line"><span class="built_in">console</span>.log(bookFromFactory);</span><br><span class="line"><span class="built_in">console</span>.log(bookFromFactory.calcPrice(<span class="number">30</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Book</span>(<span class="params">bookName, bookPrice</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  <span class="keyword">this</span>.bookPrice = bookPrice;</span><br><span class="line">  <span class="keyword">this</span>.calcPrice = <span class="function"><span class="keyword">function</span> (<span class="params">numOfBooks</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.bookPrice * numOfBooks;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js里的new 实际上先生成一个object，然后在这个object上，通过this, 动态增加属性和方法</span></span><br><span class="line">myBook = <span class="keyword">new</span> Book(<span class="string">'JS'</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(myBook.constructor);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> myBook)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key, myBook[key]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(myBook);</span><br><span class="line"><span class="built_in">console</span>.log(keys);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="string">'bookPrice'</span> <span class="keyword">in</span> myBook) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'the price of 10 books: '</span>, myBook.calcPrice(<span class="number">10</span>));</span><br><span class="line">&#125;<span class="keyword">else</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'price of book:'</span>, myBook.calcPrice(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//js 的普通&#123;&#125; 都是对外直接访问的，这就导致无法真的做到oop，最起码的封装就没有</span></span><br><span class="line"><span class="comment">//所以需要通过曲线的方式来实现封装，比如：closur, getter , setter</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params">radius</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  <span class="comment">//defaultLocation 外部是访问不到的，因为没有把这个defaultLocation加到this的属性上</span></span><br><span class="line">  <span class="keyword">let</span> defaultLocation = &#123;<span class="attr">x</span>:<span class="number">10</span>, <span class="attr">y</span>:<span class="number">10</span>&#125;;</span><br><span class="line">  <span class="keyword">this</span>.draw = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'DefaultLocation:'</span>, defaultLocation);<span class="comment">//这里用到了closure backpack</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">//getter setter</span></span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">'defaultLocation'</span>, &#123;</span><br><span class="line">    <span class="keyword">get</span>: function()&#123;</span><br><span class="line">      <span class="keyword">return</span> defaultLocation;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>: function(value)&#123;</span><br><span class="line">      <span class="keyword">if</span> (!value.x || !value.y)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Not Valid Value'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      defaultLocation = value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> circle = <span class="keyword">new</span> Circle(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//circle.defaultLocation = &#123;x:3&#125;;   不符合合法性校验</span></span><br><span class="line">circle.defaultLocation = &#123;<span class="attr">x</span>:<span class="number">3</span>, <span class="attr">y</span>:<span class="number">5</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(circle.defaultLocation);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/" class="post-title-link" itemprop="url">node.js初步认识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-05-09 21:58:51 / Modified: 22:04:08" itemprop="dateCreated datePublished" datetime="2018-05-09T21:58:51+08:00">2018-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/" class="post-meta-item leancloud_visitors" data-flag-title="node.js初步认识" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Node-js是干啥的"><a class="header-anchor" href="#Node-js是干啥的"> </a>Node.js是干啥的</h4>
+<p>之前一直以为Node就是一个可以在shell里面执行js的工具，现在看好像也不止于此。我现在的理解就是这个Node是一种新的网络Server开发方式，尤其是为了Web开发而设立的。其特点就是事件驱动，单进程非阻塞IO方式。这样据说可以在IO密集的场景，大幅提高应用的性能。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/05/09/20180509_node.js%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86_31/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,209 +1184,6 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/" class="post-title-link" itemprop="url">Flask文档笔记-蓝图(Blueprint)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-07 11:48:02" itemprop="dateCreated datePublished" datetime="2017-12-07T11:48:02+08:00">2017-12-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/" class="post-meta-item leancloud_visitors" data-flag-title="Flask文档笔记-蓝图(Blueprint)" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Flask是个很轻便的框架，如果网站简单，就用一个app.py就把所有业务逻辑都写完了。但是如果业务逻辑多，需要多人开发，写一个文件，就很头疼。</p>
-<p>所以Flask用蓝图(Blueprint)的概念，使得代码可以进行拆分。Blueprint的工作方式和Flask对象很接近，但两者又不一样。</p>
-<h4 id="创建Blueprint"><a class="header-anchor" href="#创建Blueprint"> </a>创建Blueprint</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, render_template, abort</span><br><span class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> TemplateNotFound</span><br><span class="line"></span><br><span class="line">simple_page = Blueprint(<span class="string">'simple_page'</span>, __name__,</span><br><span class="line">                        template_folder=<span class="string">'templates'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@simple_page.route('/', defaults=&#123;'page': 'index'&#125;)</span></span><br><span class="line"><span class="meta">@simple_page.route('/&lt;page&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(page)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">'pages/%s.html'</span> % page)</span><br><span class="line">    <span class="keyword">except</span> TemplateNotFound:</span><br><span class="line">        abort(<span class="number">404</span>)</span><br></pre></td></tr></table></figure>
-<p>这是官网上的一个例子。其实就是创建一个Blueprint对象，指定路由，绑定视图函数。这样就可以把相关的业务逻辑，页面模板，静态文件组成一个package。通过这种方式把一个工程，拆解成不用的模块，减少耦合，并行开发。</p>
-<h4 id="注册Blueprint"><a class="header-anchor" href="#注册Blueprint"> </a>注册Blueprint</h4>
-<p>Blueprint需要在Flask对象中注册，这样才能确定最终的URL。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> yourapplication.simple_page <span class="keyword">import</span> simple_page</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.register_blueprint(simple_page, url_prefix=<span class="string">'/page'</span>)</span><br></pre></td></tr></table></figure>
-<p>通过url_prefix就可以确定蓝图的url路由。同时蓝图还能提供子域名的方式进行路由。使用subdomain='<a href="http://www.lutieg.com" target="_blank" rel="noopener">www.lutieg.com</a>’参数可以实现指定动态子域名的方式。还可以通过传入参数的方式指定URL</p>
-<p>参考链接:</p>
-<p>1, <a href="http://dormousehole.readthedocs.io/en/latest/blueprints.html" target="_blank" rel="noopener">http://dormousehole.readthedocs.io/en/latest/blueprints.html</a></p>
-<p>2, <a href="https://spacewander.github.io/explore-flask-zh/7-blueprints.html" target="_blank" rel="noopener">https://spacewander.github.io/explore-flask-zh/7-blueprints.html</a></p>
-<p>3, <a href="https://www.zhihu.com/question/31748237" target="_blank" rel="noopener">https://www.zhihu.com/question/31748237</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/" class="post-title-link" itemprop="url">Flask文档笔记-快速开始(QuickStart)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-06 11:30:59" itemprop="dateCreated datePublished" datetime="2017-12-06T11:30:59+08:00">2017-12-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-12-07 10:00:40" itemprop="dateModified" datetime="2017-12-07T10:00:40+08:00">2017-12-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/" class="post-meta-item leancloud_visitors" data-flag-title="Flask文档笔记-快速开始(QuickStart)" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这是第二次用Flask了，感觉非常好用，因为简便，可以很快看到demo。</p>
-<p>Flask是使用python语言，基于Werkzeug，Jinja2的web开发微框架。作者<strong>Armin Ronacher</strong> 是出生于1989年的奥地利程序员，2010年时发布了第一版的Flask。目前0.12.2版本的flask也就3k多行代码，但是功能还是相对完善的，主要得益于flask的插件机制。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1271,7 +1253,7 @@ $$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
