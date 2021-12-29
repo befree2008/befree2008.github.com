@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Web开发是非常重要的技术手段，虽然技术难度不是很大，但是里面涉及的内容却很多。其实软件的世界里，没有什么是无法实现的，现在都是开源的，而且软件基本上没法申请专利，所以软件类的技术都不会有什么独家的技术。 Web开发中，更加看重的是开发速度快，易维护，用户体验好，其实就是颜值要高，要漂亮，从开发角度看，基本上都是使用MVC的模式，做一些简单的CRUD应用，复杂数据处理，技巧性的，算法性的都放到了更">
+  <meta name="description" content="第一章 基本概念 逻辑学是研究推理论证的过程是否正确的学问。 ####1.1 论证、前提、结论 很多时候，我们仅是单纯的听、看结论，然后选择自己愿意相信的，去搜集证据证明这个结论，甚至主观的迷信这个结论。对于不愿意相信的，或者和自己想的不一样的结论，就完全忽视，或者反驳，或者”不管你说啥，我就是不听”。而没有去理性思考这个结论的真假或可能性。 而理性的思考，是分析这个结论的前提，和论证过程，然后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flask快速开发Web应用">
-<meta property="og:url" content="http://www.wliang.me/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/index.html">
+<meta property="og:title" content="《简明逻辑学导论》第一章笔记">
+<meta property="og:url" content="http://www.wliang.me/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="Web开发是非常重要的技术手段，虽然技术难度不是很大，但是里面涉及的内容却很多。其实软件的世界里，没有什么是无法实现的，现在都是开源的，而且软件基本上没法申请专利，所以软件类的技术都不会有什么独家的技术。 Web开发中，更加看重的是开发速度快，易维护，用户体验好，其实就是颜值要高，要漂亮，从开发角度看，基本上都是使用MVC的模式，做一些简单的CRUD应用，复杂数据处理，技巧性的，算法性的都放到了更">
-<meta property="article:published_time" content="2017-10-31T12:52:40.000Z">
-<meta property="article:modified_time" content="2017-10-31T12:52:40.000Z">
+<meta property="og:description" content="第一章 基本概念 逻辑学是研究推理论证的过程是否正确的学问。 ####1.1 论证、前提、结论 很多时候，我们仅是单纯的听、看结论，然后选择自己愿意相信的，去搜集证据证明这个结论，甚至主观的迷信这个结论。对于不愿意相信的，或者和自己想的不一样的结论，就完全忽视，或者反驳，或者”不管你说啥，我就是不听”。而没有去理性思考这个结论的真假或可能性。 而理性的思考，是分析这个结论的前提，和论证过程，然后">
+<meta property="article:published_time" content="2021-12-28T02:06:30.318Z">
+<meta property="article:modified_time" content="2021-12-29T07:27:30.465Z">
 <meta property="article:author" content="Befree">
-<meta property="article:tag" content="flask web开发">
+<meta property="article:tag" content="逻辑">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.wliang.me/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/">
+<link rel="canonical" href="http://www.wliang.me/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Flask快速开发Web应用 | 天一阁</title>
+  <title>《简明逻辑学导论》第一章笔记 | 天一阁</title>
   
 
 
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Flask快速开发Web应用
+          《简明逻辑学导论》第一章笔记
         </h1>
 
         <div class="post-meta">
@@ -192,20 +192,27 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-10-31 20:52:40" itemprop="dateCreated datePublished" datetime="2017-10-31T20:52:40+08:00">2017-10-31</time>
+              <time title="Created: 2021-12-28 10:06:30" itemprop="dateCreated datePublished" datetime="2021-12-28T10:06:30+08:00">2021-12-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-29 15:27:30" itemprop="dateModified" datetime="2021-12-29T15:27:30+08:00">2021-12-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index"><span itemprop="name">个人成长</span></a>
                 </span>
             </span>
 
           
-            <span id="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/" class="post-meta-item leancloud_visitors" data-flag-title="Flask快速开发Web应用" title="Views">
+            <span id="/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="《简明逻辑学导论》第一章笔记" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -220,8 +227,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/28/20211229_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -236,18 +243,84 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Web开发是非常重要的技术手段，虽然技术难度不是很大，但是里面涉及的内容却很多。其实软件的世界里，没有什么是无法实现的，现在都是开源的，而且软件基本上没法申请专利，所以软件类的技术都不会有什么独家的技术。</p>
-<p>Web开发中，更加看重的是开发速度快，易维护，用户体验好，其实就是颜值要高，要漂亮，从开发角度看，基本上都是使用MVC的模式，做一些简单的CRUD应用，复杂数据处理，技巧性的，算法性的都放到了更后面的地方去了。各种Web开发语言都有很多种MVC框架，我最近比较喜欢Flask，主要是他轻巧，简单，而且是python语言的，但是如果深入到Flask内部，也还是各种的设计模式，理解起来还有点费劲，那就先从表面上梳理一下近期接触到的一些模块吧。</p>
-<h3 id="View"><a class="header-anchor" href="#View"> </a>View</h3>
-<p>​	view其实就是用户看到的页面，很久之前在windows上开发，还叫视图。这个大部分是前端的工作，基础的知识点就是，老三位HTML/CSS/JS。比较流行的类库比如Bootstrap, jQuery都是为了提高前端开发工作效率的，开发效率高，但是也有一定的学习成本。</p>
-<p>​	Flask在view这方面提供了Jinjia的模板引擎，他可以很方便的通过标记，对页面进行替换、生成，然后返回给用户。</p>
-<p>​	wtform是一个Flask插件，对View表单处理很方便，包括生成表单，表单校验非常方便</p>
-<h3 id="Model"><a class="header-anchor" href="#Model"> </a>Model</h3>
-<p>​	我理解Model其实就是数据，为了高效开发，或者说更符合OO原则，很多都是使用ORM。在Flask中，一般使用Flask-SqlAlchemy。一开始我还是挺排斥使用这类ORM的，总觉得直接使用SQL不是很痛苦么。但是发现，当要处理的数据多了，而且业务逻辑多了，把代码分解到不同的模块中，使用面向对象的方式来处理数据实体，还是很方便的。</p>
-<h3 id="Controller"><a class="header-anchor" href="#Controller"> </a>Controller</h3>
-<p>​	Flask作为框架，把底层通信，HTTP的request/response，都完美封装了。CRUD开发者只需要处理route，render_template, redirect，再结合Model和View就可以搭建最简单的应用。</p>
-<p>​	此外，Flask有很多插件可以很方便高效的处理一些通用业务逻辑比如Flask-login，Flask-Restful等等。</p>
-<p>总之，Flask还是一个挺小清新的web开发框架，只要掌握了基本的模板语言,wtform，SqlAlchemy，Flask基本函数和组件，剩下的就是把所有的创意变成MVP，然后一个个的idea去尝试，没准哪个就成了。</p>
+        <h3 id="第一章-基本概念"><a class="header-anchor" href="#第一章-基本概念"> </a>第一章 基本概念</h3>
+<p>逻辑学是研究推理论证的过程是否正确的学问。
+####1.1 论证、前提、结论</p>
+<p>很多时候，我们仅是单纯的听、看结论，然后选择自己愿意相信的，去搜集证据证明这个结论，甚至主观的迷信这个结论。对于不愿意相信的，或者和自己想的不一样的结论，就完全忽视，或者反驳，或者”不管你说啥，我就是不听”。而没有去理性思考这个结论的真假或可能性。</p>
+<p>而理性的思考，是分析这个结论的前提，和论证过程，然后再对结论的真假进行判断。对于，说服和写作也是同样，需要从前提出发，找到合理的论证方法，然后给出结论。</p>
+<p>假设、前提、条件、命题、推理、论证、结论</p>
+<h4 id="1-2-识别论证"><a class="header-anchor" href="#1-2-识别论证"> </a>1.2 识别论证</h4>
+<p>好的论证，要从事实出发，经过合理的论证，才能得到真实的结论。所以实事求是，是所有判断的基础。</p>
+<p>论证要有前提，有结论，有推理过程。有的时候可以从表示推理的连接词看出来，比如：因此，所以，由于，因为等等。有的时候推理是暗示的，不含连接词。而且有时情况时，出现连接词也不是推理。</p>
+<h5 id="典型的非论证"><a class="header-anchor" href="#典型的非论证"> </a>典型的非论证</h5>
+<ol>
+<li>
+<p>简单的非推理段落</p>
+<ul>
+<li>
+<p>警告：“小心别在冰上滑到”</p>
+</li>
+<li>
+<p>忠告：”我想建议你…&quot;.</p>
+<p>只要没有给出证据证明，就不是论证，但他说的话是否对，不能简单下结论。</p>
+</li>
+<li>
+<p>关于信念和意见的陈述</p>
+</li>
+<li>
+<p>松散联合的陈述</p>
+</li>
+<li>
+<p>报告</p>
+</li>
+</ul>
+</li>
+<li>
+<p>说明性段落。不是为了证明主题，而只是扩展，或详细介绍</p>
+<ul>
+<li>举例说明</li>
+<li>说明，所说的事件或现象通常作为事实被接受了。说明更多是解释why，而论证更多是prove</li>
+<li>条件陈述
+<ul>
+<li>单个条件陈述不是论证</li>
+<li>条件陈述可以作为论证的前提或结论（或两者）</li>
+<li>条件陈述可以重新表达，以形成论证</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>很多文字或语言都是信息，需要阅读者自己去解读，当他是论证的时候，可以用逻辑学的方法去判断。但是这些信息可能是事实，也可能是经过处理后的事实，也可能是无意义的噪音，可能是情感、可能单纯是未经证实的观点，也可能是解释性的例子，也能是某种假设。总之，对于一段信息，要经过理性思维的处理，才能有所收获。每段信息的处理都要消耗能量，时间，金钱。所以要尽量少的接触垃圾信息和噪音。也不要盲目的接受那些未经证实的结果、观点、假设。</p>
+<h4 id="1-3-演绎和归纳"><a class="header-anchor" href="#1-3-演绎和归纳"> </a>1.3 演绎和归纳</h4>
+<h5 id="演绎论证形式"><a class="header-anchor" href="#演绎论证形式"> </a>演绎论证形式</h5>
+<ul>
+<li>基于数学的论证</li>
+<li>从定义出发的论证</li>
+<li>直言三段论</li>
+<li>假言三段论（条件陈述作为前提）</li>
+<li>选言三段论（选言陈述为前提，或者…或者…）</li>
+</ul>
+<h5 id="归纳论证形式"><a class="header-anchor" href="#归纳论证形式"> </a>归纳论证形式</h5>
+<ul>
+<li>预测</li>
+<li>类比论证</li>
+<li>概括（generalization，一般化，从样本到总体）</li>
+<li>以权威论证</li>
+<li>基于信号的论证</li>
+<li>因果推理：对于某个具体事件，原因和结果其实不能100%确定，所以这个算归纳？？有点颠覆我的认知。</li>
+</ul>
+<h4 id="1-4-有效性、真实性、可靠性、力度、恰当性"><a class="header-anchor" href="#1-4-有效性、真实性、可靠性、力度、恰当性"> </a>1.4 有效性、真实性、可靠性、力度、恰当性</h4>
+<p>论证需要两点，一是前提是事实，二是前提能支持结论。首先看第二点，如果前提能支持结论的情况下，再去看前提是不是事实。</p>
+<p>可靠的演绎论证 = 有效论证 + 真前提</p>
+<p>恰当的归纳论证 = 强的论证 + 真前提（还不能忽略重要事实）</p>
+<h4 id="1-5-非有效性的证实"><a class="header-anchor" href="#1-5-非有效性的证实"> </a>1.5 非有效性的证实</h4>
+<p>论证形式</p>
+<p>反例法</p>
+<h4 id="1-6-扩展的论证"><a class="header-anchor" href="#1-6-扩展的论证"> </a>1.6 扩展的论证</h4>
+<p>多层级的论证，大篇幅的论证，通过图解法，把每个子结论，自前提一步步，用图示的方法拆解出来</p>
+<h4 id="体会"><a class="header-anchor" href="#体会"> </a>体会</h4>
+<p>逻辑是研究论证的学问，但是他负责校验事实。现实生活中，可以用演绎形式有效论证的机会是很少的。连理性推理都未必有，更多是靠经验，就推出结论了。个别需要理性推理的时候，很多时候用的是归纳论证里面的因果推理，这些因果之前能否有量化的数字，决定了证据对于观点的支撑强度。</p>
+<p>很多问题分析，判断决策前，都需要缜密的推理论证。可是分析太多，容易变成分析瘫痪而无从下手。分析太少，又会变成鲁莽行事，盲目行动。低成本实验，不短迭代，也许是个方法，但也有可能因此而错失良机。人的认知和能力是有限的，机遇是可遇不可求的，又受制于各种外在的环境、条件，所以理性的降低目标，可能是无可奈何又不得不做的事情。</p>
 
     </div>
 
@@ -257,7 +330,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/flask-web%E5%BC%80%E5%8F%91/" rel="tag"># flask web开发</a>
+              <a href="/tags/%E9%80%BB%E8%BE%91/" rel="tag"># 逻辑</a>
           </div>
 
         
@@ -266,13 +339,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/" rel="prev" title="使用CSS渐变">
-      <i class="fa fa-chevron-left"></i> 使用CSS渐变
+    <a href="/2021/12/27/20211227_logic1/" rel="prev" title="计划开始学习逻辑">
+      <i class="fa fa-chevron-left"></i> 计划开始学习逻辑
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2017/12/06/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(QuickStart)_21/" rel="next" title="Flask文档笔记-快速开始(QuickStart)">
-      Flask文档笔记-快速开始(QuickStart) <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -332,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View"><span class="nav-number">1.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model"><span class="nav-number">2.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller"><span class="nav-number">3.</span> <span class="nav-text">Controller</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-基本概念"><span class="nav-number">1.</span> <span class="nav-text">第一章 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-识别论证"><span class="nav-number">1.1.</span> <span class="nav-text">1.2 识别论证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#典型的非论证"><span class="nav-number">1.1.1.</span> <span class="nav-text">典型的非论证</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-演绎和归纳"><span class="nav-number">1.2.</span> <span class="nav-text">1.3 演绎和归纳</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#演绎论证形式"><span class="nav-number">1.2.1.</span> <span class="nav-text">演绎论证形式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#归纳论证形式"><span class="nav-number">1.2.2.</span> <span class="nav-text">归纳论证形式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-有效性、真实性、可靠性、力度、恰当性"><span class="nav-number">1.3.</span> <span class="nav-text">1.4 有效性、真实性、可靠性、力度、恰当性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-非有效性的证实"><span class="nav-number">1.4.</span> <span class="nav-text">1.5 非有效性的证实</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-扩展的论证"><span class="nav-number">1.5.</span> <span class="nav-text">1.6 扩展的论证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#体会"><span class="nav-number">1.6.</span> <span class="nav-text">体会</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
