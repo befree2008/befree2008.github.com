@@ -165,6 +165,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/10/20180910_CNN_LeNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/10/20180910_CNN_LeNet/" class="post-title-link" itemprop="url">CNN图像分类学习记录(一)——LeNet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-09-10 12:54:16 / Modified: 12:55:28" itemprop="dateCreated datePublished" datetime="2018-09-10T12:54:16+08:00">2018-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/09/10/20180910_CNN_LeNet/" class="post-meta-item leancloud_visitors" data-flag-title="CNN图像分类学习记录(一)——LeNet" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/10/20180910_CNN_LeNet/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/20180910_CNN_LeNet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>《Gradient-based learning applied to document recognition》</p>
+<p>之前的模式识别系统，分为两部分，第一部分是特征提取器，把输入变量变成低纬度的特征向量。这个过程需要很多人类知识，而且主要是针对特定任务。第二部分是分类器，分类器是比较通用的，也可以进行训练。</p>
+<p>卷积网络组合了三个关于架构的想法：局部感知区域、共享参数、空间二次采样。小的卷积核可以提取出基本视觉元素，比如边缘，角点，终点。这些特征再被后续的层去提取更高维度的特征。一个卷积神经元输出一个feature map，完整的卷积层由多个卷积核组成。</p>
+<p>池化层的作用是减少feature的精确位置，只关注特征之间的相对位置。</p>
+<p>LeNet-5结构</p>
+<p>1，C1，6个5*5的filter</p>
+<p>2，S2，avg_pooling, 12个参数</p>
+<p>3，C3，16个5*5的filter，但是不是完全卷积</p>
+<p>4，S4，2<em>2的avg pooling  , 16</em>2=32个参数</p>
+<p>5，C5，120个5*5卷积filter，这一层又是完全卷积了，只有C3特殊</p>
+<p>6，F6，是全连接层，有84的神经元，这一个层后用了tanh，作为激活函数</p>
+<p>7，Output，F7层也不是普通的全连接层，而是用了所谓RBF函数，实际是把F6层输出84维向量，和10个分类的向量求欧式距离</p>
+<p>8，Loss Func也不是现在常用的交叉熵，而是一个我看不懂的公式</p>
+<p>原始LeNet和现在通用模式，还是有很多差别。比如C3层就不是对S2层的完全卷积操作，而是不同的卷积核对应不同的层，作者说是为了减少计算量，更重要是为了打破对称。而在卷积处理后，是现在avg_pool，并且还是乘上一个参数，再加一个bias，才得到采样以后的数值，这个数值还要进行sigmoid。早先的论文很多都是数学公式，不想现在更注重简化，方便工程实现。</p>
+<p>可以看出LeNet的时候，还没有dropout, max_pool, relu等优化，但已经把CNN的大框架定下来了。</p>
+<p>这篇文章还讲了很多图像分割，后处理等技术，实在看不懂，留到后续再学习吧，现在先把LeNet的结构搞懂就不错。</p>
+<p>也就是说，在1998年人们就开始利用CNN自动选择特征，发展到2010s以后，就开始用GPU寻找feature vector，而且有了大量的标注数据。此后，人工寻找好的NN结构，用不同的超参做实验，俗称炼丹师，到2017年后，开始机器寻找好的网络结构(NAS, PNAS, ENAS)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/06/20180906_CNN%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1085,106 +1190,6 @@ $$
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/13/20180308_lr_nn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/13/20180308_lr_nn/" class="post-title-link" itemprop="url">逻辑回归和神经网络_DL体会总结_2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-03-13 12:53:39 / Modified: 13:09:48" itemprop="dateCreated datePublished" datetime="2018-03-13T12:53:39+08:00">2018-03-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/03/13/20180308_lr_nn/" class="post-meta-item leancloud_visitors" data-flag-title="逻辑回归和神经网络_DL体会总结_2" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/03/13/20180308_lr_nn/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/03/13/20180308_lr_nn/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以前总听别人说做广告CTR需要用到LR，经常会在log中提取各种特种，一般是从Hadoop中跑出特征，然后再放到LR的并行系统上，进行计算，然后通过划分实验流量，做A/B Test。如果效果好，则新特征上线。</p>
-<p>而我之前由于没有ML的基础，所以直接学NN，感觉全世界就只有NN，回头想想好像LR还是能够在其他很多场景下应用。</p>
-<p>LR和NN的区别主要在于，LR是把一个线性函数 $ f(x) = Wx + b  $ 的结果，通过sigmoid函数映射到（0，1）上，然后用概率来解释这个结果。映射函数如下：
-$$
-\sigma(z)=\frac{1}{1+e^{-(Wx+b)}}
-$$
-对于线性函数，他的能力有限，比较直来直去，无非就是直线或者平面，来区分所有样本。这样对于一些比较复杂的样本分布，就会产生很多误差。</p>
-<p><img src="http://cache.ruimeigg.cn/lr.png" alt="逻辑回归对复杂分布的分类情况"></p>
-<p><img src="http://cache.ruimeigg.cn/hidden4.png" alt="神经网络hidden layer有4个节点的分类情况"></p>
-<p>第一个图是逻辑回归对复杂数据分布的分类情况，第二个图是神经网络hidden layer有4个节点的分类情况（参考：Planar data classification with one hidden layer）。明显具有hidden layer的NN表现更好。科学家们好像能够证明NN可以表示任何复杂的函数，我没必要深究其中的数学证明了。</p>
-<p>我目前的理解就是，神经网络把多个神经单元（线性函数+激活函数）整合在一起，然后在隐含层通过一种无法描述的魔力自行提取特征，然后在最后一层，仍然用线性分类函数对结果进行分类。后面的Loss function、SGD就都是一样的了。神经网络多了一点就是BP算法，主要的原理就是复合函数求导。<a href="">前一篇</a>(<a href="http://wliang.me/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">http://wliang.me/2018/02/05/20180205_DL学习笔记_逻辑回归/</a>)的时候我也总结过。</p>
-<p>我想总结时没比较加入太多数学公示，还是把直观的理解通过文字图表表达清楚最好，毕竟我又不去做research，我只是想做application。对自己放松点要求。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1254,7 +1259,7 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
