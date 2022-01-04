@@ -165,6 +165,143 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/14/20180315_word2vec_sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/14/20180315_word2vec_sum/" class="post-title-link" itemprop="url">Word Embedding的参数推导和直观理解_DL体会总结_3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-14 20:29:40" itemprop="dateCreated datePublished" datetime="2018-03-14T20:29:40+08:00">2018-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-10-15 14:14:22" itemprop="dateModified" datetime="2018-10-15T14:14:22+08:00">2018-10-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/03/14/20180315_word2vec_sum/" class="post-meta-item leancloud_visitors" data-flag-title="Word Embedding的参数推导和直观理解_DL体会总结_3" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/03/14/20180315_word2vec_sum/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/03/14/20180315_word2vec_sum/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数</p>
+<p>$$
+\log{\sigma(v_{w_{O}}^{'T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{'T}v_{w_{I}})]
+$$</p>
+<p>这是什么？原论文基本没有写细节。我特别想知道，这样的函数怎么做back propagation。于是总算找到这个：《word2vec Parameter Learning Explained》。人家确认牛，不仅深入浅出的给出数学推导，还能给出一个直观的，说人话的解释，让人更加能够明白word2vec到底在干什么。我想尝试整理一下，看看都学到了哪些，所以总结如下：</p>
+<h3 id="1-Forward过程"><a class="header-anchor" href="#1-Forward过程"> </a>1, Forward过程</h3>
+<p>训练word embedding的网络结构是这样的，他的隐藏层后面并没有任何非线性函数。</p>
+<p><img src="http://cache.ruimeigg.cn/word2vec.png" alt="wordvec"></p>
+<p>为了说明计算过程，模型简化为1对1 的预测，类似bigram。</p>
+<h4 id="Input-Hidden"><a class="header-anchor" href="#Input-Hidden"> </a>Input -&gt; Hidden</h4>
+<p>模型的输入到hidden的计算是</p>
+<p>$$h=W^{T}X = W_{(k,.)}^{T}$$</p>
+<p>X是one-hot向量，是V*1的列向量，W是V*N的矩阵，就是word embed，每行代表词表中的一个词。h是N*1的列向量。</p>
+<h4 id="Hidden-Output"><a class="header-anchor" href="#Hidden-Output"> </a>Hidden -&gt; Output</h4>
+<p>h向量就是W的第k行，也就是词表中第k个词的向量。$$W^{'}$$ 是N*V的矩阵，可理解为另外一组word embed。 从h预测output时，相当于是输入词的embed和输出词embed做内积，得出一个score u</p>
+<p>$$ u= W^{'T}h$$</p>
+<p>u是V*1的向量，通过softmax，得出预测的每个词的概率y     $$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</p>
+<h4 id="Loss-Func"><a class="header-anchor" href="#Loss-Func"> </a>Loss Func</h4>
+<p>有了预测概率，有了true target，就可以通过交叉熵来计算损失函数了，经过基本变形就得到了
+$$
+\begin{align*}
+E &amp;= - log \space y_{j^{<em>}} \ &amp;= -u_{j^{</em>}} + \log \sum_{j’=1}^{V} exp(u_{j’})<br>
+\end{align*}
+$$</p>
+<p>我真正的困惑是从下面开始，不知道怎么去做导数反向传递，好在《word2vec Parameter Learning Explained》给出的推导过程特别详细，我才能勉强看懂。</p>
+<h3 id="2-Backward过程"><a class="header-anchor" href="#2-Backward过程"> </a>2, Backward过程</h3>
+<ol>
+<li>$$h=W^{T}X = W_{(k,.)}^{T}$$</li>
+<li>$$ u= W^{'T}h$$</li>
+<li>$$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</li>
+<li>$$ E = -u_{j^{*}} + \log \sum_{j<sup>{'}=1}</sup>{V} exp(u_{j^{'}}) $$</li>
+</ol>
+<p>就是这几个公式依次求导。可是反向求导为啥难理解呢，我觉得主要是因为，前向过程都是用矩阵或向量计算的，求导时需要很多变换，还需要考虑转置的问题，行列的问题，转换步骤一多，思维就乱掉了。</p>
+<p>首先求关于$$u_{j}$$ 的导数
+$$
+\frac{\partial E}{\partial u_{j}} = y_{j} - t_{j} := e_{j} \qquad j\in [1,V]
+$$
+然后求关于$$W_{i,j}^{‘}$$ 的导数
+$$
+\begin{align*} \frac{\partial E}{\partial W_{ij}^{’}} &amp;= \frac{\partial E}{\partial u_{j}} .  \frac{\partial u_{j}}{\partial W_{ij}^{‘}} \ \&amp;=e <em>{j}.h</em>{i} \qquad\qquad  j\in [1,V]\quad i \in [1,N]   \end{align*}
+$$
+这个要理解我觉得最好还是把矩阵画出来，然后一步步去推导比较容易理解。其实最后$$\frac{\partial E}{\partial W^{’}} $$ 会最终变为一个矩阵，参数更新也都是通过矩阵运算的方式。这个公式在原论文中给出了一个直观理解，就是对于输出参数矩阵的每个词，根据预测的概率误差，相应的远离输入词。相当于这次word vector在他们的高维空间，不停的移动，已获得最佳的位置。当训练样本足够多了，每个word vector也就基本稳定不会移动了，这时候就可以把参数矩阵拿出来直接当做word embedding使用了。这些word embedding中包含了很多语义特征。</p>
+<p>其他的推导懒得写了，如果以后忘记了，就回看论文好了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/13/20180308_lr_nn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1069,132 +1206,6 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/" class="post-title-link" itemprop="url">使用CSS渐变</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-10-25 12:22:28 / Modified: 12:58:04" itemprop="dateCreated datePublished" datetime="2017-10-25T12:22:28+08:00">2017-10-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/" class="post-meta-item leancloud_visitors" data-flag-title="使用CSS渐变" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用CSS 渐变 是在 CSS3 Image Module 中新增加的 <image> 类型. 使用 CSS 渐变可以在两种颜色间制造出平滑的渐变效果. 用它代替图片，可以加快页面的载入时间、减小带宽占用。同时，因为渐变是由浏览器直接生成的，它在页面缩放时的效果比图片更好，因此你可以更加灵活、便捷的调整页面布局。</p>
-<p>浏览器支持两种类型的渐变：线性渐变 (linear)，通过 linear-gradient 函数定义，以及 径向渐变 (radial)，通过 radial-gradient 函数定义.</p>
-<h3 id="线性渐变"><a class="header-anchor" href="#线性渐变"> </a>线性渐变</h3>
-<p>为了创建一个线性渐变，你需要设置一个起始点和一个方向（指定为一个角度）的渐变效果。你还要定义终止色。终止色就是你想让Gecko去平滑的过渡，并且你必须指定至少两种，当然也会可以指定更多的颜色去创建更复杂的渐变效果。</p>
-<h4 id="简单线性渐变"><a class="header-anchor" href="#简单线性渐变"> </a>简单线性渐变</h4>
-<div style="background: linear-gradient(to bottom, blue, white); height:300px;width:300px;margin: auto;"></div>
-<p>这里是一个线性渐变从中间（水平方向）和顶部（垂直方向）开始，起始于蓝色，过渡到白色.</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 旧语法，带前缀并且已经废弃，以支持老版本的浏览器 */</span></span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">-prefix-linear-zgradient</span>(<span class="selector-tag">top</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">bottom</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</span><br></pre></td></tr></table></figure>
-<p>改变相同的渐变从左到右运行:</p>
-<div style="background: linear-gradient(to right, blue, white); height:300px;width:300px;margin: auto;"></div>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">right</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</span><br></pre></td></tr></table></figure>
-<p>可以同时指定水平方向和垂直方向的起始点使渐变对角线式的运行:</p>
-<div style="background: linear-gradient(to bottom right, blue, white); height:300px;width:300px;margin: auto;"></div>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 新语法，不带前缀，以支持标准兼容的浏览器（Opera 12.1， IE 10， Firefox 16， Chrome 26， Safari 6.1） */</span></span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">bottom</span> <span class="selector-tag">right</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">white</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="使用角度"><a class="header-anchor" href="#使用角度"> </a>使用角度</h4>
-<p>如果你不指定一个角度，这个将自动基于给定的方向。如果你更喜欢控制渐变的方向，你可以设置特定的角度。</p>
-<p>例如，这两个渐变，第一个方向朝右，第二个有个70度的角。</p>
-<p><img src="https://developer.mozilla.org/@api/deki/files/3953/=linear_gradient_angle.png" alt="linear_gradient_angle.png"></p>
-<p>右边的这个使用的是这样的CSS样式：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(70<span class="selector-tag">deg</span>, <span class="selector-tag">black</span>, <span class="selector-tag">white</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="色标"><a class="header-anchor" href="#色标"> </a>色标</h4>
-<p>linear-grandient可以填写多于两个颜色，这样可以形成多个颜色的渐变。默认情况下每个颜色都占均等的宽度，但在颜色后面可以指定一个从0-100的百分数，来指定当前颜色的渐变位置。第一个颜色的位置默认为0， 最后一个默认为100</p>
-<div style="background: linear-gradient(to right, red, blue 20%, black); height:300px;width:300px;margin: auto;"></div>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">right</span>, <span class="selector-tag">red</span>, <span class="selector-tag">blue</span> 20%,<span class="selector-tag">black</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="透明和渐变"><a class="header-anchor" href="#透明和渐变"> </a>透明和渐变</h4>
-<p>渐变是支持透明度的。 举个例子，当你叠加多个背景层，你可以使用这个在背景图片上来创建淡入淡出的效果 :</p>
-<p><img src="https://developer.mozilla.org/files/4275/linear_multibg_transparent2.png" alt="for Transparency and gradients example"></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)), url(http://foo.com/image.jpg);</span><br></pre></td></tr></table></figure>
-<h3 id="径向渐变"><a class="header-anchor" href="#径向渐变"> </a>径向渐变</h3>
-<p>径向渐变使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient" target="_blank" rel="noopener"><code>radial-gradient</code></a> 函数语法. 这个语法和线性渐变很类似, 除了你可以指定渐变结束时的形状 (可能时一个圆形或者一个椭圆形) 以及它的大小. 默认来说，结束形状是一个椭圆形并且和容器的大小比例保持一致。</p>
-<div style="background:radial-gradient(red, yellow, rgb(30, 144, 255)); height:300px;width:300px;margin: auto;"></div>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">radial-gradient</span>(<span class="selector-tag">red</span>, <span class="selector-tag">yellow</span>, <span class="selector-tag">rgb</span>(30, 144, 255));</span><br></pre></td></tr></table></figure>
-<h3 id="重复的渐变"><a class="header-anchor" href="#重复的渐变"> </a>重复的渐变</h3>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/linear-gradient" target="_blank" rel="noopener"><code>linear-gradient</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient" target="_blank" rel="noopener"><code>radial-gradient</code></a>不支持自动重复的色标。然而，  <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/repeating-linear-gradient" target="_blank" rel="noopener"><code>repeating-linear-gradient</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/repeating-radial-gradient" target="_blank" rel="noopener"><code>repeating-radial-gradient</code></a> 可以实现这个功能。</p>
-<div style="background:repeating-linear-gradient(-45deg, red, red 5px, white 5px, white 10px); height:300px;width:300px;margin: auto;"></div>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">repeating-linear-gradient</span>(<span class="selector-tag">-45deg</span>, <span class="selector-tag">red</span>, <span class="selector-tag">red</span> 5<span class="selector-tag">px</span>, <span class="selector-tag">white</span> 5<span class="selector-tag">px</span>, <span class="selector-tag">white</span> 10<span class="selector-tag">px</span>);</span><br></pre></td></tr></table></figure>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Using_CSS_gradients" target="_blank" rel="noopener">参考文档</a></p>
-<p><a href="http://www.ruimeigg.cn/wlexp/singlePage/css_gradient.html" target="_blank" rel="noopener">Demo</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1264,7 +1275,7 @@ $$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">96</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1277,7 +1288,7 @@ $$</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1304,7 +1315,7 @@ $$</p>
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

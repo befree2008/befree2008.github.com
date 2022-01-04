@@ -165,6 +165,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/" class="post-title-link" itemprop="url">VUE表单v-model处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-09-22 18:03:52" itemprop="dateCreated datePublished" datetime="2017-09-22T18:03:52+08:00">2017-09-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-09-23 18:41:35" itemprop="dateModified" datetime="2017-09-23T18:41:35+08:00">2017-09-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/" class="post-meta-item leancloud_visitors" data-flag-title="VUE表单v-model处理" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Handling User Input with Forms笔记</p>
+<p>表单是动态页面的重要工具，没有表单，web就不会这么丰富，就没有了任何可交互性。</p>
+<h5 id="原始形式的表单"><a class="header-anchor" href="#原始形式的表单"> </a>原始形式的表单</h5>
+<p>表单这种东西从很早就接触只不过现在给忘记了，知识需要缝一下，补一下。<code>&lt;form&gt;</code>标签下放上几个<code>&lt;input&gt;</code>，当点击<code>&lt;submit&gt;</code>标签的时候，就会把整个form下的输入数据传送到后台去处理。数据发送的地址是form的属性action所指定的url。这里用到的是POST方法。</p>
+<p>这些机制都是HTTP协议和浏览器共同完成了，作为web developper只是把业务逻辑写好。其中radio、checkbox需要name属性一致，这样才能表示对应的数据。无论是PHP活着Flask都是判断当前是POST方法表示客户端提交了数据，然后解析request里面的form，进行数据处理，然后在根据业务逻辑，生成对应的页面。</p>
+<h5 id="Vue的表单处理"><a class="header-anchor" href="#Vue的表单处理"> </a>Vue的表单处理</h5>
+<p>原生的form是需要页面跳转的，或者说是整个页面刷新。有了Vue这样的前端框架，可以不再按原来的方式处理，直接就是前后端分离，然后submit按钮点击之后，采用ajax方式和后台交互数据，业务逻辑很多放到了前端。</p>
+<p>对vue对表单的来说，最需要的就是收集数据，基本上都是通过<code>v-model</code>这个指令和vue的data中的变量进行绑定，然后submit之后提交数据。其中checkbox是个数组，radio是一个包含value的字符串
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/22/20170922_%E7%BB%84%E4%BB%B6%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7_9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1037,107 +1146,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/" class="post-title-link" itemprop="url">模态对话框</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-06 16:41:19 / Modified: 19:12:27" itemprop="dateCreated datePublished" datetime="2017-09-06T16:41:19+08:00">2017-09-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/" class="post-meta-item leancloud_visitors" data-flag-title="模态对话框" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="网页上加vanila-modal"><a class="header-anchor" href="#网页上加vanila-modal"> </a>网页上加vanila modal</h3>
-<p>模态框就是显示在当前页面上面的一个对话框或弹出窗口</p>
-<div class="note success">
-            <p>A modal is a dialog box/popup window that is displayed on top of the current page—— W3School</p>
-          </div>
-<p>最简单的方式就是做一个宽高都是100%的div，相当于能够用所谓半透明的遮罩覆盖整个屏幕，然后在这个div里面加入各种数据，看上去像是一个对话框一样，其实就是在切换一个层的显示和隐藏。模态层默认是不显示，当某些click事件被触发以后，就可以显示了。具体操作方式就是通过js将对应div的display css属性在none和block之间进行切换。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/06/20170906_%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1207,7 +1215,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">96</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1220,7 +1228,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1247,7 +1255,7 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
