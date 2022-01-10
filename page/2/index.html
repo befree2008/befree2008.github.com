@@ -165,6 +165,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">JS的构建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-18 14:35:34 / Modified: 17:49:45" itemprop="dateCreated datePublished" datetime="2021-09-18T14:35:34+08:00">2021-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" class="post-meta-item leancloud_visitors" data-flag-title="JS的构建" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/18/20210918_js%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>js的构建，真是让人烦死了。概念层出不穷，实现方法变化多样，而且所有这些东西，都是因为js出生的时候给他的定位，和现在js的任务完全不一样，每项工具，每个知识点，都是为了给他自身打补丁而生的。当然也可以看做是js是个能自我演进的工具。</p>
+<p>js现在也需要进行构建，我理解就是把多个js代码合并成一个大文件，然后浏览器加载，并在客户端解释。</p>
+<h4 id="1-Node，npm"><a class="header-anchor" href="#1-Node，npm"> </a>1,Node，npm</h4>
+<p>wiki上说Node最初发布于2009，在V8 chrome内核上封装了消息机制，异步IO等功能，可以让js在服务端运行。V8最早是在2008年发布。那个时候也是iOS，Android刚刚开始流行的时候。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm install  &lt;name&gt;  // 安装一个包</span><br><span class="line">npm run &lt;command&gt;    // 运行package.json里面的一段shell命令</span><br></pre></td></tr></table></figure>
+<p><a href="https://nodejs.dev/learn" target="_blank" rel="noopener">Node.js文档</a></p>
+<p><a href="https://docs.npmjs.com/cli/v7" target="_blank" rel="noopener">npm CLI </a></p>
+<h4 id="2，ES6和模块化"><a class="header-anchor" href="#2，ES6和模块化"> </a>2，ES6和模块化</h4>
+<p>js的es6就是出了一大堆新语法，由浏览器支持js可以实现的新功能。本来是让工具更好用，但是明显增加了很多学习成本。</p>
+<p>模块化，js以文件为模块，形成依赖关系，依次加载。这对于C语言来说，这是非常简单的事情，怎么到了js变得这么复杂，事情本身不复杂，但是需要若干工具配合才能完成这件事情，每个工具有一大套配置方法，使用规则。</p>
+<figure class="highlight plain"><figcaption><span>&#123;  xxx &#125;  from  module``` 就是各个浏览器要支持的es6的语法，但是现在要转成es5，避免webapp在某些浏览器中不能运行。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 3，browserify</span><br><span class="line"></span><br><span class="line">可以按照node的require的语法，把依赖的每个package打包成一个js</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">browserify robot.js &gt; bundle.js    &#x2F;&#x2F; 命令行方式</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> browserify = <span class="built_in">require</span>(<span class="string">'browserify'</span>);      <span class="comment">//node api方式</span></span><br><span class="line"><span class="keyword">var</span> bundle = browserify(<span class="string">'./app.js'</span>).bundle()</span><br></pre></td></tr></table></figure>
+<p>browserify大部分被webpack代替</p>
+<p><a href="https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md" target="_blank" rel="noopener">gulp中使用browserify</a></p>
+<h4 id="4，gulp"><a class="header-anchor" href="#4，gulp"> </a>4，gulp</h4>
+<p>任务自动化的工具。通过在项目根目录的 gulpfile.js文件，执行任务</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码示例</span></span><br><span class="line">gulp.task(</span><br><span class="line">  <span class="string">'build-js'</span>,</span><br><span class="line">  gulp.parallel(<span class="string">'build-vendor-js'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.all(</span><br><span class="line">      appBundleConfigs.map(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> createBundle(config);</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="5，Babel"><a class="header-anchor" href="#5，Babel"> </a>5，Babel</h4>
+<p>Babel是js编译器，可以把所有新语法特性的js转换为es5的语法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/babel src --out-dir lib  #命令行方式</span><br></pre></td></tr></table></figure>
+<p>API方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">"@babel/core"</span>);</span><br><span class="line"></span><br><span class="line">babel.transformSync(<span class="string">"code"</span>, optionsObject);</span><br></pre></td></tr></table></figure>
+<p>配置文件.babelrc</p>
+<p><a href="https://www.babeljs.cn/docs/" target="_blank" rel="noopener">Babel文档</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/09/18/20210918_js%E5%BE%88%E4%B9%B1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1229,121 +1341,6 @@ pyenv local 3.6.1 &amp;&amp; python -V
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">STM32时钟系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-21 15:19:56" itemprop="dateCreated datePublished" datetime="2020-02-21T15:19:56+08:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-24 15:32:00" itemprop="dateModified" datetime="2020-02-24T15:32:00+08:00">2020-02-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" class="post-meta-item leancloud_visitors" data-flag-title="STM32时钟系统" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="为什么有时钟？"><a class="header-anchor" href="#为什么有时钟？"> </a>为什么有时钟？</h5>
-<p>时钟发出时序信号，数据和指令才能才CPU内部流动执行。</p>
-<p>任何复杂的东西都是由简单的东西组成的，所以不必害怕，逐一拆解</p>
-<h5 id="时钟树"><a class="header-anchor" href="#时钟树"> </a>时钟树</h5>
-<p>STM32五大时钟源：HSI，HSE，LSI，LSE，PLL</p>
-<p>任何一种外设使用前，必先使能其时钟。每种外设在数据通信时都需要时钟，这些时钟都是通过5个主要的源，通过各种分频，倍频，最后得到一个能用的时钟信号。</p>
-<h5 id="Systick"><a class="header-anchor" href="#Systick"> </a>Systick</h5>
-<p>内部精准永不停歇的计时器，用于OS。</p>
-<p>Systick = 25MHz * N/ (M*P)=25MHz * 432 / ( 25 * 2 ) = 216MHz</p>
-<p>频率越高，耗电越高，所以尽可能的降低频率。</p>
-<h5 id="外设时钟"><a class="header-anchor" href="#外设时钟"> </a>外设时钟</h5>
-<p>外设时钟从Sysclock分频得来，54M，或者108M，然后再根据计数值，产生各种中断。</p>
-<h5 id="两种总线"><a class="header-anchor" href="#两种总线"> </a>两种总线</h5>
-<p>AHB=Advanced High Performance Bus，译作高级高性能总线。如同USB（Universal Serial Bus）一样，也是一种总线接口。AHB主要用于高性能模块(如CPU、DMA和DSP等)之间的连接</p>
-<p>APB(Advanced Peripheral Bus)外围总线。APB主要用于低带宽的周边外设之间的连接，例如UART、1284等，它的总线架构不像AHB支持多个主模块，在APB里面唯一的主模块就是APB 桥</p>
-<h5 id="遗漏问题"><a class="header-anchor" href="#遗漏问题"> </a>遗漏问题</h5>
-<p>分频是什么？</p>
-<p>PLL是什么？锁相环怎么倍频的？</p>
-<p>晶振振荡电路原理？</p>
-<p>调压系数</p>
-<p>Over-drive</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1413,7 +1410,7 @@ pyenv local 3.6.1 &amp;&amp; python -V
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1426,7 +1423,7 @@ pyenv local 3.6.1 &amp;&amp; python -V
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -165,6 +165,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">STM32时钟系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 15:19:56" itemprop="dateCreated datePublished" datetime="2020-02-21T15:19:56+08:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-24 15:32:00" itemprop="dateModified" datetime="2020-02-24T15:32:00+08:00">2020-02-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" class="post-meta-item leancloud_visitors" data-flag-title="STM32时钟系统" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/21/20200221_%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="为什么有时钟？"><a class="header-anchor" href="#为什么有时钟？"> </a>为什么有时钟？</h5>
+<p>时钟发出时序信号，数据和指令才能才CPU内部流动执行。</p>
+<p>任何复杂的东西都是由简单的东西组成的，所以不必害怕，逐一拆解</p>
+<h5 id="时钟树"><a class="header-anchor" href="#时钟树"> </a>时钟树</h5>
+<p>STM32五大时钟源：HSI，HSE，LSI，LSE，PLL</p>
+<p>任何一种外设使用前，必先使能其时钟。每种外设在数据通信时都需要时钟，这些时钟都是通过5个主要的源，通过各种分频，倍频，最后得到一个能用的时钟信号。</p>
+<h5 id="Systick"><a class="header-anchor" href="#Systick"> </a>Systick</h5>
+<p>内部精准永不停歇的计时器，用于OS。</p>
+<p>Systick = 25MHz * N/ (M*P)=25MHz * 432 / ( 25 * 2 ) = 216MHz</p>
+<p>频率越高，耗电越高，所以尽可能的降低频率。</p>
+<h5 id="外设时钟"><a class="header-anchor" href="#外设时钟"> </a>外设时钟</h5>
+<p>外设时钟从Sysclock分频得来，54M，或者108M，然后再根据计数值，产生各种中断。</p>
+<h5 id="两种总线"><a class="header-anchor" href="#两种总线"> </a>两种总线</h5>
+<p>AHB=Advanced High Performance Bus，译作高级高性能总线。如同USB（Universal Serial Bus）一样，也是一种总线接口。AHB主要用于高性能模块(如CPU、DMA和DSP等)之间的连接</p>
+<p>APB(Advanced Peripheral Bus)外围总线。APB主要用于低带宽的周边外设之间的连接，例如UART、1284等，它的总线架构不像AHB支持多个主模块，在APB里面唯一的主模块就是APB 桥</p>
+<h5 id="遗漏问题"><a class="header-anchor" href="#遗漏问题"> </a>遗漏问题</h5>
+<p>分频是什么？</p>
+<p>PLL是什么？锁相环怎么倍频的？</p>
+<p>晶振振荡电路原理？</p>
+<p>调压系数</p>
+<p>Over-drive</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2020/02/21/20200221_IO%E5%8F%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1364,102 +1479,6 @@ git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-core.git
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/14/20191114_gcc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/14/20191114_gcc/" class="post-title-link" itemprop="url">开发工具选项笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-14 19:45:36 / Modified: 19:49:17" itemprop="dateCreated datePublished" datetime="2019-11-14T19:45:36+08:00">2019-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/11/14/20191114_gcc/" class="post-meta-item leancloud_visitors" data-flag-title="开发工具选项笔记" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/11/14/20191114_gcc/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/14/20191114_gcc/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这些开发工具选项太多了，只记录一些碰到的，其他的随缘吧，佛系程序员
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/14/20191114_gcc/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1529,7 +1548,7 @@ git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-core.git
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1542,7 +1561,7 @@ git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-core.git
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
