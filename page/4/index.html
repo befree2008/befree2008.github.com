@@ -165,6 +165,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/20/20191120_os2_mm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/20/20191120_os2_mm/" class="post-title-link" itemprop="url">操作系统内存管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-20 09:44:05" itemprop="dateCreated datePublished" datetime="2019-11-20T09:44:05+08:00">2019-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-22 08:45:05" itemprop="dateModified" datetime="2019-11-22T08:45:05+08:00">2019-11-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/11/20/20191120_os2_mm/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统内存管理" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/20/20191120_os2_mm/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/20191120_os2_mm/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>os内存管理的目标是做到高效分配回收内存，支持多进程并发使用，又要做到进程之间的隔离。内存是一堆三极管，电容等器件组成的电路模块。每个内存单元有两个属性，对程序开发特别重要，一个是地址，一个是单元内保存的数据。</p>
+<h5 id="物理内存管理"><a class="header-anchor" href="#物理内存管理"> </a>物理内存管理</h5>
+<p>分页机制</p>
+<p>分页是CPU和操作系统共同实现的内存管理方式。目的是为了尽可能的减少内存碎片，同时可以让多个进程共享内存。把一个逻辑地址，通过页表转换为一个物理内存地址。转换过程是依靠CPU中的MMU单元。页表的数据是由操作系统来生成。x86架构是在80386推出时（1985年），实现的页机制。</p>
+<p>物理内存管理上，只要启动分页机制，就是“虚拟”内存，这一层是CPU的机制（MMU单元的功能）。</p>
+<p>OS在此基础上，对每个用户进程进行了隔离，在x86_32上，每个进程都可以访问4G的空间，但其实物理机器上有可能只有1G的内存，这个是通过swap机制实现的。</p>
+<p>分页机制可以减少内存碎片。可以把不连续的逻辑地址，可以分配成连续物理内存空间。也可以把连续的逻辑地址，分配成不连续的物理空间。</p>
+<p>分页机制可以把不同逻辑地址，映射到相同的物理地址上。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/20/20191120_os2_mm/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/14/20191114_os1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1127,102 +1236,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/" class="post-title-link" itemprop="url">智能论文功能列表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-10-15 14:17:51 / Modified: 14:23:26" itemprop="dateCreated datePublished" datetime="2018-10-15T14:17:51+08:00">2018-10-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/" class="post-meta-item leancloud_visitors" data-flag-title="智能论文功能列表" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天把智能论文app的初稿原型画了一下，梳理了一些前期急需的功能，看看多久能够上线。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/15/20181015_%E6%99%BA%E8%83%BD%E8%AE%BA%E6%96%87%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1292,7 +1305,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
