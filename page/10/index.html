@@ -165,6 +165,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/" class="post-title-link" itemprop="url">可吸附到顶部的导航条的实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-08-30 19:52:26" itemprop="dateCreated datePublished" datetime="2017-08-30T19:52:26+08:00">2017-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/" class="post-meta-item leancloud_visitors" data-flag-title="可吸附到顶部的导航条的实现" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一直觉得可以吸附在顶部的导航条很神奇，今天仔细研究了一下，记录在此。其实主要用到的就是window.scroll 事件，当导航条移动到浏览器顶部时，就固定住，如果又下移到非顶部了，则恢复原来的样式。通过绑定scroll事件，调整DOM元素的postion样式，在static和fixed两个属性之间进行切换。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/08/30/20170830_%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8%E6%97%B6%E5%8F%AF%E5%90%B8%E9%99%84%E9%A1%B6%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%9D%A1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/08/29/20170829_%E8%BF%91%E6%9C%9F%E5%8F%8D%E6%80%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1001,93 +1096,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/06/18/readingdata/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/18/readingdata/" class="post-title-link" itemprop="url">Tensorflow从文件读取数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-06-18 00:24:25" itemprop="dateCreated datePublished" datetime="2017-06-18T00:24:25+08:00">2017-06-18</time>
-            </span>
-
-          
-            <span id="/2017/06/18/readingdata/" class="post-meta-item leancloud_visitors" data-flag-title="Tensorflow从文件读取数据" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/06/18/readingdata/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/06/18/readingdata/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="从文件读取数据"><a class="header-anchor" href="#从文件读取数据"> </a>从文件读取数据</h4>
-<p>函数<code>tf.train.string_input_producer</code>文件名队列，选择一个匹配输入文件的reader，reader从filename queue中选择文件读取，每次输出一个key, value对。再由一个合适的decoder解析value，这样可以把value中的各个字段解析出来。通过解析出来的字段，组成tensor作为输入数据，送到graph中去train或predict。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/06/18/readingdata/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1157,7 +1165,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
