@@ -22,12 +22,12 @@
 
   <meta name="description" content="Javascript单线程，同步执行的语言。早期只是简单处理静态数据，这没问题。但是后来越来越多需要js去访问网络，所以需要一种异步机制。于是有了很多非阻塞，依赖Event Loop的web api可以实现异步。但这种web api需要写很多callback函数。 但是callback层级一旦多了以后，代码变得不可读，不可维护，于是ES6就给出Promise的异步方案  Promise 12345">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript事件机制">
+<meta property="og:title" content="Promise,async&#x2F;await 异步调用">
 <meta property="og:url" content="http://www.wliang.me/2022/06/22/20220622_js%20promise/index.html">
 <meta property="og:site_name" content="天一阁">
 <meta property="og:description" content="Javascript单线程，同步执行的语言。早期只是简单处理静态数据，这没问题。但是后来越来越多需要js去访问网络，所以需要一种异步机制。于是有了很多非阻塞，依赖Event Loop的web api可以实现异步。但这种web api需要写很多callback函数。 但是callback层级一旦多了以后，代码变得不可读，不可维护，于是ES6就给出Promise的异步方案  Promise 12345">
 <meta property="article:published_time" content="2022-06-22T12:57:19.578Z">
-<meta property="article:modified_time" content="2022-06-23T08:19:08.968Z">
+<meta property="article:modified_time" content="2022-06-23T08:20:22.557Z">
 <meta property="article:author" content="Befree">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>javascript事件机制 | 天一阁</title>
+  <title>Promise,async/await 异步调用 | 天一阁</title>
   
 
 
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          javascript事件机制
+          Promise,async/await 异步调用
         </h1>
 
         <div class="post-meta">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-23 16:19:08" itemprop="dateModified" datetime="2022-06-23T16:19:08+08:00">2022-06-23</time>
+                <time title="Modified: 2022-06-23 16:20:22" itemprop="dateModified" datetime="2022-06-23T16:20:22+08:00">2022-06-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,7 +212,7 @@
             </span>
 
           
-            <span id="/2022/06/22/20220622_js%20promise/" class="post-meta-item leancloud_visitors" data-flag-title="javascript事件机制" title="Views">
+            <span id="/2022/06/22/20220622_js%20promise/" class="post-meta-item leancloud_visitors" data-flag-title="Promise,async/await 异步调用" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
