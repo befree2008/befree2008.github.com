@@ -165,6 +165,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/11/20180911_CNN_AlexNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/11/20180911_CNN_AlexNet/" class="post-title-link" itemprop="url">CNN图像分类学习记录(二)——AlexNet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-09-11 11:54:17 / Modified: 13:34:23" itemprop="dateCreated datePublished" datetime="2018-09-11T11:54:17+08:00">2018-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/09/11/20180911_CNN_AlexNet/" class="post-meta-item leancloud_visitors" data-flag-title="CNN图像分类学习记录(二)——AlexNet" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/11/20180911_CNN_AlexNet/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/11/20180911_CNN_AlexNet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>2012----AlexNet----Imagenet classification with deep convolutional neural networks_ILSVRC2012</p>
+<p>作者说，为了提高分类精确度，需要收集更多标注数据，需要更强大的模型，还需要更好的技术防止过拟合，这应该是2012年人们面对的挑战。</p>
+<p>AlexNet提出了很多新的特性，能够使得训练时间更短，并且提出一些防止过拟合的新方法。AlexNet有8个层，5个卷积层，3个全连接层。</p>
+<p>AlexNet使用了ReLU，f(x) = max(0, x) , 这么简单的函数，但是效果很好，比tanh，sigmoid要快很多。</p>
+<p>AlexNet使用LRN（Local Response Normalization）层是用来做归一化的。</p>
+<p>使用了有重叠的max-pooling。</p>
+<p>使用了Dropout防止过拟合，同时做了很多数据增强的事情。</p>
+<p>AlexNet结构：</p>
+<ol start="0">
+<li>输入是3*224*224</li>
+<li>conv1:  kernel(96*3*11*11,stride=4 padding=2), output(96*55*55)， active（ReLU）
+<ol>
+<li>LRN</li>
+<li>max_pool(size=3, stride=2 ),  output(96*27*27)</li>
+</ol>
+</li>
+<li>conv2:   256*96*5*5 padding=2, group = 2， active（ReLU）
+<ol>
+<li>LRN</li>
+<li>max_pool(size=3, stride=2 ),  output(256*13*13)</li>
+</ol>
+</li>
+<li>conv3:  kernel(384*256*3*3 padding=1), output(384*13*13)， active（ReLU）</li>
+<li>conv4:  kernel(384*384*3*3 padding=1, group = 2), output(384*13*13)， active（ReLU）</li>
+<li>conv5:  kernel( 256*384*3*3 padding=1, group = 2), output(256*13*13)， active（ReLU）
+<ol>
+<li>max_pool(size=3, stride=2 ),  output(256*6*6)</li>
+</ol>
+</li>
+<li>fc6: (256*6*6,  4096)， dropout</li>
+<li>fc7: (4096,  4096)，dropout</li>
+<li>fc8: (4096,  num_classes)</li>
+</ol>
+<p>计算机领域还是得动手做一下，才能更清楚的明白。网上很多人说AlexNet输入图片是227*227，其实就是224*224，只是加了padding=2，最后一列和最后一行被抛弃了。</p>
+<p>而且我才发现，alexnet的conv实际是分开两部分了，幸好pytorch的conv2d函数有groups这个参数，否则还真不知道该怎么去实现。</p>
+<p>但是在alex上跑cifar，还是比较容易overfitting，cifar的top1 accuracy只能到46%左右。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/10/20180910_CNN_LeNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1053,143 +1177,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/14/20180315_word2vec_sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/14/20180315_word2vec_sum/" class="post-title-link" itemprop="url">Word Embedding的参数推导和直观理解_DL体会总结_3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-14 20:29:40" itemprop="dateCreated datePublished" datetime="2018-03-14T20:29:40+08:00">2018-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-10-15 14:14:22" itemprop="dateModified" datetime="2018-10-15T14:14:22+08:00">2018-10-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/03/14/20180315_word2vec_sum/" class="post-meta-item leancloud_visitors" data-flag-title="Word Embedding的参数推导和直观理解_DL体会总结_3" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/03/14/20180315_word2vec_sum/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/03/14/20180315_word2vec_sum/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近在看NLP，其中的基础就是word embedding，我也看了cs224n的课，也看了那个关于word2vec的论文，但我看到的就是优化这么一个目标函数</p>
-<p>$$
-\log{\sigma(v_{w_{O}}^{'T}v_{w_{I}})} + \sum_{i=1}^{n}E_{w_{i}\sim P_{n}(w)}[\log\sigma(-v_{w_{i}}^{'T}v_{w_{I}})]
-$$</p>
-<p>这是什么？原论文基本没有写细节。我特别想知道，这样的函数怎么做back propagation。于是总算找到这个：《word2vec Parameter Learning Explained》。人家确认牛，不仅深入浅出的给出数学推导，还能给出一个直观的，说人话的解释，让人更加能够明白word2vec到底在干什么。我想尝试整理一下，看看都学到了哪些，所以总结如下：</p>
-<h3 id="1-Forward过程"><a class="header-anchor" href="#1-Forward过程"> </a>1, Forward过程</h3>
-<p>训练word embedding的网络结构是这样的，他的隐藏层后面并没有任何非线性函数。</p>
-<p><img src="http://cache.ruimeigg.cn/word2vec.png" alt="wordvec"></p>
-<p>为了说明计算过程，模型简化为1对1 的预测，类似bigram。</p>
-<h4 id="Input-Hidden"><a class="header-anchor" href="#Input-Hidden"> </a>Input -&gt; Hidden</h4>
-<p>模型的输入到hidden的计算是</p>
-<p>$$h=W^{T}X = W_{(k,.)}^{T}$$</p>
-<p>X是one-hot向量，是V*1的列向量，W是V*N的矩阵，就是word embed，每行代表词表中的一个词。h是N*1的列向量。</p>
-<h4 id="Hidden-Output"><a class="header-anchor" href="#Hidden-Output"> </a>Hidden -&gt; Output</h4>
-<p>h向量就是W的第k行，也就是词表中第k个词的向量。$$W^{'}$$ 是N*V的矩阵，可理解为另外一组word embed。 从h预测output时，相当于是输入词的embed和输出词embed做内积，得出一个score u</p>
-<p>$$ u= W^{'T}h$$</p>
-<p>u是V*1的向量，通过softmax，得出预测的每个词的概率y     $$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</p>
-<h4 id="Loss-Func"><a class="header-anchor" href="#Loss-Func"> </a>Loss Func</h4>
-<p>有了预测概率，有了true target，就可以通过交叉熵来计算损失函数了，经过基本变形就得到了
-$$
-\begin{align*}
-E &amp;= - log \space y_{j^{<em>}} \ &amp;= -u_{j^{</em>}} + \log \sum_{j’=1}^{V} exp(u_{j’})<br>
-\end{align*}
-$$</p>
-<p>我真正的困惑是从下面开始，不知道怎么去做导数反向传递，好在《word2vec Parameter Learning Explained》给出的推导过程特别详细，我才能勉强看懂。</p>
-<h3 id="2-Backward过程"><a class="header-anchor" href="#2-Backward过程"> </a>2, Backward过程</h3>
-<ol>
-<li>$$h=W^{T}X = W_{(k,.)}^{T}$$</li>
-<li>$$ u= W^{'T}h$$</li>
-<li>$$ y_{i} = \frac{exp(u_{i})}{\sum_{k=1}^{V} exp(u_{k})} $$</li>
-<li>$$ E = -u_{j^{*}} + \log \sum_{j<sup>{'}=1}</sup>{V} exp(u_{j^{'}}) $$</li>
-</ol>
-<p>就是这几个公式依次求导。可是反向求导为啥难理解呢，我觉得主要是因为，前向过程都是用矩阵或向量计算的，求导时需要很多变换，还需要考虑转置的问题，行列的问题，转换步骤一多，思维就乱掉了。</p>
-<p>首先求关于$$u_{j}$$ 的导数
-$$
-\frac{\partial E}{\partial u_{j}} = y_{j} - t_{j} := e_{j} \qquad j\in [1,V]
-$$
-然后求关于$$W_{i,j}^{‘}$$ 的导数
-$$
-\begin{align*} \frac{\partial E}{\partial W_{ij}^{’}} &amp;= \frac{\partial E}{\partial u_{j}} .  \frac{\partial u_{j}}{\partial W_{ij}^{‘}} \ \&amp;=e <em>{j}.h</em>{i} \qquad\qquad  j\in [1,V]\quad i \in [1,N]   \end{align*}
-$$
-这个要理解我觉得最好还是把矩阵画出来，然后一步步去推导比较容易理解。其实最后$$\frac{\partial E}{\partial W^{’}} $$ 会最终变为一个矩阵，参数更新也都是通过矩阵运算的方式。这个公式在原论文中给出了一个直观理解，就是对于输出参数矩阵的每个词，根据预测的概率误差，相应的远离输入词。相当于这次word vector在他们的高维空间，不停的移动，已获得最佳的位置。当训练样本足够多了，每个word vector也就基本稳定不会移动了，这时候就可以把参数矩阵拿出来直接当做word embedding使用了。这些word embedding中包含了很多语义特征。</p>
-<p>其他的推导懒得写了，如果以后忘记了，就回看论文好了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1259,7 +1246,7 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1272,7 +1259,7 @@ $$
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
