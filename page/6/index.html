@@ -165,6 +165,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/12/20180912_CNN_Vgg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/12/20180912_CNN_Vgg/" class="post-title-link" itemprop="url">CNN图像分类学习记录(三)——VGGNet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-09-12 08:36:25 / Modified: 08:42:10" itemprop="dateCreated datePublished" datetime="2018-09-12T08:36:25+08:00">2018-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/09/12/20180912_CNN_Vgg/" class="post-meta-item leancloud_visitors" data-flag-title="CNN图像分类学习记录(三)——VGGNet" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/12/20180912_CNN_Vgg/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/12/20180912_CNN_Vgg/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>LeNet，证明多层的CNN是有价值的，可以拿来做图像识别</p>
+<p>AlexNet，提出数据多，网络深就可以有好结果，但是计算速度、过拟合是问题，所以给出了ReLU，Dropout</p>
+<p>VGG，说他们有效是因为用了很小的filters(3*3)，因为小的filter可以让网络变得很深。VGG说LRN没啥效果。</p>
+<p>使用小filter可以使参数变少，计算量变小。3层3*3就相当于是一层7*7，同时因为之间加入了ReLU，所以使得判定函数（decision function）更加具有判别力，不知道这个的根据是啥？</p>
+<p>VGG训练时，是一点点涨起来的，先训练11层的，等稳定了，把网络扩展13层，旧的layer还用原来的参数，新的layer随机初始化参数。</p>
+<p>实际在测试VGG时，感觉不是那么好用，首先我用的1060的卡，只能跑很小的batch_size，这样训练就很慢。而且再cifar100上，也没看到特别明显的效果。还不如直接在AlexNet上加几层3*3的Conv Layer。这可能也和数据集有关，可能在ImageNet2012上VGG表现更好。</p>
+<p>Vgg Acc@1能到 63%，AlexNet Acc@1能到50%左右</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/09/11/20180911_CNN_AlexNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1082,101 +1177,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/" class="post-title-link" itemprop="url">Hexo+ Next主题 增加Valine评论</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-05-07 12:39:57 / Modified: 13:03:14" itemprop="dateCreated datePublished" datetime="2018-05-07T12:39:57+08:00">2018-05-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo+ Next主题 增加Valine评论" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/05/07/20180507_hexo%E8%AF%84%E8%AE%BA/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>想在自己的Hexo博客上加个评论功能。Hexo是个基于node.js静态博客系统，可以利用github page发布个人博客。这类博客系统添加评论系统，都是通过增加一个js代码，将评论信息提交到后台存储起来。（怎么调动回来的？？）</p>
-<p>网上搜了一下，发现有很多的备选方案，选择了最简单的Valine。还有gitcomment是基于github issue系统保存评论数据，但需要github账号登录。（github issue怎么用？？Oauth是什么？）</p>
-<p>Valine需要在LeanCloud上注册一个账号，所有的数据会保存在LeanCloud上。</p>
-<p>在什么地方添加Valine的js代码呢？网上很多文章是说新版的NeXT已经添加了Valine的功能，只要修改配置就可以了，但是想多了解一些Hexo和Next主题的内部机制，所以想自己动手修改。代码看的很费劲，Hexo基于node.js用到了很多Node提供的全局对象，而且又做了很多的概念抽象，代码看起来一点都不容易。主题的代码也是懵逼，里面全是.swig结尾的文件，后来才知道是一个模板引擎的文件后缀。</p>
-<p>最后终于找到一篇文章说，主题渲染的入口是_layout.swig文件，Hexo会根据source目录下的所有md文件，使用特定的模板进行渲染，默认使用post.swig文件进行渲染。所谓渲染，我的理解就是进行各种生成和替换，最终生成一个静态HTML。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Valine(&#123;</span><br><span class="line">    el: <span class="string">'#comment'</span> ,</span><br><span class="line">    notify:<span class="literal">false</span>, </span><br><span class="line">    verify:<span class="literal">false</span>, </span><br><span class="line">    appId: <span class="string">'这里填上面获得的appid'</span>,</span><br><span class="line">    appKey: <span class="string">'这里填上面获得的appkey'</span>,</span><br><span class="line">    placeholder: <span class="string">'just go go'</span>,</span><br><span class="line">    path:<span class="built_in">window</span>.location.pathname, </span><br><span class="line">    avatar:<span class="string">'mm'</span> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>就是把这样一短代码加入到post.swig中，就可以展示评论输入框了。调试的时候差了一点，还需要去LeanCloud上建一个Comment类，这时Valine就可以提交代码了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1246,7 +1246,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -165,6 +165,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" class="post-title-link" itemprop="url">Node.js 简单笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-09-27 14:31:22 / Modified: 14:31:57" itemprop="dateCreated datePublished" datetime="2017-09-27T14:31:22+08:00">2017-09-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" class="post-meta-item leancloud_visitors" data-flag-title="Node.js 简单笔记" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Node.js是2009年一个美国自由职业者开发的，这哥们现在去了Google Brain，玩神经网络去了。</p>
+<p>Node主要是利用chrome V8强大的能力，执行js代码，然后加上异步IO的机制，可以实现用javascript写后台server。以前我一直以为server都得是C++写，现在才明白有个HTTP协议，加上一套框架，不就是传递数据么，没有什么高级和低级，就有高效和低效。</p>
+<p>node写一个简单的server很容易</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>)</span>&#123;</span><br><span class="line">  response.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span>:<span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  response.write(<span class="string">'Hello world'</span>);</span><br><span class="line">  response.end();</span><br><span class="line">&#125;</span><br><span class="line">http.createServer(onRequest).listen(<span class="number">8000</span>);</span><br></pre></td></tr></table></figure>
+<p>通过引入一个内置的核心模块http，就可以启动一个server，这个和python里面的方式也挺像的。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/22/20170923_vue%E8%A1%A8%E5%8D%95_10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1046,106 +1146,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" class="post-title-link" itemprop="url">Javascript的对象</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-13 10:39:03 / Modified: 16:37:38" itemprop="dateCreated datePublished" datetime="2017-09-13T10:39:03+08:00">2017-09-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" class="post-meta-item leancloud_visitors" data-flag-title="Javascript的对象" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Javascript的对象"><a class="header-anchor" href="#Javascript的对象"> </a>Javascript的对象</h3>
-<p>在JS中也有对象，但是就是感觉怪异。他的对象看上去就是一个map</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bmiCalc = &#123;</span><br><span class="line">  height : <span class="number">1.80</span>,</span><br><span class="line">  weight : <span class="number">68</span>,</span><br><span class="line">  bmi : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.weight/(<span class="keyword">this</span>.height*<span class="keyword">this</span>.height));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>想想可能也对，一个对象最重要的不就是属性么？相同类的不同实例对象，不就是属性不同么。我感觉js的对象一定是后加上的特性，估计在最初设计这门语言时，其实并没有对象的这个概念，而是后来加上的。现在js的属性不仅仅可以是内置数据类型，比如整形，字符串，也还能是对象，甚至是函数。因为javascript里面有个匿名函数的概念，匿名函数就是一个函数，但是没有名字，我想可能就是一个指针，然后赋值给一个变量，然后通过变量加括号，来调用函数。也许想的不对，主要是关于开发一门语言所用的编译原理还是不能掌握，后面慢慢学。</p>
-<p>接着说对象，如果一个js对象的某个属性是函数，那这个属性就成了方法，比如做个BMI测算。内部方法如果要使用属性（以前不都是叫成员变量么，妈的，世界为啥变化这么快）需要使用this，js里面的this还比较麻烦，他的this和java,C++这样的语言不一样，这篇文章<a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/" target="_blank" rel="noopener">深入浅出 JavaScript 中的 this</a>讲的还不错。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/13/20170913_Javascript%E5%AF%B9%E8%B1%A1_1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1215,7 +1215,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
