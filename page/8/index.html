@@ -165,6 +165,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/12/20171212_%E4%B8%A4%E7%AF%87%E5%85%B3%E4%BA%8EWSGI%E5%92%8CWeb%20Framework%E7%9A%84%E6%96%87%E7%AB%A0_23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/12/20171212_%E4%B8%A4%E7%AF%87%E5%85%B3%E4%BA%8EWSGI%E5%92%8CWeb%20Framework%E7%9A%84%E6%96%87%E7%AB%A0_23/" class="post-title-link" itemprop="url">推荐WSGI和Web Framework的推荐文档</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-12 14:57:01" itemprop="dateCreated datePublished" datetime="2017-12-12T14:57:01+08:00">2017-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-12-13 16:38:38" itemprop="dateModified" datetime="2017-12-13T16:38:38+08:00">2017-12-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/12/12/20171212_%E4%B8%A4%E7%AF%87%E5%85%B3%E4%BA%8EWSGI%E5%92%8CWeb%20Framework%E7%9A%84%E6%96%87%E7%AB%A0_23/" class="post-meta-item leancloud_visitors" data-flag-title="推荐WSGI和Web Framework的推荐文档" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/12/12/20171212_%E4%B8%A4%E7%AF%87%E5%85%B3%E4%BA%8EWSGI%E5%92%8CWeb%20Framework%E7%9A%84%E6%96%87%E7%AB%A0_23/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/12/20171212_%E4%B8%A4%E7%AF%87%E5%85%B3%E4%BA%8EWSGI%E5%92%8CWeb%20Framework%E7%9A%84%E6%96%87%E7%AB%A0_23/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://www.toptal.com/python/pythons-wsgi-server-application-interface" target="_blank" rel="noopener">《WSGI: The Server-Application Interface for Python 》</a>这篇文章是我喜欢的那种套路，按时间进程交代技术眼花的过程。他讲到1993年，web开始兴起，但是都是静态页面。随后大牛在NCSA HTTPd（apache 前身）实现了CGI。从那之后，网上的内容都是动态网站了，互联网用户也大幅增长。</p>
+<p>但CGI有很多问题，随后大牛们又实现了FastCGI(1996)和mod_python(2000)。在2003年，又提出了PEP-3333实现WSGI，是个高层抽象，统一的接口。</p>
+<p>WSGI对应用的要求就是要有一个接口能接受<code>environ</code>和<code>start_response</code>两个参数。而且能够返回一个iterable的body。</p>
+<p>另外一篇是<a href="https://jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/" target="_blank" rel="noopener">《https://jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/》</a>  <a href="http://cizixs.com/2015/09/21/what-is-a-web-framework" target="_blank" rel="noopener">中文版在这</a></p>
+<p>比较清晰解释了WebFramework的主要功能，现在web框架这么多，其实核心功能也就是这些了。</p>
+<p>首先要处理好HTTP协议的请求与应答。HTTP协议中主要的请求类型包括GET, POST, ，应答也是有固定套路的。这些都可以由框架完成。</p>
+<p>然后框架要处理好URL路由(routing)和模板(template)的问题，这样可以比较从容的对不同URL生成不同的页面。同时在配合一个ORM，这样就能写很多web应用了。大体上，都是使用MVC这个总的模式。</p>
+<p>web框架是不是要做好这几件事情：</p>
+<ol>
+<li>HTTP消息接受和发送</li>
+<li>URL的路由，根据url能够调用对应页面函数</li>
+<li>模板引擎，能够高效，简介的动态生成页面</li>
+<li>ORM，能够方便的访问数据库</li>
+<li>其他关于cookie, session, 表单验证, 都属于额外的附加功能。</li>
+</ol>
+<p>也就说其实理论就那么一点，只是很繁琐，框架的目的就是为了提高开发效率，但是如果要使用好框架，首先非常清楚工作原理，最好能够理解框架实现细节。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/07/20171207_Flask%E6%96%87%E6%A1%A3%E7%AC%94%E8%AE%B0-%E8%93%9D%E5%9B%BE(Blueprint)_22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1091,94 +1201,6 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-%E8%AF%BE%E7%A8%8B%E8%A7%86%E9%A2%91%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD_14/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-%E8%AF%BE%E7%A8%8B%E8%A7%86%E9%A2%91%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD_14/" class="post-title-link" itemprop="url">Bootstrap 4 From Scratch With 5 Projects 课程视频免费下载</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-10-01 13:40:23 / Modified: 14:02:59" itemprop="dateCreated datePublished" datetime="2017-10-01T13:40:23+08:00">2017-10-01</time>
-            </span>
-
-          
-            <span id="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-%E8%AF%BE%E7%A8%8B%E8%A7%86%E9%A2%91%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD_14/" class="post-meta-item leancloud_visitors" data-flag-title="Bootstrap 4 From Scratch With 5 Projects 课程视频免费下载" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-%E8%AF%BE%E7%A8%8B%E8%A7%86%E9%A2%91%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD_14/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/01/20171001_Bootstrap-4-From-Scratch-With-5-Projects-%E8%AF%BE%E7%A8%8B%E8%A7%86%E9%A2%91%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD_14/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>《Bootstrap 4 From Scratch With 5 Projects》是一位Youtube上的讲师开发的关于bootstrap的课程。他的课程基本都很容易懂，我已经订阅了他的<a href="https://www.youtube.com/user/TechGuyWeb" target="_blank" rel="noopener">频道</a>。</p>
-<p>他最近开发了一门课程是关于Bootstrap4的，并且放到了<a href="https://www.udemy.com/bootstrap-4-from-scratch-with-5-projects/" target="_blank" rel="noopener">Udemy</a>上，可是价格太贵了，人民币要1800元，如果是100元我都愿意花钱买，可是1800实在承受不起了。于是通过各种方法终于找到了全部课程视频，我想把这个视频分享给各位。</p>
-
-
-<video src='http://www.wliang.me/mov/01%20Intro%20%26%20Getting%20Started/1_Welcome%20To%20The%20Course.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
-</video>
-
-
-<p>如果需要全部视频的话可以加我微信.</p>
-<img src='/images/wx.jpg' style='zoom:30%'>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1248,7 +1270,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1261,7 +1283,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
