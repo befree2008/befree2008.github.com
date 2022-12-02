@@ -165,6 +165,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/22/20191122_process/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/22/20191122_process/" class="post-title-link" itemprop="url">操作系统进程管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-22 08:44:54" itemprop="dateCreated datePublished" datetime="2019-11-22T08:44:54+08:00">2019-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-28 15:49:30" itemprop="dateModified" datetime="2019-11-28T15:49:30+08:00">2019-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/11/22/20191122_process/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统进程管理" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/22/20191122_process/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/20191122_process/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>内核线程</p>
+<p>当bios把os的内核代码从磁盘上加载到内存， os完成内存初始化后，就可以开始执行各种函数进行工作了，单片机就是到这一步，后续执行自身的代码逻辑。而os是给通用计算用的，他需要加载用户程序，所以还不能这么简单的处理。单片机的模式是传感器-&gt;cpu/软件逻辑-&gt;执行机构，计算机的模式是输入-&gt;cpu/软件-&gt;人。计算机的输出，驱动的是人，而不是步进马达。</p>
+<p>os在加载用户进程前，还要先创建一些必要的内核线程。这些线程也会和用户进程一起参与调度。为了能让多个线程，并发执行，os需要设计一套机制，能够让多个线程、进程共存和切换。这套机制中会有很多复杂的数据结构，会利用栈，会利用很多寄存器。</p>
+<p>内核之所以能够切换这些线程或进程，是通过切换相关寄存器来实现的，比如切换eip，代码执行位置就变了，切换esp,ebp，进程的栈就变了。所以，切换前要保护现场，就是要找块内存记录下这些值。这些值是PCB进程控制块的一个成员叫context，context保存了8个寄存器。</p>
+<p>内核把当前执行线，封装为主线程，叫idle_proc，实际上他只是做调度。</p>
+<p>idle_proc创建了init_main这个内核线程，init_main创建了user_main，启动用户shell。然后init_main就进入wait状态，然后也是反复执行schedule()。</p>
+<p>内核线程会通过调用schedule()，主动放弃cpu，换句话说，就是用户进程没法通过时钟中断抢到cpu。而用户进程时间片一到就会被os强制放弃cpu。</p>
+<p>用户进程</p>
+<h5 id="加载用户进程"><a class="header-anchor" href="#加载用户进程"> </a>加载用户进程</h5>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/20/20191120_os2_mm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1120,122 +1223,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/12/14/20181214_objectdetction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/14/20181214_objectdetction/" class="post-title-link" itemprop="url">目标检测学习笔记(一)_RCNN系列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-12-14 08:35:33 / Modified: 11:22:55" itemprop="dateCreated datePublished" datetime="2018-12-14T08:35:33+08:00">2018-12-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/12/14/20181214_objectdetction/" class="post-meta-item leancloud_visitors" data-flag-title="目标检测学习笔记(一)_RCNN系列" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/12/14/20181214_objectdetction/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/20181214_objectdetction/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="目标检测"><a class="header-anchor" href="#目标检测"> </a>目标检测</h2>
-<p>CNN在图像识别的任务上非常成功，人们就开始研究更难的任务，目标检测。最直观的想法就是用一个滑动窗口在图片上截取N多小图，然后送进CNN进行分类判断，就能检测出物体。这里的问题是框框太多，计算速度太慢。</p>
-<p><img src="http://static.aixpaper.com/wl/sw.png" alt=""></p>
-<p>因为滑动窗口截图的方式过于简单粗暴，人们又提出了<a href="http://aixpaper.com/view/selective_search_for_object_recognition" target="_blank" rel="noopener"><strong>Selective Search</strong></a>算法。根据像素区域的色彩、纹理找出一些可能感兴趣的区域（<strong>regions of interest</strong> ROI），这样可以节省很多计算量。</p>
-<h3 id="RCNN"><a class="header-anchor" href="#RCNN"> </a>RCNN</h3>
-<p>有了SS算法，加上CNN，大牛Ross Girshick在2014年提出<a href="http://aixpaper.com/view/rich_feature_hierarchies_for_accurate_object_detection_and_semantic_segmentation" target="_blank" rel="noopener">RCNN目标检测算法</a>。思路也挺直观，就是SS算法选区域，然后把小图片缩放成相同尺寸进入CNN，得到特征向量，然后分别进行类别判断和bbox的调整。</p>
-<p><img src="http://static.aixpaper.com/wl/rcnn.png" alt="rcnn"></p>
-<h3 id="Fast-RCNN"><a class="header-anchor" href="#Fast-RCNN"> </a>Fast-RCNN</h3>
-<p>RCNN在ROI选择上使用了SS算法，但需要进行多次的CNN计算，整体的检测速度还是很慢。所以还是Ross Girshick在2015年又整出来<a href="http://aixpaper.com/view/fast_rcnn" target="_blank" rel="noopener">Fast-RCNN目标检测算法</a>。所谓Fast就是减少CNN计算次数。先把图片送入CNN得到Feature Map，然后根据ROI的坐标，直接在Feature Map上截取特征值，然后在进行后续的分类和边框回归。</p>
-<p><img src="http://static.aixpaper.com/wl/fastrcnn.png" alt="fast rcnn"></p>
-<h4 id="RoI-Pooling"><a class="header-anchor" href="#RoI-Pooling"> </a>RoI Pooling</h4>
-<p>Fast Rcnn新增了RoIPooling层。由于最后的分类和边框回归是全连接层，需要输入向量的大小是确定且统一的。RoI的框框是大小不一的，原始RCNN是截取原图，把小图进行缩放，可以得到相同大小的特征向量。但是使用RoI从FeatureMap上截取出来的特征向量，是没法缩放的。于是rgb就提出了RoI Pooling。</p>
-<p>Pooling这个词翻译成池化。Max Pooling, Average Pooling，或者是RoI Pooling都翻译成池化，“池化”这是什么鬼，这绝对是狗屎翻译。Pooling这个词是有<strong>共用，合并</strong>的意思的。“池化”这样的翻译，会让人很难理解。</p>
-<p>继续说RoI Pooling，RoIPooling的主要思想就是把大小不一的特征向量，变成统一的大小，他在原向量上，划分成固定的M*N份，然后每份做Max Pooling，得到最终统一的一个特征向量。下面这个动图，还是解释的很清楚的。</p>
-<p><img src="http://static.aixpaper.com/wl/roi_pooling.gif" alt="roi pooling"></p>
-<h3 id="Faster-RCNN"><a class="header-anchor" href="#Faster-RCNN"> </a>Faster-RCNN</h3>
-<p>Fast-RCNN算法提取的检测区域，还是使用SS算法，这个算法因为没法利用GPU，所以这个框架还是比较慢。于是这位大牛Ross Girshick在2015年又提出了<a href="http://aixpaper.com/view/faster_rcnn_towards_realtime_object_detection_with_region_proposal_networks" target="_blank" rel="noopener">Faster-RCNN目标检测算法</a>。</p>
-<p><img src="http://static.aixpaper.com/wl/fasterrcnn.jpeg" alt="faster rcnn"></p>
-<h4 id="Region-proposal-network"><a class="header-anchor" href="#Region-proposal-network"> </a>Region proposal network</h4>
-<p>Faster-RCNN的主要改进是把Selective Search算法替换成一个NN模块，取名叫<strong>Region proposal network</strong>。我理解RPN就是GPU版本的滑动窗口算法。还记得最早目标检测的方法么，用各种尺寸的框框遍历整张图片，然后把截取出来的小图进行分类判断。RPN其实也差不多，只是这次用默认的大小的边框，截取图片的FeatureMap，然后判断在这个框框中是否有物体，他们管这个预先设定的边框叫anchor。</p>
-<p><img src="http://static.aixpaper.com/wl/rpn.jpeg" alt="rpn"></p>
-<p>对FeatureMap上的每个点都进行一次小型CNN计算，可能是ZF或VGG16之类的网络，然后得出2k个数值，k表示有几个默认框(anchor)，每个anchor得到两个值，对这两个值做softmax就能知道在这个位置上，对应的边框里是否有待检测的目标了。如果有目标，则用Roi的坐标值去截取FeatureMap，做最后的分类和回归。</p>
-<p>至此，一个相对完整的目标检测网络框架就基本成型了。当然如果看代码，还是会有很多细节。比如在训练过程中的Target Building，Inference时的NMS(非极大值抑制)，还有就是GPU上BBox的IoU计算，都是技巧性非常强的代码，值得仔细学习一下。但不管怎样，整体的框架就是这样了。总算是比之前更清楚一点了：）</p>
-<p>有意思的地方是，Faster Rcnn论文的作者中有大神KaimingHe，而且那时他们都是在微软工作。同年年底KaimingHe发了ResNet的论文。随后在2016，2017也是这两位再发的ResNeXt，FPN，以及Mask RCNN就都是在Fackbook工作了。在2016年FAIR推出了PyTorch，2018年初又推出Detectron。在物体识别和目标检测上，估计Fackbook可以碾压任何对手了。不知道此刻，微软的心理阴影面积有多大。虽然不能近距离接触大神，看看他们的变化也挺有戏剧性的。</p>
-<p>参考文档：</p>
-<p>1，<a href="https://medium.com/@jonathan_hui/what-do-we-learn-from-region-based-object-detectors-faster-r-cnn-r-fcn-fpn-7e354377a7c9" target="_blank" rel="noopener">What do we learn from region based object detectors</a></p>
-<p>2，<a href="http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/" target="_blank" rel="noopener">Object Detection and Classification using R-CNNs</a></p>
-<p>3，<a href="https://deepsense.ai/region-of-interest-pooling-explained/" target="_blank" rel="noopener">https://deepsense.ai/region-of-interest-pooling-explained/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1305,7 +1292,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1318,7 +1305,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
