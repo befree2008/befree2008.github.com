@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="内核线程 当bios把os的内核代码从磁盘上加载到内存， os完成内存初始化后，就可以开始执行各种函数进行工作了，单片机就是到这一步，后续执行自身的代码逻辑。而os是给通用计算用的，他需要加载用户程序，所以还不能这么简单的处理。单片机的模式是传感器-&gt;cpu&#x2F;软件逻辑-&gt;执行机构，计算机的模式是输入-&gt;cpu&#x2F;软件-&gt;人。计算机的输出，驱动的是人，而不是步进马达。 os在加">
+  <meta name="description" content="程序员35岁危机真实存在吗？ 程序员35岁危机真的存在么？是的，目前这种情况真实存在，裁员会首先向高龄程序员下手。如果，你遭遇35岁危机，或者为此而焦虑，那么要恭喜你，说明你目前薪资待遇非常高。这证明你是个上进的人，是个优秀的人。如果一个程序员已经35岁，仍然1,2w月薪，那就没有危机了。大不了换份工作。 造成35岁危机的原因是什么呢？  不敢表达  明明心里有更好的方案，就是不敢当众说出来，怕同">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统进程管理">
-<meta property="og:url" content="http://www.wliang.me/2019/11/22/20191122_process/index.html">
+<meta property="og:title" content="200天代码计划">
+<meta property="og:url" content="http://www.wliang.me/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="内核线程 当bios把os的内核代码从磁盘上加载到内存， os完成内存初始化后，就可以开始执行各种函数进行工作了，单片机就是到这一步，后续执行自身的代码逻辑。而os是给通用计算用的，他需要加载用户程序，所以还不能这么简单的处理。单片机的模式是传感器-&gt;cpu&#x2F;软件逻辑-&gt;执行机构，计算机的模式是输入-&gt;cpu&#x2F;软件-&gt;人。计算机的输出，驱动的是人，而不是步进马达。 os在加">
-<meta property="article:published_time" content="2019-11-22T00:44:54.188Z">
-<meta property="article:modified_time" content="2019-11-28T07:49:30.384Z">
+<meta property="og:description" content="程序员35岁危机真实存在吗？ 程序员35岁危机真的存在么？是的，目前这种情况真实存在，裁员会首先向高龄程序员下手。如果，你遭遇35岁危机，或者为此而焦虑，那么要恭喜你，说明你目前薪资待遇非常高。这证明你是个上进的人，是个优秀的人。如果一个程序员已经35岁，仍然1,2w月薪，那就没有危机了。大不了换份工作。 造成35岁危机的原因是什么呢？  不敢表达  明明心里有更好的方案，就是不敢当众说出来，怕同">
+<meta property="article:published_time" content="2022-12-10T07:12:21.714Z">
+<meta property="article:modified_time" content="2022-12-15T03:56:14.588Z">
 <meta property="article:author" content="Befree">
-<meta property="article:tag" content="os">
+<meta property="article:tag" content="200天">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.wliang.me/2019/11/22/20191122_process/">
+<link rel="canonical" href="http://www.wliang.me/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>操作系统进程管理 | 天一阁</title>
+  <title>200天代码计划 | 天一阁</title>
   
 
 
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2019/11/22/20191122_process/">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          操作系统进程管理
+          200天代码计划
         </h1>
 
         <div class="post-meta">
@@ -192,14 +192,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-11-22 08:44:54" itemprop="dateCreated datePublished" datetime="2019-11-22T08:44:54+08:00">2019-11-22</time>
+              <time title="Created: 2022-12-10 15:12:21" itemprop="dateCreated datePublished" datetime="2022-12-10T15:12:21+08:00">2022-12-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-28 15:49:30" itemprop="dateModified" datetime="2019-11-28T15:49:30+08:00">2019-11-28</time>
+                <time title="Modified: 2022-12-15 11:56:14" itemprop="dateModified" datetime="2022-12-15T11:56:14+08:00">2022-12-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,7 +212,7 @@
             </span>
 
           
-            <span id="/2019/11/22/20191122_process/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统进程管理" title="Views">
+            <span id="/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/" class="post-meta-item leancloud_visitors" data-flag-title="200天代码计划" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -227,8 +227,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/11/22/20191122_process/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/20191122_process/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/10/20221210_%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%81%E5%8D%B1%E6%9C%BA%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -243,15 +243,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>内核线程</p>
-<p>当bios把os的内核代码从磁盘上加载到内存， os完成内存初始化后，就可以开始执行各种函数进行工作了，单片机就是到这一步，后续执行自身的代码逻辑。而os是给通用计算用的，他需要加载用户程序，所以还不能这么简单的处理。单片机的模式是传感器-&gt;cpu/软件逻辑-&gt;执行机构，计算机的模式是输入-&gt;cpu/软件-&gt;人。计算机的输出，驱动的是人，而不是步进马达。</p>
-<p>os在加载用户进程前，还要先创建一些必要的内核线程。这些线程也会和用户进程一起参与调度。为了能让多个线程，并发执行，os需要设计一套机制，能够让多个线程、进程共存和切换。这套机制中会有很多复杂的数据结构，会利用栈，会利用很多寄存器。</p>
-<p>内核之所以能够切换这些线程或进程，是通过切换相关寄存器来实现的，比如切换eip，代码执行位置就变了，切换esp,ebp，进程的栈就变了。所以，切换前要保护现场，就是要找块内存记录下这些值。这些值是PCB进程控制块的一个成员叫context，context保存了8个寄存器。</p>
-<p>内核把当前执行线，封装为主线程，叫idle_proc，实际上他只是做调度。</p>
-<p>idle_proc创建了init_main这个内核线程，init_main创建了user_main，启动用户shell。然后init_main就进入wait状态，然后也是反复执行schedule()。</p>
-<p>内核线程会通过调用schedule()，主动放弃cpu，换句话说，就是用户进程没法通过时钟中断抢到cpu。而用户进程时间片一到就会被os强制放弃cpu。</p>
-<p>用户进程</p>
-<h5 id="加载用户进程"><a class="header-anchor" href="#加载用户进程"> </a>加载用户进程</h5>
+        <p>程序员35岁危机真实存在吗？</p>
+<p>程序员35岁危机真的存在么？是的，目前这种情况真实存在，裁员会首先向高龄程序员下手。如果，你遭遇35岁危机，或者为此而焦虑，那么要恭喜你，说明你目前薪资待遇非常高。这证明你是个上进的人，是个优秀的人。如果一个程序员已经35岁，仍然1,2w月薪，那就没有危机了。大不了换份工作。</p>
+<p>造成35岁危机的原因是什么呢？</p>
+<ol>
+<li>不敢表达</li>
+</ol>
+<p>明明心里有更好的方案，就是不敢当众说出来，怕同事笑话、自己出丑，又怕多说多错，祸从口出。在电梯里见到领导，低头装没看见，电梯一开门从旁边就溜走了。于是渐渐的变得透明，变成了只会执行指令的工具人。</p>
+<ol start="2">
+<li>不敢最求最佳实践</li>
+</ol>
+<p>程序员有时过于谦虚，妄自菲薄，总是觉得自己的东西没啥了不起，不过就是CRUD，Ctrl+CV。面向google编程而已。有这样的心态，就会有这样的语言，就会给别人留下这样的印象。长期如此，领导和同事就真认为你可有可无。</p>
+<ol start="3">
+<li>行业见顶</li>
+</ol>
+<p>高薪程序员大多集中在互联网行业。流量见顶，反垄断，去金融化，确实让这个行业面临调整。敢吃肉就别怕挨打。毕竟前面几年大家也都挣了不少。</p>
+<p>面对这样的危机怎么破呢？其实方法也简单，就是反着操作就可以了。</p>
+<ol>
+<li>
+<p>争取一切机会表现自己。无论是技术方案，产品方案，都要认真思考，并有理有据的大声讲出自己的观点。只有不停的让领导看到你的能力，你就是人才。人才不会受年龄限制的。</p>
+</li>
+<li>
+<p>敢于对标行业内的最佳实践。找行业内或者公司内同样的业务，看看哪家做的最好，谁的解决方案性能最佳，可维护性最高，就拜谁为师，从头学到脚。先模仿，再超越。随时准备好“取而代之”。要敢于定下目标，把自己的解决方案变成行业的最佳实践。</p>
+</li>
+<li>
+<p>拓宽视野，不要只局限互联网行业。未来每家公司都是互联网公司。像传统行业，如金融业，制造业都需要大量的软件开发人员。还可以看看新行业，比如新能源，智能汽车，这些朝阳行业未来都有很大发展潜力。</p>
+</li>
+</ol>
 
     </div>
 
@@ -261,7 +279,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/os/" rel="tag"># os</a>
+              <a href="/tags/200%E5%A4%A9/" rel="tag"># 200天</a>
           </div>
 
         
@@ -270,13 +288,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/11/20/20191120_os2_mm/" rel="prev" title="操作系统内存管理">
-      <i class="fa fa-chevron-left"></i> 操作系统内存管理
+    <a href="/2022/12/02/20221202_%E5%86%99%E4%BD%9C%E9%94%BB%E7%82%BC%E6%80%9D%E8%80%83/" rel="prev" title="写作能够提高深度思考的能力">
+      <i class="fa fa-chevron-left"></i> 写作能够提高深度思考的能力
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/11/26/20191126_fs/" rel="next" title="操作系统文件系统">
-      操作系统文件系统 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -336,7 +351,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#加载用户进程"><span class="nav-number">1.</span> <span class="nav-text">加载用户进程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

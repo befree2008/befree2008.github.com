@@ -165,6 +165,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/06/22/20220622_js%20promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/22/20220622_js%20promise/" class="post-title-link" itemprop="url">Promise,async/await 异步调用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-06-22 20:57:19" itemprop="dateCreated datePublished" datetime="2022-06-22T20:57:19+08:00">2022-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 16:20:22" itemprop="dateModified" datetime="2022-06-23T16:20:22+08:00">2022-06-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/06/22/20220622_js%20promise/" class="post-meta-item leancloud_visitors" data-flag-title="Promise,async/await 异步调用" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/06/22/20220622_js%20promise/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/22/20220622_js%20promise/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Javascript单线程，同步执行的语言。早期只是简单处理静态数据，这没问题。但是后来越来越多需要js去访问网络，所以需要一种异步机制。于是有了很多非阻塞，依赖Event Loop的web api可以实现异步。但这种web api需要写很多callback函数。</p>
+<p>但是callback层级一旦多了以后，代码变得不可读，不可维护，于是ES6就给出Promise的异步方案</p>
+<h5 id="Promise"><a class="header-anchor" href="#Promise"> </a>Promise</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">resolveFunc, rejectFunc</span>) </span>&#123;   </span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> resolveFunc(<span class="number">1</span>), <span class="number">1000</span>); <span class="comment">// (*) </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleResult</span>(<span class="params">resp</span>) </span>&#123; <span class="comment">// (**) </span></span><br><span class="line">  <span class="built_in">console</span>.log(resp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(executor).then(handleResult)</span><br></pre></td></tr></table></figure>
+<p>Promise可以看成是一个类，他生成的对象可以在未来把异步操作的结果返回回来。他实现了callback相同的功能，但包含了新特性，而且有更具可读性的语法。很多Web API实际上就是返回一个Promise对象。</p>
+<p>Promise通过new语法生成一个包含状态和结果的对象。创建对象时，需要传入一个函数，就是那个耗时的函数，这个函数需要有两个参数，分别表示成功和失败后的操作，这两个函数<code>resolve</code>,<code>reject</code>是Promise提供，只需要在<code>executor</code>中正确调用即可。</p>
+<p>Promise对象通过<code>.then()</code>来绑定一个结果处理函数，当Promise对象已经resolve的时候，在<code>then()</code>登记的函数就会被执行，内部是通过MicroQueue实现的。<code>then()</code>函数把resolve收到的参数，传给<code>handleRequest</code>来处理。</p>
+<p>很多WebAPI返回的就是Promise对象，所以不需要自己去new，只需要好好处理<code>then()</code>就可以了，比如fetch API。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fetch a user from the GitHub API</span></span><br><span class="line">fetch(<span class="string">'https://api.github.com/users'</span>)</span><br><span class="line">  .then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="Async-Await"><a class="header-anchor" href="#Async-Await"> </a>Async/Await</h5>
+<p>Promise的好处就是去掉了callback嵌套，但是还是把代码分成了两块。ES7又提出async和await关键字。</p>
+<p>通过async可以把普通函数变成异步函数，就是就是把这个函数当做executor放到一个Promise对象里面，然后返回一个Promise对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这是一个异步函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在异步函数中，你可以在调用一个返回 Promise 的函数之前使用 await 关键字。这使得代码在该点上等待，直到 Promise 被完成，这时 Promise 的响应被当作返回值，或者被拒绝的响应被作为错误抛出。</p>
+<ol>
+<li>async可以把普通函数变成异步函数，返回值是一个promise</li>
+<li>加了async后，想获得函数的返回值，必须通过<code>.then()</code>语句</li>
+<li>在async函数中，可以使用await。await只能在async函数中使用</li>
+<li>通过使用await，相当于代码一直同步等到异步API返回值以后，代码再继续运行。或者说通过await，避免了<code>.then()</code>的链式调用</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/06/22/20220622_js%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1114,173 +1228,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/12/30/20211230_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/30/20211230_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">非形式谬误</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-30 08:22:23 / Modified: 18:03:02" itemprop="dateCreated datePublished" datetime="2021-12-30T08:22:23+08:00">2021-12-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index"><span itemprop="name">个人成长</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2021/12/30/20211230_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="非形式谬误" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/12/30/20211230_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/20211230_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="非形式谬误"><a class="header-anchor" href="#非形式谬误"> </a>非形式谬误</h3>
-<p>现实生活的论证中，导致谬误产生的三个因素：(1)论证者的动机，(2)粗心大意与不受约束的情感，(3)在论证者的世界观中存在未经检验的预设。</p>
-<h4 id="关联性谬误"><a class="header-anchor" href="#关联性谬误"> </a>关联性谬误</h4>
-<p>共同特征是前提和结论在逻辑上不相关，而前提和结论在心理上关联。披着逻辑的外衣，利用人们的心理弱点，达到目的。</p>
-<ul>
-<li>
-<p>诉诸强力，论证者威胁听众。“强权既公理”，威胁</p>
-</li>
-<li>
-<p>诉诸怜悯，论证者博取同情。“我穷我光荣”</p>
-</li>
-<li>
-<p>诉诸公众，利用人们心理弱点</p>
-<ul>
-<li>每个人都希望得到他人的爱、尊重、赞赏、重视、承认、接受。诉诸公众利用这些愿望使读者接受结论。eg:“听懂掌声”</li>
-<li>利用恐惧感</li>
-<li>间接
-<ul>
-<li>诉诸时尚</li>
-<li>诉诸虚荣</li>
-<li>诉诸势力</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>人身攻击，“对人不对事”</p>
-<ul>
-<li>毁谤：言辞上的毁谤</li>
-<li>处境式攻击：指责其他论者别有用心</li>
-<li>反唇相讥：指责其他论证者虚伪。“你行你上”</li>
-</ul>
-</li>
-<li>
-<p>偶性谬误：把一般性规则应用于他所不适用的特殊事例中，产生偶性谬误。“需要具体问题具体分析”</p>
-</li>
-<li>
-<p>稻草人谬误：先歪曲论证，驳倒歪曲后的论证。“树靶子”</p>
-</li>
-<li>
-<p>错失主旨：从前提推不出结论，给结论找的证据，找错了。“扣帽子”，“推极端”</p>
-</li>
-<li>
-<p>红色鲱鱼：转变议论主题。“转移话题”</p>
-</li>
-</ul>
-<h4 id="弱归纳谬误"><a class="header-anchor" href="#弱归纳谬误"> </a>弱归纳谬误</h4>
-<p>前提不足以对结论提供有力的支持，但是掺杂了情感进来，就容易被人相信</p>
-<ul>
-<li>诉诸不胜任的权威</li>
-<li>诉诸无知：利用无法证明，或没有被证明的事情当做前提， 推导的结论不可靠</li>
-<li>轻率概括：样本太少，或者不够随机，或者不具有代表性</li>
-<li>假因果
-<ul>
-<li>以时间先后为因果。eg：迷信</li>
-<li>因果倒置</li>
-<li>单因谬误</li>
-</ul>
-</li>
-<li>滑坡的谬误：依靠不可能发生的连锁反应而得出结论</li>
-<li>弱类比：非关键属性的类推</li>
-</ul>
-<h4 id="预先假设"><a class="header-anchor" href="#预先假设"> </a>预先假设</h4>
-<ul>
-<li>乞求论题：利用隐藏的假的前提，制造错觉。把结论放在前提里再进行论者。</li>
-<li>复合提问：“先问是不是，再问为什么”</li>
-<li>假二择一：制造错觉，提供仅有的选择，让你无从选择。</li>
-<li>掩盖论据：不讲事实全部</li>
-</ul>
-<h4 id="含糊不清"><a class="header-anchor" href="#含糊不清"> </a>含糊不清</h4>
-<ul>
-<li>偷换概念：</li>
-<li>模糊（歧义）：可以有两种解释，“其中3位教授发表了5篇文章”</li>
-</ul>
-<h4 id="语法类比谬误"><a class="header-anchor" href="#语法类比谬误"> </a>语法类比谬误</h4>
-<ul>
-<li>合成：把部分的属性，不合理的传递给了全部。</li>
-<li>分解：“合成”的逆运算</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1350,7 +1297,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
