@@ -165,6 +165,98 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/06/24/20220624_js%20new%20Function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/24/20220624_js%20new%20Function/" class="post-title-link" itemprop="url">Javascript new Function</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-24 09:11:43 / Modified: 11:00:04" itemprop="dateCreated datePublished" datetime="2022-06-24T09:11:43+08:00">2022-06-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/06/24/20220624_js%20new%20Function/" class="post-meta-item leancloud_visitors" data-flag-title="Javascript new Function" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/06/24/20220624_js%20new%20Function/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/24/20220624_js%20new%20Function/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Javascript中，函数被称为函数对象，就是可以把函数看成是一个某个类创建的实例对象，他可以有属性和方法，可以保存在数组中，可以做为参数传入其他函数，可以作为函数返回值。和其他对象的区别，主要在于函数对象可以被执行。</p>
+<p>函数还可以这样写。通过new语句，new一个Function对象出来，把函数体作为字符串传入。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> body = <span class="string">"return Math.PI * radius * radius"</span>;</span><br><span class="line"><span class="keyword">var</span> circle = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"radius"</span>, body);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(circle(<span class="number">5</span>));          <span class="comment">// =&gt; 78.5398..</span></span><br></pre></td></tr></table></figure>
+<p>这可能就是解释型语言的好处，可以把字符串变成可运行的代码，不需要像c语言那样，必须编译为二进制的机器语言才能执行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/06/22/20220622_js%20promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1122,112 +1214,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2021/12/30/20211231_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/30/20211231_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">因果性和密尔方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-30 18:02:41" itemprop="dateCreated datePublished" datetime="2021-12-30T18:02:41+08:00">2021-12-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-31 10:25:38" itemprop="dateModified" datetime="2021-12-31T10:25:38+08:00">2021-12-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index"><span itemprop="name">个人成长</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2021/12/30/20211231_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="因果性和密尔方法" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/12/30/20211231_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/20211231_%E3%80%8A%E7%AE%80%E6%98%8E%E9%80%BB%E8%BE%91%E5%AD%A6%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="原因、充分条件、必要条件"><a class="header-anchor" href="#原因、充分条件、必要条件"> </a>原因、充分条件、必要条件</h4>
-<p>“原因” 可以有三种含义：充分条件、必要条件、充要条件。</p>
-<p>如果试图阻止一个现象的发生，通常要寻找一个必要条件的原因</p>
-<p>如果试图制造一个现象，通常要寻找一个充分条件的原因</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A是B的充分条件：A发生要求B也发生</span><br><span class="line">A是B的必要条件：B发生要求A也发生</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A不是B的充分条件：A发生时，B没发生</span><br><span class="line">A不是B的必要条件：A不发生时，B发生</span><br></pre></td></tr></table></figure>
-<h4 id="密尔五法"><a class="header-anchor" href="#密尔五法"> </a>密尔五法</h4>
-<p>契合法：在<strong>必要条件</strong>的意义上确定原因。从可能的必要条件中，找共同点。此方法有局限性。</p>
-<p>差异法：在<strong>充分条件</strong>的意义上确定原因。系统的用于确定单一因素。有点类似A/B Test。</p>
-<p>契合差异并用法：在充分必要条件的意义上确定原因。</p>
-<p>剩余法：有点像排除法，一个个可能原因的确认排除</p>
-<p>共变法：</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1297,7 +1283,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

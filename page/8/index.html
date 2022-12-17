@@ -165,6 +165,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/13/20180308_lr_nn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/13/20180308_lr_nn/" class="post-title-link" itemprop="url">逻辑回归和神经网络_DL体会总结_2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-03-13 12:53:39 / Modified: 13:09:48" itemprop="dateCreated datePublished" datetime="2018-03-13T12:53:39+08:00">2018-03-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/03/13/20180308_lr_nn/" class="post-meta-item leancloud_visitors" data-flag-title="逻辑回归和神经网络_DL体会总结_2" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/03/13/20180308_lr_nn/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/03/13/20180308_lr_nn/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以前总听别人说做广告CTR需要用到LR，经常会在log中提取各种特种，一般是从Hadoop中跑出特征，然后再放到LR的并行系统上，进行计算，然后通过划分实验流量，做A/B Test。如果效果好，则新特征上线。</p>
+<p>而我之前由于没有ML的基础，所以直接学NN，感觉全世界就只有NN，回头想想好像LR还是能够在其他很多场景下应用。</p>
+<p>LR和NN的区别主要在于，LR是把一个线性函数 $ f(x) = Wx + b  $ 的结果，通过sigmoid函数映射到（0，1）上，然后用概率来解释这个结果。映射函数如下：
+$$
+\sigma(z)=\frac{1}{1+e^{-(Wx+b)}}
+$$
+对于线性函数，他的能力有限，比较直来直去，无非就是直线或者平面，来区分所有样本。这样对于一些比较复杂的样本分布，就会产生很多误差。</p>
+<p><img src="http://cache.ruimeigg.cn/lr.png" alt="逻辑回归对复杂分布的分类情况"></p>
+<p><img src="http://cache.ruimeigg.cn/hidden4.png" alt="神经网络hidden layer有4个节点的分类情况"></p>
+<p>第一个图是逻辑回归对复杂数据分布的分类情况，第二个图是神经网络hidden layer有4个节点的分类情况（参考：Planar data classification with one hidden layer）。明显具有hidden layer的NN表现更好。科学家们好像能够证明NN可以表示任何复杂的函数，我没必要深究其中的数学证明了。</p>
+<p>我目前的理解就是，神经网络把多个神经单元（线性函数+激活函数）整合在一起，然后在隐含层通过一种无法描述的魔力自行提取特征，然后在最后一层，仍然用线性分类函数对结果进行分类。后面的Loss function、SGD就都是一样的了。神经网络多了一点就是BP算法，主要的原理就是复合函数求导。<a href="">前一篇</a>(<a href="http://wliang.me/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">http://wliang.me/2018/02/05/20180205_DL学习笔记_逻辑回归/</a>)的时候我也总结过。</p>
+<p>我想总结时没比较加入太多数学公示，还是把直观的理解通过文字图表表达清楚最好，毕竟我又不去做research，我只是想做application。对自己放松点要求。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2018/03/08/20180308_Python%E5%B0%8F%E6%94%B6%E8%8E%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1095,106 +1195,6 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/18/20171018_Wordpress%E4%B8%8D%E4%BD%BF%E7%94%A880%E7%AB%AF%E5%8F%A3_18/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/18/20171018_Wordpress%E4%B8%8D%E4%BD%BF%E7%94%A880%E7%AB%AF%E5%8F%A3_18/" class="post-title-link" itemprop="url">Wordpress不使用80端口时，无法访问问题解决</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-10-18 18:35:54 / Modified: 18:36:29" itemprop="dateCreated datePublished" datetime="2017-10-18T18:35:54+08:00">2017-10-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/10/18/20171018_Wordpress%E4%B8%8D%E4%BD%BF%E7%94%A880%E7%AB%AF%E5%8F%A3_18/" class="post-meta-item leancloud_visitors" data-flag-title="Wordpress不使用80端口时，无法访问问题解决" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/10/18/20171018_Wordpress%E4%B8%8D%E4%BD%BF%E7%94%A880%E7%AB%AF%E5%8F%A3_18/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/18/20171018_Wordpress%E4%B8%8D%E4%BD%BF%E7%94%A880%E7%AB%AF%E5%8F%A3_18/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="问题背景"><a class="header-anchor" href="#问题背景"> </a>问题背景</h3>
-<p>这两天在折腾一个仿照ProductHunt的<a href="http://www.ruimeigg.cn" target="_blank" rel="noopener">应用推荐类的网站</a>，后台用到了wordpress。本来想在办公室的机器上做一个测试环境，但是发现走不通。主要是因为，本地机器无法开80端口，因为国家是不让个人ADSL开通80端口的。但是换成其他端口后，wordpress就是无法访问。</p>
-<p>走了好多弯路，都没有解决这个问题，一开始认为是nginx的问题，后来觉得是php-fpm的问题，后来又去定位是不是自己的路由器的问题。最后竟然怀疑到了chrome是不是不支持特殊端口的http访问。结果才发现原来根本问题是WordPress的问题。</p>
-<h3 id="主要修改点"><a class="header-anchor" href="#主要修改点"> </a>主要修改点</h3>
-<h5 id="1-修改wordpress的配置文件"><a class="header-anchor" href="#1-修改wordpress的配置文件"> </a>1, 修改wordpress的配置文件</h5>
-<p>修改wordpress下面的wp-config.php文件，在文件最后添加两个变量。</p>
-<p>define(‘WP_SITEURL’,‘<a href="http://d.yxkeji.cn:9011/" target="_blank" rel="noopener">http://d.yxkeji.cn:9011/</a>’);
-define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" rel="noopener">http://d.yxkeji.cn:9011/</a>’);</p>
-<h5 id="2-修改数据库配置"><a class="header-anchor" href="#2-修改数据库配置"> </a>2, 修改数据库配置</h5>
-<p>update wp_options set option_value=‘<a href="http://d.yxkeji.cn:9011/" target="_blank" rel="noopener">http://d.yxkeji.cn:9011/</a>’ where option_name=‘siteurl’;</p>
-<p>update wp_options set option_value=‘<a href="http://d.yxkeji.cn:9011/" target="_blank" rel="noopener">http://d.yxkeji.cn:9011/</a>’ where option_name=‘home’;</p>
-<p>修改完成之后，可以正常使用测试环境了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1264,7 +1264,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
