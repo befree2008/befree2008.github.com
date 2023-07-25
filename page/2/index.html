@@ -165,6 +165,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/07/11/20220711_WebStream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/11/20220711_WebStream/" class="post-title-link" itemprop="url">学习ReadableStream</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-11 14:23:20" itemprop="dateCreated datePublished" datetime="2022-07-11T14:23:20+08:00">2022-07-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-15 12:56:48" itemprop="dateModified" datetime="2022-12-15T12:56:48+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/07/11/20220711_WebStream/" class="post-meta-item leancloud_visitors" data-flag-title="学习ReadableStream" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/07/11/20220711_WebStream/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/11/20220711_WebStream/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前端都是事件响应机制。发送个请求，返回结果后通过某个事件的回调函数处理。如果需要返回的数据太大，则需要一直等待。通过Stream，就能返回一部分，就解析一部分，显示一部分。可以优化体验。</p>
+<p>fetch API返回的response.body是一个 <code>ReadableStream</code>对象。ReadableStream对请求大体积文件时非常有用，可以让应答数据，一小段一小段的解析。Web Stream应该是为网络视频，网络直播专门开放的API。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fetch函数是立刻返回一个promise，当HTTP Header的应答到来时，就进入then函数 </span></span><br><span class="line">fetch(url).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// response.body是ReadableStream.</span></span><br><span class="line">  <span class="keyword">var</span> reader = response.body.getReader();</span><br><span class="line"> 	<span class="keyword">var</span> bytesReceived = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> reader.read().then(<span class="function"><span class="keyword">function</span> <span class="title">processResult</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result.done) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"Fetch complete"</span>)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// result.value for fetch streams is a Uint8Array</span></span><br><span class="line">    bytesReceived += result.value.length</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Received"</span>, bytesReceived, <span class="string">"bytes of data so far"</span>)</span><br><span class="line">    <span class="comment">// Read some more, and call this function again</span></span><br><span class="line">    <span class="keyword">return</span> reader.read().then(processResult)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样就是通过对fetch取回的response.body，可以做流式处理，对视频，图片，大文件都有好处，至少能显示进度了。</p>
+<p>也可以创建自定义的ReadableStream。ReadableStream在创建时，需要提供underlying source，就是数据源对象。在规范文档中，对source分为push source，和pull source。比如websocket属于push source，而读取文件算是pull source。在规范文档中都有例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stream = <span class="keyword">new</span> ReadableStream(</span><br><span class="line">  &#123;</span><br><span class="line">    start(controller) &#123;&#125;,</span><br><span class="line">    pull(controller) &#123;&#125;,</span><br><span class="line">    cancel(reason) &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  queuingStrategy,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>但是这里有几个地方值得注意，规范中貌似没有写清楚，这些内部机制不理解导致很多代码看不懂：</p>
+<ol>
+<li>start函数会立即执行</li>
+<li>pull函数会在start函数立即执行</li>
+<li>如果start函数返回一个promise对象，则pull函数不再执行，而是等promise对象resolve以后才开始执行pull函数</li>
+<li>chunk data可以通过controller.enqueue放入ReadableStream的内部队列中，每次enqueue，都会触发pull函数</li>
+<li>如果pull函数，返回一个promise，则不会每次enqueue都触发pull函数</li>
+</ol>
+<p>在pdf.js的代码中，main线程和worker线程之间通过stream，传递pdf数据，很多利用了ReadableStream的特性，这些特性的教程很少。理解起来挺费劲。</p>
+<p>优秀参考：</p>
+<p><a href="https://jakearchibald.com/2016/streams-ftw/#creating-one-stream-from-multiple-sources-to-supercharge-page-render-times" target="_blank" rel="noopener">2016 - the year of web streams</a></p>
+<p><a href="https://streams.spec.whatwg.org/" target="_blank" rel="noopener">Streams Living Standard</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/06/24/20220624_js%20new%20Function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1109,111 +1221,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/" class="post-title-link" itemprop="url">有些书真是不值得看</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 14:15:46" itemprop="dateCreated datePublished" datetime="2022-01-04T14:15:46+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-05 08:39:13" itemprop="dateModified" datetime="2022-01-05T08:39:13+08:00">2022-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index"><span itemprop="name">个人成长</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/" class="post-meta-item leancloud_visitors" data-flag-title="有些书真是不值得看" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>看了《跨越不可能》，本来还想认真学学。但是真的是觉得这个东西写的不好。很多地方都是比较简略的带过。有些内容又都是老生常谈。</p>
-<p>提高自身能力，无非就是锻炼身体，保证8小时睡眠，注意休息。读书，保持好心情，克服恐惧。</p>
-<p>这些就是把各种方法，罗列在一起，通过引用一些心理学家的论文，来辅助证明他的观点。但是我怎么判断这些论文是否正确？我怎么知道他是否过时了？我怎么知道是不是有很多对立的观点？这样简单罗列论文的方式，有点忽悠人。</p>
-<p>以后看书，就看讲事实的，比如历史类的。或者讲知识的，比如教材类。或者讲方法的。不看或者少看，这类只是讲道理的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/04/20220104_%E6%9C%89%E4%BA%9B%E4%B9%A6%E7%9C%9F%E6%98%AF%E4%B8%8D%E5%80%BC%E5%BE%97%E7%9C%8B/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1283,7 +1290,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1296,7 +1303,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1323,7 +1330,7 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
