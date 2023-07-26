@@ -165,6 +165,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Befree">
+      <meta itemprop="description" content="以互联网精神为信仰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天一阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/" class="post-title-link" itemprop="url">Flask快速开发Web应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-31 20:52:40" itemprop="dateCreated datePublished" datetime="2017-10-31T20:52:40+08:00">2017-10-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/" class="post-meta-item leancloud_visitors" data-flag-title="Flask快速开发Web应用" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/31/20171031_Flask%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8_20/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Web开发是非常重要的技术手段，虽然技术难度不是很大，但是里面涉及的内容却很多。其实软件的世界里，没有什么是无法实现的，现在都是开源的，而且软件基本上没法申请专利，所以软件类的技术都不会有什么独家的技术。</p>
+<p>Web开发中，更加看重的是开发速度快，易维护，用户体验好，其实就是颜值要高，要漂亮，从开发角度看，基本上都是使用MVC的模式，做一些简单的CRUD应用，复杂数据处理，技巧性的，算法性的都放到了更后面的地方去了。各种Web开发语言都有很多种MVC框架，我最近比较喜欢Flask，主要是他轻巧，简单，而且是python语言的，但是如果深入到Flask内部，也还是各种的设计模式，理解起来还有点费劲，那就先从表面上梳理一下近期接触到的一些模块吧。</p>
+<h3 id="View"><a class="header-anchor" href="#View"> </a>View</h3>
+<p>​	view其实就是用户看到的页面，很久之前在windows上开发，还叫视图。这个大部分是前端的工作，基础的知识点就是，老三位HTML/CSS/JS。比较流行的类库比如Bootstrap, jQuery都是为了提高前端开发工作效率的，开发效率高，但是也有一定的学习成本。</p>
+<p>​	Flask在view这方面提供了Jinjia的模板引擎，他可以很方便的通过标记，对页面进行替换、生成，然后返回给用户。</p>
+<p>​	wtform是一个Flask插件，对View表单处理很方便，包括生成表单，表单校验非常方便</p>
+<h3 id="Model"><a class="header-anchor" href="#Model"> </a>Model</h3>
+<p>​	我理解Model其实就是数据，为了高效开发，或者说更符合OO原则，很多都是使用ORM。在Flask中，一般使用Flask-SqlAlchemy。一开始我还是挺排斥使用这类ORM的，总觉得直接使用SQL不是很痛苦么。但是发现，当要处理的数据多了，而且业务逻辑多了，把代码分解到不同的模块中，使用面向对象的方式来处理数据实体，还是很方便的。</p>
+<h3 id="Controller"><a class="header-anchor" href="#Controller"> </a>Controller</h3>
+<p>​	Flask作为框架，把底层通信，HTTP的request/response，都完美封装了。CRUD开发者只需要处理route，render_template, redirect，再结合Model和View就可以搭建最简单的应用。</p>
+<p>​	此外，Flask有很多插件可以很方便高效的处理一些通用业务逻辑比如Flask-login，Flask-Restful等等。</p>
+<p>总之，Flask还是一个挺小清新的web开发框架，只要掌握了基本的模板语言,wtform，SqlAlchemy，Flask基本函数和组件，剩下的就是把所有的创意变成MVP，然后一个个的idea去尝试，没准哪个就成了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/10/25/20171025_%E4%BD%BF%E7%94%A8CSS%E6%B8%90%E5%8F%98_19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1076,106 +1175,6 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Befree">
-      <meta itemprop="description" content="以互联网精神为信仰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天一阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" class="post-title-link" itemprop="url">Node.js 简单笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-27 14:31:22 / Modified: 14:31:57" itemprop="dateCreated datePublished" datetime="2017-09-27T14:31:22+08:00">2017-09-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" class="post-meta-item leancloud_visitors" data-flag-title="Node.js 简单笔记" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Node.js是2009年一个美国自由职业者开发的，这哥们现在去了Google Brain，玩神经网络去了。</p>
-<p>Node主要是利用chrome V8强大的能力，执行js代码，然后加上异步IO的机制，可以实现用javascript写后台server。以前我一直以为server都得是C++写，现在才明白有个HTTP协议，加上一套框架，不就是传递数据么，没有什么高级和低级，就有高效和低效。</p>
-<p>node写一个简单的server很容易</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>)</span>&#123;</span><br><span class="line">  response.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span>:<span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  response.write(<span class="string">'Hello world'</span>);</span><br><span class="line">  response.end();</span><br><span class="line">&#125;</span><br><span class="line">http.createServer(onRequest).listen(<span class="number">8000</span>);</span><br></pre></td></tr></table></figure>
-<p>通过引入一个内置的核心模块http，就可以启动一个server，这个和python里面的方式也挺像的。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/27/20170927_Node.js-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0_11/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1245,7 +1244,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1258,7 +1257,7 @@ define(‘WP_HOME’,‘&lt;<a href="http://d.yxkeji.cn:9011/" target="_blank" r
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
