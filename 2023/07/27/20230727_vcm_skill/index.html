@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"www.wliang.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="简单的路由绑定就像这样 123@app.route(&#39;&#x2F;&#39;)def index():    pass 在Flask内部可以这样做 123def index():    passapp.add_url_rule(&#39;&#x2F;&#39;, &#39;index&#39;, index) 在add_url_rule函数中核心代码主要是这几行 123456rule &#x3D; self.url_rule_class(rule, methods&#x3D;">
+  <meta name="description" content="应用软件开发，不要想那么多，就是CRUD，都是凭本事吃饭不丢人。 应用软件就是围绕着MVC做好了，就可以了。叫MVC，不如叫VCM，这样更可以按照离用户远近来排序。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flask源码学习笔记2：路由映射">
-<meta property="og:url" content="http://www.wliang.me/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/index.html">
+<meta property="og:title" content="围绕VCM，点亮技能树">
+<meta property="og:url" content="http://www.wliang.me/2023/07/27/20230727_vcm_skill/index.html">
 <meta property="og:site_name" content="天一阁">
-<meta property="og:description" content="简单的路由绑定就像这样 123@app.route(&#39;&#x2F;&#39;)def index():    pass 在Flask内部可以这样做 123def index():    passapp.add_url_rule(&#39;&#x2F;&#39;, &#39;index&#39;, index) 在add_url_rule函数中核心代码主要是这几行 123456rule &#x3D; self.url_rule_class(rule, methods&#x3D;">
-<meta property="article:published_time" content="2017-12-13T06:30:28.000Z">
-<meta property="article:modified_time" content="2018-02-05T07:04:52.471Z">
+<meta property="og:description" content="应用软件开发，不要想那么多，就是CRUD，都是凭本事吃饭不丢人。 应用软件就是围绕着MVC做好了，就可以了。叫MVC，不如叫VCM，这样更可以按照离用户远近来排序。">
+<meta property="article:published_time" content="2023-07-27T07:58:25.485Z">
+<meta property="article:modified_time" content="2023-07-27T07:58:25.485Z">
 <meta property="article:author" content="Befree">
-<meta property="article:tag" content="flask">
+<meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.wliang.me/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/">
+<link rel="canonical" href="http://www.wliang.me/2023/07/27/20230727_vcm_skill/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Flask源码学习笔记2：路由映射 | 天一阁</title>
+  <title>围绕VCM，点亮技能树 | 天一阁</title>
   
 
 
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/">
+    <link itemprop="mainEntityOfPage" href="http://www.wliang.me/2023/07/27/20230727_vcm_skill/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Flask源码学习笔记2：路由映射
+          围绕VCM，点亮技能树
         </h1>
 
         <div class="post-meta">
@@ -192,18 +192,20 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-12-13 14:30:28" itemprop="dateCreated datePublished" datetime="2017-12-13T14:30:28+08:00">2017-12-13</time>
+              <time title="Created: 2023-07-27 15:58:25" itemprop="dateCreated datePublished" datetime="2023-07-27T15:58:25+08:00">2023-07-27</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-02-05 15:04:52" itemprop="dateModified" datetime="2018-02-05T15:04:52+08:00">2018-02-05</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
 
           
-            <span id="/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/" class="post-meta-item leancloud_visitors" data-flag-title="Flask源码学习笔记2：路由映射" title="Views">
+            <span id="/2023/07/27/20230727_vcm_skill/" class="post-meta-item leancloud_visitors" data-flag-title="围绕VCM，点亮技能树" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -218,8 +220,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/13/20171213_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84_25/" itemprop="commentCount"></span>
+    <a title="valine" href="/2023/07/27/20230727_vcm_skill/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/27/20230727_vcm_skill/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -234,13 +236,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>简单的路由绑定就像这样</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>在Flask内部可以这样做</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">app.add_url_rule(<span class="string">'/'</span>, <span class="string">'index'</span>, index)</span><br></pre></td></tr></table></figure>
-<p>在add_url_rule函数中核心代码主要是这几行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rule = self.url_rule_class(rule, methods=methods, **options)</span><br><span class="line"></span><br><span class="line">self.url_map.add(rule)</span><br><span class="line"><span class="keyword">if</span> view_func <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">  	...</span><br><span class="line">    self.view_functions[endpoint] = view_func</span><br></pre></td></tr></table></figure>
-<p>其中url_rule_class和url_map都是利用的werkzeug.routing的代码，核心的类就是Rule， Map， MapAdapter，代码看的我头疼，一方面现在智力下滑严重，很多看不懂，另外一方面，感觉怎么这么麻烦不就是简单的从url到具体函数的匹配么？可是深入看的话，发现人家的功能确实强大，比如可以进行变量转换，还能生成url。</p>
+        <p>应用软件开发，不要想那么多，就是CRUD，都是凭本事吃饭不丢人。</p>
+<p>应用软件就是围绕着MVC做好了，就可以了。叫MVC，不如叫VCM，这样更可以按照离用户远近来排序。</p>
+<a id="more"></a>
+<h4 id="V：View"><a class="header-anchor" href="#V：View"> </a>V：View</h4>
+<p>主要是用户展现。</p>
+<ol>
+<li>原生 HTML / CSS</li>
+<li>tailwind.css</li>
+<li>类库：clakra ui</li>
+<li>工具：SASS，postcss</li>
+</ol>
+<h4 id="C：Controller"><a class="header-anchor" href="#C：Controller"> </a>C：Controller</h4>
+<ol>
+<li>原生JS （Typescript）</li>
+<li>HTML5 Web API</li>
+<li>框架：React  / Next.js</li>
+<li>类库：Query，Prisma等等，很多</li>
+<li>工具：vite，babel，…</li>
+<li>Runtime：node，v8</li>
+</ol>
+<h4 id="Model"><a class="header-anchor" href="#Model"> </a>Model</h4>
+<ol>
+<li>网络通讯接口：fetch，axios</li>
+<li>MongoDB，Mongoose</li>
+<li>Redis</li>
+<li>Mysql</li>
+<li>PostgreSql</li>
+<li>ElasticSeach</li>
+</ol>
 
     </div>
 
@@ -250,7 +274,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
           </div>
 
         
@@ -259,13 +283,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/12/12/20171212_Flask%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%EF%BC%9A%E5%AE%9E%E4%BE%8B%E5%88%9B%E5%BB%BA&%E6%B6%88%E6%81%AF%E6%B5%81%E8%BD%AC_24/" rel="prev" title="Flask源码学习笔记1：实例创建，消息流转">
-      <i class="fa fa-chevron-left"></i> Flask源码学习笔记1：实例创建，消息流转
+    <a href="/2023/07/26/20230726_learnjs_fetch/" rel="prev" title="如何快速学习新技术">
+      <i class="fa fa-chevron-left"></i> 如何快速学习新技术
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/02/05/20180205_DL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="next" title="逻辑回归_DL体会总结_1">
-      逻辑回归_DL体会总结_1 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -325,6 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#V：View"><span class="nav-number">1.</span> <span class="nav-text">V：View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C：Controller"><span class="nav-number">2.</span> <span class="nav-text">C：Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Model"><span class="nav-number">3.</span> <span class="nav-text">Model</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
